@@ -1,12 +1,15 @@
 package it.burningboots.join.server.servlet;
 
 import it.burningboots.join.server.DataBusiness;
-import it.burningboots.join.server.jdo.PMF;
+import it.burningboots.join.server.persistence.GenericDao;
 import it.burningboots.join.server.persistence.IpnResponseDao;
 import it.burningboots.join.server.persistence.ParticipantDao;
+import it.burningboots.join.server.persistence.SessionFactory;
 import it.burningboots.join.shared.AppConstants;
+import it.burningboots.join.shared.BusinessException;
 import it.burningboots.join.shared.entity.IpnResponse;
 import it.burningboots.join.shared.entity.Participant;
+import it.giunti.apg.server.business.AvvisiBusiness;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,10 +18,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
+import java.util.Set;
 
-import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,10 +34,17 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class IpnServlet extends HttpServlet {
 	private static final long serialVersionUID = -7594337685342241190L;
 
+	private static final Logger LOG = LoggerFactory.getLogger(IpnServlet.class);
+	
 	@SuppressWarnings("unchecked")
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -93,17 +103,16 @@ public class IpnServlet extends HttpServlet {
 
 
 	private void registerPayment(IpnResponse ipnr) {
-		Locale.setDefault(Locale.US);
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Session ses = SessionFactory.getSession();
+		Transaction trn = ses.beginTransaction();
 		try {
-			pm.currentTransaction().begin();
-			Participant prt = ParticipantDao.findByKey(pm, ipnr.getItemNumber());
+			Participant prt = GenericDao.findById(ses, Participant.class, ipnr.getItemNumber());
 			if (prt != null) {
 				//Partecipante identificato => gli assegna pagamento
 				ipnr.setParticipantFound(true);
-				ArrayList<IpnResponse> ipnResponseList = prt.getIpnResponses();
+				Set<IpnResponse> ipnResponseList = prt.getIpnResponses();
 				if (ipnResponseList == null) {
-					ipnResponseList = new ArrayList<IpnResponse>();
+					ipnResponseList = new HashSet<IpnResponse>();
 					prt.setIpnResponses(ipnResponseList);
 				}
 				ipnResponseList.add(ipnr);
@@ -115,11 +124,13 @@ public class IpnServlet extends HttpServlet {
 				ipnr.setParticipantFound(false);
 				IpnResponseDao.saveOrUpdate(pm, ipnr);
 			}
-			pm.currentTransaction().commit();
+			trn.commit();
+		} catch (HibernateException e) {
+			trn.rollback();
+			LOG.error(e.getMessage(), e);
+			throw new BusinessException(e.getMessage(), e);
 		} finally {
-			if (pm.currentTransaction().isActive()) {
-				pm.currentTransaction().rollback();
-			}
+			ses.close();
 		}
 	}
 	

@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,34 +22,31 @@ public class Participant implements Serializable {
 	private static final long serialVersionUID = -7816100274638131540L;
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-	@Column(name = "note", length = 255)
-	private String itemNumberKey = "";//Codice personale
-	@Column(name = "note", length = 255)
+	@Column(name = "item_number", length = 255, nullable = false)
+	private String itemNumber = "";//Codice personale
+	@Column(name = "email", length = 255)
 	private String email = "";
-	@Column(name = "note", length = 255)
+	@Column(name = "first_name", length = 255)
 	private String firstName = "";
-	@Column(name = "note", length = 255)
+	@Column(name = "last_name", length = 255)
 	private String lastName = "";
-	@Column(name = "note", length = 255)
+	@Column(name = "created", length = 255)
 	private Date created = null;
-	@Column(name = "note", length = 255)
+	@Column(name = "arrival_time", length = 255)
 	private String arrivalTime = "";
-	@Column(name = "note", length = 255)
+	@Column(name = "country_name", length = 255)
 	private String countryName = "";
-	@Column(name = "note", length = 255)
+	@Column(name = "food_restrictions", length = 255)
 	private String foodRestrictions = "";
-	@Column(name = "note", length = 255)
+	@Column(name = "volunteering", length = 255)
 	private String volunteering = "";
-	@Column(name = "note")
+	@Column(name = "amount")
 	private Double amount = null;
-	@Column(name = "data_creazione")
+	@Column(name = "payment_dt")
 	@Temporal(TemporalType.DATE)
 	private Date paymentDt = null;
-	@Column(name = "fascicoli_totali", nullable = false)
+	@Column(name = "accommodation_type", nullable = false)
 	private Integer accommodationType = AppConstants.ACCOMMODATION_DEFAULT;
 	
     @OneToMany(fetch = FetchType.EAGER, mappedBy="ipnResponse")
@@ -60,17 +55,13 @@ public class Participant implements Serializable {
 	
 	public Participant() {
 	}
-	
-	public Participant(String itemNumberKey) {
-		this.itemNumberKey = itemNumberKey;
-	}
-	
-	public Participant(String itemNumberKey, String email,
+		
+	public Participant(String itemNumber, String email,
 			String firstName, String lastName, Date created,
 			String arrivalTime, String countryName, String foodRestrictions,
 			String volunteering, Double amount, Date paymentDt,
 			Integer accommodationType) {
-		this.itemNumberKey = itemNumberKey;
+		this.itemNumber = itemNumber;
 		this.email = email;
 		this.firstName = firstName;
 		this.created = created;
@@ -83,8 +74,8 @@ public class Participant implements Serializable {
 		this.accommodationType = accommodationType;
 	}
 
-	public String getItemNumberKey() {
-		return itemNumberKey;
+	public String getItemNumber() {
+		return itemNumber;
 	}
 	
 	public String getEmail() {

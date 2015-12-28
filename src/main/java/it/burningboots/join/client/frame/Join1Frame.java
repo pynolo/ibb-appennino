@@ -124,7 +124,7 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 			participant.setEmail(email);
 			//Forward
 			UriBuilder param = new UriBuilder();
-			param.add(AppConstants.PARAMS_ID, participant.getItemNumberKey());
+			param.add(AppConstants.PARAMS_ID, participant.getItemNumber());
 			param.triggerUri(UriDispatcher.STEP_JOIN_CHECKOUT);
 		}
 	}
@@ -160,7 +160,7 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 			//itemNumberKey passed => check participant in WizardSingleton and load it from DB if empty
 			Participant prt = WizardSingleton.get().getParticipantBean();
 			if (prt == null) {
-				dataService.findParticipantByKey(itemNumberKey, callback);
+				dataService.findParticipantByItemNumber(itemNumberKey, callback);
 			}
 		}
 		

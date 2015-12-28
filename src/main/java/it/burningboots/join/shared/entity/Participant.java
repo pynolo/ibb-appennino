@@ -23,23 +23,23 @@ public class Participant implements Serializable {
 	
 	@Id
     @Basic(optional = false)
-	@Column(name = "item_number", length = 255, nullable = false)
+	@Column(name = "item_number", length = 64, nullable = false)
 	private String itemNumber = "";//Codice personale
-	@Column(name = "email", length = 255)
+	@Column(name = "email", length = 64)
 	private String email = "";
-	@Column(name = "first_name", length = 255)
+	@Column(name = "first_name", length = 64)
 	private String firstName = "";
-	@Column(name = "last_name", length = 255)
+	@Column(name = "last_name", length = 64)
 	private String lastName = "";
-	@Column(name = "created", length = 255)
+	@Column(name = "created", length = 64)
 	private Date created = null;
-	@Column(name = "arrival_time", length = 255)
+	@Column(name = "arrival_time", length = 64)
 	private String arrivalTime = "";
-	@Column(name = "country_name", length = 255)
+	@Column(name = "country_name", length = 64)
 	private String countryName = "";
-	@Column(name = "food_restrictions", length = 255)
+	@Column(name = "food_restrictions", length = 64)
 	private String foodRestrictions = "";
-	@Column(name = "volunteering", length = 255)
+	@Column(name = "volunteering", length = 64)
 	private String volunteering = "";
 	@Column(name = "amount")
 	private Double amount = null;
@@ -55,7 +55,11 @@ public class Participant implements Serializable {
 	
 	public Participant() {
 	}
-		
+	
+	public Participant(String itemNumber) {
+		this.itemNumber = itemNumber;
+	}
+	
 	public Participant(String itemNumber, String email,
 			String firstName, String lastName, Date created,
 			String arrivalTime, String countryName, String foodRestrictions,
@@ -78,6 +82,10 @@ public class Participant implements Serializable {
 		return itemNumber;
 	}
 	
+	public void setItemNumber(String itemNumber) {
+		this.itemNumber = itemNumber;
+	}
+
 	public String getEmail() {
 		return email;
 	}

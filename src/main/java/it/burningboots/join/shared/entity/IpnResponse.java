@@ -21,7 +21,8 @@ public class IpnResponse implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
 	private String id;
-	@Column(name = "item_number", length = 64)
+	@Basic(optional = false)
+	@Column(name = "item_number", length = 64, nullable = false)
     private String itemNumber;
 	@Column(name = "payment_status", length = 64)
     private String paymentStatus;

@@ -1,56 +1,50 @@
 package it.burningboots.join.server.persistence;
 
+import it.burningboots.join.shared.OrmException;
 import it.burningboots.join.shared.entity.Participant;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-
-import org.apache.commons.beanutils.PropertyUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 public class ParticipantDao {
 	
-	public static String saveOrUpdate(PersistenceManager pm, Participant entity) {
-		String key = null;
-		try {
-			//Update
-			Participant persisted = pm.getObjectById(entity.getClass(), entity.getItemNumberKey());
-			PropertyUtils.copyProperties(persisted, entity);
-			key = entity.getItemNumberKey();
-		} catch (JDOObjectNotFoundException e) {
-			//Save
-			pm.makePersistent(entity);
-			key = entity.getItemNumberKey();
-		} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-			e.printStackTrace();/* this cannot happen */
-		}
-		return key;
-	}
-	
 	@SuppressWarnings("unchecked")
-	public static Participant findByKey(PersistenceManager pm, String itemNumberKey) {
-		//PersistenceManager pm = PMF.get().getPersistenceManager();
-		Query query = pm.newQuery(Participant.class);
-		query.declareParameters("String p");
-		query.setFilter("itemNumberKey == p");
-		query.setOrdering("itemNumberKey ASC");
-		List<Participant> entities = (List<Participant>) query.execute(itemNumberKey);
+	public static Participant findByItemNumber(Session ses, String itemNumber) 
+			throws OrmException {
 		Participant result = null;
-		if (entities != null) {
-			if (entities.size() > 0) result = entities.get(0);
+		try {
+			String qs = "from Participant where "+
+					"itemNumber = :s1 "+
+					"order by itemNumber";
+			Query q = ses.createQuery(qs);
+			q.setString("s1", itemNumber);
+			List<Participant> entities = (List<Participant>) q.list();
+			if (entities != null) {
+				if (entities.size() > 0) result = entities.get(0);
+			}
+		} catch (HibernateException e) {
+			throw new OrmException(e.getMessage(), e);
 		}
 		return result;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Participant> find(PersistenceManager pm) {
-		//PersistenceManager pm = PMF.get().getPersistenceManager();
-		Query query = pm.newQuery(Participant.class);
-		query.setOrdering("key ASC");
-		List<Participant> entities = (List<Participant>) query.execute();
+	public static List<Participant> find(Session ses, boolean pagato)
+			throws OrmException {
+		List<Participant> entities = new ArrayList<Participant>();
+		try {
+			String qs = "from Participant p ";
+			if (pagato) qs += "where p.paymentDt is not null ";
+			qs += "order by itemNumber";
+			Query q = ses.createQuery(qs);
+			entities = (List<Participant>) q.list();
+		} catch (HibernateException e) {
+			throw new OrmException(e.getMessage(), e);
+		}
 		return entities;
 	}
 }

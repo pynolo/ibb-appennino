@@ -2,8 +2,8 @@ package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.ClientConstants;
 import it.burningboots.join.client.UiSingleton;
-import it.burningboots.join.client.UriDispatcher;
 import it.burningboots.join.client.UriBuilder;
+import it.burningboots.join.client.UriDispatcher;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
@@ -89,14 +89,14 @@ public class JoinCheckoutFrame extends FramePanel {
 				"<input type='hidden' name='cmd' value='_donations'>"+
 				"<input type='hidden' name='business' value='"+AppConstants.PAYPAL_ACCOUNT+"'>"+
 				"<input type='hidden' name='item_name' value='Italian Burning Boots'>"+
-				"<input type='hidden' name='item_number' value='"+participant.getItemNumberKey()+"'>"+
+				"<input type='hidden' name='item_number' value='"+participant.getItemNumber()+"'>"+
 				"<input type='hidden' name='amount' value='"+amountString+"'>"+
 				"<input type='hidden' name='no_shipping' value='1'>"+
 				"<input type='hidden' name='no_note' value='1'>"+
 				"<input type='hidden' name='currency_code' value='EUR'>"+
 				"<input type='hidden' name='lc' value='US'>"+
 				"<input type='hidden' name='notify_url' value='"+AppConstants.IPN_URL+"'>"+
-				"<input type='hidden' name='return' value='"+AppConstants.THANKYOU_URL+"?code="+participant.getItemNumberKey()+"'>"+
+				"<input type='hidden' name='return' value='"+AppConstants.THANKYOU_URL+"?code="+participant.getItemNumber()+"'>"+
 				"<input type='submit' name='submit' title='PayPal' class='btn btn-primary btn-lg' "+
 						"value=' Donate to confirm / Per confermare fai una donazione ' />"+
 					"<i>Minimum &euro;"+amountString+"</i> / "+
@@ -121,7 +121,7 @@ public class JoinCheckoutFrame extends FramePanel {
 		};
 		if (itemNumberKey != null) {
 			Participant prt = WizardSingleton.get().getParticipantBean();
-			if (prt.getItemNumberKey().equals(itemNumberKey)) {
+			if (prt.getItemNumber().equals(itemNumberKey)) {
 				dataService.saveOrUpdateParticipant(prt, callback);
 			}
 		} else {

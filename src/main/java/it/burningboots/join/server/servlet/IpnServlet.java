@@ -2,14 +2,12 @@ package it.burningboots.join.server.servlet;
 
 import it.burningboots.join.server.DataBusiness;
 import it.burningboots.join.server.persistence.GenericDao;
-import it.burningboots.join.server.persistence.IpnResponseDao;
-import it.burningboots.join.server.persistence.ParticipantDao;
 import it.burningboots.join.server.persistence.SessionFactory;
 import it.burningboots.join.shared.AppConstants;
 import it.burningboots.join.shared.BusinessException;
+import it.burningboots.join.shared.OrmException;
 import it.burningboots.join.shared.entity.IpnResponse;
 import it.burningboots.join.shared.entity.Participant;
-import it.giunti.apg.server.business.AvvisiBusiness;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,7 +32,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
@@ -45,7 +42,7 @@ public class IpnServlet extends HttpServlet {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IpnServlet.class);
 	
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		CloseableHttpClient client = HttpClientBuilder.create().build();
@@ -102,7 +99,7 @@ public class IpnServlet extends HttpServlet {
 	}
 
 
-	private void registerPayment(IpnResponse ipnr) {
+	private void registerPayment(IpnResponse ipnr) throws BusinessException {
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {
@@ -119,13 +116,14 @@ public class IpnServlet extends HttpServlet {
 				Double amount = Double.valueOf(ipnr.getMcGross());
 				prt.setAmount(amount);
 				prt.setPaymentDt(new Date());
+				GenericDao.updateGeneric(ses, prt.getItemNumber(), prt);
 			} else {
 				//Partecipante NON identificato => marca pagamento come non assegnato
 				ipnr.setParticipantFound(false);
-				IpnResponseDao.saveOrUpdate(pm, ipnr);
 			}
+			GenericDao.updateGeneric(ses, ipnr.getId(), ipnr);
 			trn.commit();
-		} catch (HibernateException e) {
+		} catch (OrmException e) {
 			trn.rollback();
 			LOG.error(e.getMessage(), e);
 			throw new BusinessException(e.getMessage(), e);

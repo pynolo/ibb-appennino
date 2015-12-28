@@ -21,11 +21,11 @@ public interface DataService extends RemoteService {
 	
 	//Config
 	public Config findConfigByKey(String key) throws SystemException;
-	public String saveOrUpdateConfig(Config config) throws SystemException;
-	
+	public Integer saveOrUpdateConfig(Config config) throws SystemException;
+
 	//Participants
-	public Participant findParticipantByKey(String key) throws SystemException;
-	public List<Participant> findParticipants() throws SystemException;
+	public Participant findParticipantByItemNumber(String itemNumber) throws SystemException;
+	public List<Participant> findParticipants(boolean paid) throws SystemException;
 	public Participant createTransientParticipant() throws SystemException;
 	public String saveOrUpdateParticipant(Participant prt) throws SystemException;
 }

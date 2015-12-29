@@ -65,7 +65,3 @@ composer.*
 vendor/sabre/*/tests/
 vendor/sabre/*/examples/
 target/*
-/target/*
-/target/
-/gwt-unitCache/
-/war/

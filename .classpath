@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/join-1.0-SNAPSHOT/WEB-INF/classes" path="src/main/java">
+	<classpathentry kind="src" output="target/join-2.1/WEB-INF/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/join-1.0-SNAPSHOT/WEB-INF/classes" path="src/main/resources">
+	<classpathentry excluding="**" kind="src" output="target/join-2.1/WEB-INF/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
@@ -34,10 +34,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/paolo/workspace/lib/gwt-2.7.0/validation-api-1.0.0.GA.jar" sourcepath="/home/paolo/workspace/lib/gwt-2.7.0/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="lib" path="/home/paolo/workspace/lib/gwt-2.7.0/validation-api-1.0.0.GA-sources.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="target/join-1.0-SNAPSHOT/WEB-INF/classes"/>
+	<classpathentry kind="output" path="target/join-2.1/WEB-INF/classes"/>
 </classpath>

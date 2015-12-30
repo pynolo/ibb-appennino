@@ -29,9 +29,9 @@
 		<url-pattern>/join/dataService</url-pattern>
 	</servlet-mapping>
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>Join.html</welcome-file>
-  </welcome-file-list>
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>Join.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>

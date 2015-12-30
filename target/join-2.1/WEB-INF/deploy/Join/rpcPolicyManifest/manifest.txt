@@ -1,3 +1,0 @@
-# Module Join
-# RPC service class, partial path of RPC policy file
-it.burningboots.join.client.service.DataService, 56C56A45DAFA79A974B5466C17C7FB1F.gwt.rpc

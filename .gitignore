@@ -64,8 +64,6 @@ composer.*
 # Exclude at least some vendor test files, examples, etc.
 vendor/sabre/*/tests/
 vendor/sabre/*/examples/
-target/*
-/target/*
-/target/
+*.war
 /gwt-unitCache/
 /war/

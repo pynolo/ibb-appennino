@@ -28,10 +28,11 @@ public class AppConstants {
 	// CONFIG FILES
 	public static final String HIBERNATE_CONFIG_FILE="/hibernate.cfg.xml";
 	public static final String APP_PROPERTY_FILE = "/app.properties";
-	public static final String TESTING_PROPERTY_FILE = "/testing.properties";
+	public static final String DB_PROPERTY_FILE = "/db.properties";
 	
 	// PARAMS
 	public static final String PARAMS_ID = "id";
+	public static final String PARAMS_ITEM_NUMBER = "itemNumber";
 	
 	// VALUES
 	//TIPI SPEDIZIONE

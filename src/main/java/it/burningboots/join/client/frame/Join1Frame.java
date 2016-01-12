@@ -37,10 +37,10 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 		} else {
 			this.params = new UriBuilder();
 		}
-		String itemNumberKey = this.params.getValue(AppConstants.PARAMS_ID);
+		Integer idParticipant = this.params.getIntValue(AppConstants.PARAMS_ID);
 		cp = new VerticalPanel();
 		this.add(cp);
-		loadAsyncData(itemNumberKey);
+		loadAsyncData(idParticipant);
 	}
 	
 	private void draw() {
@@ -124,7 +124,7 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 			participant.setEmail(email);
 			//Forward
 			UriBuilder param = new UriBuilder();
-			param.add(AppConstants.PARAMS_ID, participant.getItemNumber());
+			param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
 			param.triggerUri(UriDispatcher.STEP_JOIN_CHECKOUT);
 		}
 	}
@@ -139,7 +139,7 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 	//Async methods
 	
 	
-	private void loadAsyncData(String itemNumberKey) {
+	private void loadAsyncData(Integer idParticipant) {
 		AsyncCallback<Participant> callback = new AsyncCallback<Participant>() {
 			@Override
 			public void onFailure(Throwable caught) {
@@ -152,15 +152,14 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 			}
 		};
 		
-		if (itemNumberKey == null) itemNumberKey = "";
-		if (itemNumberKey.equals("")) {
-			//No itemNumberKey passed => brand new participant
+		if (idParticipant == null) {
+			//No idParticipant passed => brand new participant
 			dataService.createTransientParticipant(callback);
 		} else {
 			//itemNumberKey passed => check participant in WizardSingleton and load it from DB if empty
 			Participant prt = WizardSingleton.get().getParticipantBean();
 			if (prt == null) {
-				dataService.findParticipantByItemNumber(itemNumberKey, callback);
+				dataService.findParticipantById(idParticipant, callback);
 			}
 		}
 		

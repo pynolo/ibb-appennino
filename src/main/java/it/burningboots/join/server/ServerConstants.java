@@ -17,11 +17,11 @@ public class ServerConstants {
 
 	
 	// DATABASE
-	public static final String DEFAULT_MYSQL_DB_USERNAME = "ibb";
-	public static final String DEFAULT_MYSQL_DB_PASSWORD = "ibb";
-	public static final String DEFAULT_MYSQL_DB_HOST = "localhost";
-	public static final String DEFAULT_MYSQL_DB_PORT = "3306";
-	public static final String DEFAULT_APP_NAME = "join";
+	public static final String MYSQL_DB_USERNAME = "MYSQL_DB_USERNAME";
+	public static final String MYSQL_DB_PASSWORD = "MYSQL_DB_PASSWORD";
+	public static final String MYSQL_DB_HOST = "MYSQL_DB_HOST";
+	public static final String MYSQL_DB_PORT = "MYSQL_DB_PORT";
+	public static final String MYSQL_DB_NAME = "APP_NAME";
 	
 	
 	public static final String PROPERTY_FILE = "/app.properties";

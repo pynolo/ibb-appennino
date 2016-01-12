@@ -1,7 +1,5 @@
 package it.burningboots.join.shared.entity;
 
-import it.burningboots.join.shared.AppConstants;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -10,6 +8,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,7 +22,13 @@ public class Participant implements Serializable {
 	private static final long serialVersionUID = -7816100274638131540L;
 	
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @Column(name = "id", nullable = false)
+	private Integer id;
+	@Column(name = "created", length = 64)
+	private Date created = null;
+	@Basic(optional = false)
 	@Column(name = "item_number", length = 64, nullable = false)
 	private String itemNumber = "";//Codice personale
 	@Column(name = "email", length = 64)
@@ -31,57 +37,62 @@ public class Participant implements Serializable {
 	private String firstName = "";
 	@Column(name = "last_name", length = 64)
 	private String lastName = "";
-	@Column(name = "created", length = 64)
-	private Date created = null;
-	@Column(name = "arrival_time", length = 64)
-	private String arrivalTime = "";
-	@Column(name = "country_name", length = 64)
-	private String countryName = "";
 	@Column(name = "food_restrictions", length = 64)
 	private String foodRestrictions = "";
 	@Column(name = "volunteering", length = 64)
 	private String volunteering = "";
-	@Column(name = "amount")
-	private Double amount = null;
+	@Basic(optional = false)
+	@Column(name = "already_burner", nullable = false)
+	private boolean alreadyBurner;
+	@Basic(optional = false)
+	@Column(name = "already_ibb", nullable = false)
+	private boolean alreadyIbb;
+	@Column(name = "language", length = 4)
+	private String language = "";
+	@Column(name = "payment_amount")
+	private Double paymentAmount = null;
 	@Column(name = "payment_dt")
 	@Temporal(TemporalType.DATE)
 	private Date paymentDt = null;
-	@Column(name = "accommodation_type", nullable = false)
-	private Integer accommodationType = AppConstants.ACCOMMODATION_DEFAULT;
 	
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="ipnResponse")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="participant")
     private Set<IpnResponse> ipnResponses;
 	
 	
 	public Participant() {
 	}
-	
-	public Participant(String itemNumber) {
-		this.itemNumber = itemNumber;
-	}
-	
-	public Participant(String itemNumber, String email,
-			String firstName, String lastName, Date created,
-			String arrivalTime, String countryName, String foodRestrictions,
-			String volunteering, Double amount, Date paymentDt,
+		
+	public Participant(Date created, String itemNumber,
+			String email, String firstName, String lastName,
+			String foodRestrictions, String volunteering,
+			Boolean alreadyBurner, Boolean alreadyIbb,
+			String language,
+			Double paymentAmount, Date paymentDt,
 			Integer accommodationType) {
 		this.itemNumber = itemNumber;
 		this.email = email;
 		this.firstName = firstName;
 		this.created = created;
-		this.arrivalTime = arrivalTime;
-		this.countryName = countryName;
+		this.alreadyBurner = alreadyBurner;
+		this.alreadyIbb = alreadyIbb;
 		this.foodRestrictions = foodRestrictions;
 		this.volunteering = volunteering;
-		this.amount = amount;
+		this.paymentAmount = paymentAmount;
 		this.paymentDt = paymentDt;
-		this.accommodationType = accommodationType;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public String getItemNumber() {
 		return itemNumber;
 	}
-	
+
 	public void setItemNumber(String itemNumber) {
 		this.itemNumber = itemNumber;
 	}
@@ -118,22 +129,6 @@ public class Participant implements Serializable {
 		this.created = created;
 	}
 
-	public String getArrivalTime() {
-		return arrivalTime;
-	}
-
-	public void setArrivalTime(String arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
-
-	public String getCountryName() {
-		return countryName;
-	}
-
-	public void setCountryName(String countryName) {
-		this.countryName = countryName;
-	}
-
 	public String getFoodRestrictions() {
 		return foodRestrictions;
 	}
@@ -150,28 +145,12 @@ public class Participant implements Serializable {
 		this.volunteering = volunteering;
 	}
 
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-
 	public Date getPaymentDt() {
 		return paymentDt;
 	}
 
 	public void setPaymentDt(Date paymentDt) {
 		this.paymentDt = paymentDt;
-	}
-
-	public Integer getAccommodationType() {
-		return accommodationType;
-	}
-
-	public void setAccommodationType(Integer accommodationType) {
-		this.accommodationType = accommodationType;
 	}
 
 	public Set<IpnResponse> getIpnResponses() {
@@ -182,5 +161,62 @@ public class Participant implements Serializable {
 		this.ipnResponses = ipnResponses;
 	}
 
+	public boolean isAlreadyBurner() {
+		return alreadyBurner;
+	}
 
+	public void setAlreadyBurner(boolean alreadyBurner) {
+		this.alreadyBurner = alreadyBurner;
+	}
+
+	public boolean isAlreadyIbb() {
+		return alreadyIbb;
+	}
+
+	public void setAlreadyIbb(boolean alreadyIbb) {
+		this.alreadyIbb = alreadyIbb;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public Double getPaymentAmount() {
+		return paymentAmount;
+	}
+
+	public void setPaymentAmount(Double paymentAmount) {
+		this.paymentAmount = paymentAmount;
+	}
+
+	
+	
+
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Participant)) {
+            return false;
+        }
+        Participant other = (Participant) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Participant[id=" + id + ", itemNumber="+itemNumber+"]";
+    }
 }

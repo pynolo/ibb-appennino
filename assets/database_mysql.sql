@@ -41,6 +41,7 @@ DROP TABLE IF EXISTS `ipn_response`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ipn_response` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`id_participant` int(11) DEFAULT NULL,
 	`item_number` varchar(64) NOT NULL,
 	`payment_status` varchar(64) DEFAULT NULL,
 	`payer_email` varchar(64) DEFAULT NULL,
@@ -49,7 +50,6 @@ CREATE TABLE `ipn_response` (
 	`payment_date` varchar(128) DEFAULT NULL,
 	`pending_reason` varchar(64) DEFAULT NULL,
 	`payment_type` varchar(64) DEFAULT NULL,
-	`participant_found` bit(1) DEFAULT NULL DEFAULT b'0',
 	PRIMARY KEY (`id`),
 	KEY `unique_item_number` (`item_number`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
@@ -63,19 +63,23 @@ DROP TABLE IF EXISTS `participant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `participant` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`created` varchar(64) DEFAULT NULL,
 	`item_number` varchar(64) NOT NULL,
 	`email` varchar(64) DEFAULT NULL,
 	`first_name` varchar(64) DEFAULT NULL,
 	`last_name` varchar(64) DEFAULT NULL,
-	`created` varchar(64) DEFAULT NULL,
-	`arrival_time` varchar(64) DEFAULT NULL,
-	`country_name` varchar(64) DEFAULT NULL,
 	`food_restrictions` varchar(64) DEFAULT NULL,
 	`volunteering` varchar(64) DEFAULT NULL,
-	`amount` varchar(64) DEFAULT NULL,
+	`already_burner` bit(1) NOT NULL DEFAULT b'0',
+	`already_ibb` bit(1) NOT NULL DEFAULT b'0',
+	`language` varchar(4) DEFAULT NULL,
+	`payment_amount` varchar(64) DEFAULT NULL,
 	`payment_dt` varchar(64) DEFAULT NULL,
-	`accommodation_type` int(11) NOT NULL,
-	PRIMARY KEY (`item_number`)
+	/*`accommodation_type` int(11) DEFAULT NULL,
+	`arrival_time` varchar(64) DEFAULT NULL,
+	`country_name` varchar(64) DEFAULT NULL,*/
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -114,9 +114,9 @@ public class IpnServlet extends HttpServlet {
 				}
 				ipnResponseList.add(ipnr);
 				Double amount = Double.valueOf(ipnr.getMcGross());
-				prt.setAmount(amount);
+				prt.setPaymentAmount(amount);
 				prt.setPaymentDt(new Date());
-				GenericDao.updateGeneric(ses, prt.getItemNumber(), prt);
+				GenericDao.updateGeneric(ses, prt.getId(), prt);
 			} else {
 				//Partecipante NON identificato => marca pagamento come non assegnato
 				ipnr.setParticipantFound(false);

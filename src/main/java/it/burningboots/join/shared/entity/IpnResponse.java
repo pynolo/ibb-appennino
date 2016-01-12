@@ -4,14 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.DynamicUpdate;
-
-@DynamicUpdate
+@Entity
 @Table(name = "ipn_response")
 public class IpnResponse implements Serializable {
 	private static final long serialVersionUID = 6665621291812512821L;
@@ -42,6 +44,10 @@ public class IpnResponse implements Serializable {
 	@Column(name = "participant_found", nullable = false)
 	private boolean participantFound = false;
 	
+	@JoinColumn(name = "id_participant", referencedColumnName = "id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Participant.class)
+	private Participant participant;
+	
 	
 	public IpnResponse() {
 	}
@@ -64,6 +70,14 @@ public class IpnResponse implements Serializable {
 		return id;
 	}
 	
+	public Participant getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(Participant participant) {
+		this.participant = participant;
+	}
+
 	public String getItemNumber() {
 		return itemNumber;
 	}
@@ -136,4 +150,29 @@ public class IpnResponse implements Serializable {
 		this.participantFound = participantFound;
 	}
 	
+	
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof IpnResponse)) {
+            return false;
+        }
+        IpnResponse other = (IpnResponse) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "IpnResponse[id=" + id + "]";
+    }
 }

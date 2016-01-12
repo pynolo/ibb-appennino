@@ -37,7 +37,7 @@
 		<property name="hibernate.cache.region_prefix">hibernate.test</property> <!--set a prefix for cache region names -->
 		<property name="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property> <!-- choose a cache implementation -->
 
-		<!-- configuration pool via c3p0
+		<!-- configuration pool via c3p0 -->
 		<property name="hibernate.c3p0.acquireIncrement">3</property>
 		<property name="hibernate.c3p0.acquireRetryAttempts">30</property>
 		<property name="hibernate.c3p0.autoCommitOnClose">false</property>		
@@ -48,9 +48,11 @@
 		<property name="hibernate.c3p0.minPoolSize">1</property>
 		<property name="hibernate.c3p0.maxStatements">50</property>
 		<property name="hibernate.c3p0.preferredTestQuery">SELECT 1</property>
-		-->
+		
 
 		<!--mapping package="it.hubzilla.hubchart.model"/-->
 		<mapping class="it.burningboots.join.shared.entity.Config"/>
+		<mapping class="it.burningboots.join.shared.entity.IpnResponse"/>
+		<mapping class="it.burningboots.join.shared.entity.Participant"/>
     </session-factory>
 </hibernate-configuration>

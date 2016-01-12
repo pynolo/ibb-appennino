@@ -1,6 +1,5 @@
 package it.burningboots.join.client.frame;
 
-import it.burningboots.join.client.ClientConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -33,10 +32,10 @@ public class JoinCheckoutFrame extends FramePanel {
 		} else {
 			this.params = new UriBuilder();
 		}
-		String itemNumberKey = this.params.getValue(AppConstants.PARAMS_ID);
+		String itemNumber = this.params.getValue(AppConstants.PARAMS_ITEM_NUMBER);
 		cp = new VerticalPanel();
 		this.add(cp);
-		saveOrUpdateAsyncData(itemNumberKey);
+		saveOrUpdateAsyncData(itemNumber);
 	}
 	
 	private void draw() {
@@ -64,12 +63,12 @@ public class JoinCheckoutFrame extends FramePanel {
 		}
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		String amountString = "[ERROR]";
-		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
-			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPrice());
-		} 
-		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
-			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getTentPrice());
-		} 
+		//if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
+		//	amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPrice());
+		//} 
+		//if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
+		//	amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getTentPrice());
+		//} 
 		
 		checkoutPanel.add(new HTML("<p><i>YOU'RE NOT REGISTERED YET, there's just one more step!<br />"+
 				"You will receive your secret registration code only after the donation. It will be like a ticket.</i></p>"+
@@ -108,24 +107,24 @@ public class JoinCheckoutFrame extends FramePanel {
 	
 	//Async methods
 	
-	private void saveOrUpdateAsyncData(String itemNumberKey) {
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
+	private void saveOrUpdateAsyncData(String itemNumber) {
+		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				UiSingleton.get().addError(caught);
 			}
 			@Override
-			public void onSuccess(String result) {
+			public void onSuccess(Integer id) {
 				draw();
 			}
 		};
-		if (itemNumberKey != null) {
+		if (itemNumber != null) {
 			Participant prt = WizardSingleton.get().getParticipantBean();
-			if (prt.getItemNumber().equals(itemNumberKey)) {
+			if (prt.getItemNumber().equals(itemNumber)) {
 				dataService.saveOrUpdateParticipant(prt, callback);
 			}
 		} else {
-			UiSingleton.get().addWarning("No item number provided");
+			UiSingleton.get().addWarning("No participant id has been provided");
 		}
 	}
 	

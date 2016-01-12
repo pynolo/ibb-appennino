@@ -91,6 +91,24 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
+	public Participant findParticipantById(Integer id) throws SystemException {
+		Participant p = null;
+		Session ses = SessionFactory.getSession();
+		Transaction trn = ses.beginTransaction();
+		try {
+			p = GenericDao.findById(ses, Participant.class, id);
+			trn.commit();
+		} catch (OrmException e) {
+			trn.rollback();
+			LOG.error(e.getMessage(), e);
+			throw new SystemException(e.getMessage(), e);
+		} finally {
+			ses.close();
+		}
+		return p;
+	}
+	
+	@Override
 	public Participant findParticipantByItemNumber(String itemNumber) throws SystemException {
 		Participant p = null;
 		Session ses = SessionFactory.getSession();
@@ -127,19 +145,20 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public String saveOrUpdateParticipant(Participant prt) throws SystemException {
-		String itemNumber = null;
+	public Integer saveOrUpdateParticipant(Participant prt) throws SystemException {
+		Integer id = null;
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {
-			Participant oldPrt = GenericDao.findById(ses, Participant.class, prt.getItemNumber());
-        	prt.setArrivalTime(DataBusiness.escape(prt.getArrivalTime()));
-        	prt.setCountryName(DataBusiness.escape(prt.getCountryName()));
+        	//prt.setArrivalTime(DataBusiness.escape(prt.getArrivalTime()));
+        	//prt.setCountryName(DataBusiness.escape(prt.getCountryName()));
+			Participant oldPrt = null;
+			if (prt.getId() != null) oldPrt = GenericDao.findById(ses, Participant.class, prt.getId());
 			if (oldPrt == null) {
-				itemNumber = (String) GenericDao.saveGeneric(ses, prt);
+				id = (Integer) GenericDao.saveGeneric(ses, prt);
 			} else {
-				itemNumber = prt.getItemNumber();
-				GenericDao.updateGeneric(ses, itemNumber, prt);
+				id = prt.getId();
+				GenericDao.updateGeneric(ses, prt.getId(), prt);
 			}
         	trn.commit();
 		} catch (OrmException e) {
@@ -149,14 +168,15 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		} finally {
 			ses.close();
 		}
-		return itemNumber;
+		return id;
 	}
 
 	@Override
 	public Participant createTransientParticipant() throws SystemException {
 		try {
 			String itemNumber = DataBusiness.createCode(this.getClass().getName(), AppConstants.ITEM_NUMBER_LENGHT);
-			Participant prt = new Participant(itemNumber);
+			Participant prt = new Participant();
+			prt.setItemNumber(itemNumber);
 			return prt;
 		} catch (Exception e) {
 			throw new SystemException(e.getMessage(), e);

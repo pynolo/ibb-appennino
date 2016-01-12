@@ -26,6 +26,11 @@ public interface DataServiceAsync
      */
     void saveOrUpdateConfig( it.burningboots.join.shared.entity.Config config, AsyncCallback<java.lang.Integer> callback );
 
+    /**
+     * GWT-RPC service  asynchronous (client-side) interface
+     * @see it.burningboots.join.client.service.DataService
+     */
+    void findParticipantById( java.lang.Integer id, AsyncCallback<it.burningboots.join.shared.entity.Participant> callback );
 
     /**
      * GWT-RPC service  asynchronous (client-side) interface
@@ -52,7 +57,7 @@ public interface DataServiceAsync
      * GWT-RPC service  asynchronous (client-side) interface
      * @see it.burningboots.join.client.service.DataService
      */
-    void saveOrUpdateParticipant( it.burningboots.join.shared.entity.Participant prt, AsyncCallback<java.lang.String> callback );
+    void saveOrUpdateParticipant( it.burningboots.join.shared.entity.Participant prt, AsyncCallback<java.lang.Integer> callback );
 
 
     /**

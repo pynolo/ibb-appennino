@@ -1,8 +1,8 @@
 package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.UiSingleton;
-import it.burningboots.join.client.UriDispatcher;
 import it.burningboots.join.client.UriBuilder;
+import it.burningboots.join.client.UriDispatcher;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
@@ -14,11 +14,15 @@ import it.burningboots.join.shared.entity.Participant;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class Join1Frame extends FramePanel implements IWizardPanel {
+public class JoinNameFrame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
 	
@@ -29,8 +33,10 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 	private TextBox firstNameText;
 	private TextBox lastNameText;
 	private TextBox emailText;
+	private CheckBox ibbCheck;
+	private CheckBox burnerCheck;
 	
-	public Join1Frame(UriBuilder params) {
+	public JoinNameFrame(UriBuilder params) {
 		super();
 		if (params != null) {
 			this.params = params;
@@ -58,27 +64,44 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 		//TITLE
 		setTitle("Registration / Iscrizione");
 		
-		cp.add(new HTML("<i>What is your name?</i><br />"+
+		HorizontalPanel namePanel = new HorizontalPanel();
+		cp.add(namePanel);
+		
+		FlowPanel firstNamePanel = new FlowPanel();
+		firstNamePanel.add(new HTML("<i>What is your name?</i><br />"+
 				"<b>Quale &egrave; il tuo nome?</b>"));
 		firstNameText = new TextBox();
 		firstNameText.setValue(participant.getFirstName());
-		cp.add(firstNameText);
-		cp.add(new HTML("<p>&nbsp;</p>"));
+		firstNamePanel.add(firstNameText);
+		namePanel.add(firstNamePanel);
 		
-		cp.add(new HTML("<i>What is your last name?</i><br />"+
+		namePanel.add(new InlineHTML("&nbsp;"));
+		
+		FlowPanel lastNamePanel = new FlowPanel();
+		lastNamePanel.add(new HTML("<i>What is your last name?</i><br />"+
 				"<b>Quale &egrave; il tuo cognome?</b>"));
 		lastNameText = new TextBox();
 		lastNameText.setValue(participant.getLastName());
-		cp.add(lastNameText);
+		lastNamePanel.add(lastNameText);
+		namePanel.add(lastNamePanel);
+		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
-		cp.add(new HTML("<i>Your email to receive information about the event</i><br/>"+
-				"<b>La tua email per ricevere dettagli e avvisi sull'evento</b>"));
+		cp.add(new HTML("<p><i>Have you already been at IBB or similar events?</i><br />"+
+				"<b>Hai gi&agrave; partecipato a IBB o a eventi simili?</b></p>"));
+		VerticalPanel hp = new VerticalPanel();
+		cp.add(hp);
+		ibbCheck = new CheckBox("&nbsp; Italian Burning Boots 2015", true);
+		hp.add(ibbCheck);
+		burnerCheck = new CheckBox("&nbsp; Nowhere, Burning Man or other burns", true);
+		hp.add(burnerCheck);
+		cp.add(new HTML("<p>&nbsp;</p>"));
 		
+		cp.add(new HTML("<p><i>Your email to receive information about the event</i><br/>"+
+				"<b>La tua email per ricevere dettagli e avvisi sull'evento</b></p>"));
 		emailText = new TextBox();
 		emailText.setValue(participant.getEmail());
 		cp.add(emailText);
-		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		cp.add(new HTML("<p><i>(You will be signed up to the mailing list for participants and official announcements)</i><br/>"
@@ -122,10 +145,12 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 			participant.setFirstName(firstName);
 			participant.setLastName(lastName);
 			participant.setEmail(email);
+			participant.setAlreadyIbb(ibbCheck.getValue());
+			participant.setAlreadyBurner(burnerCheck.getValue());
 			//Forward
 			UriBuilder param = new UriBuilder();
 			param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-			param.triggerUri(UriDispatcher.STEP_JOIN_CHECKOUT);
+			param.triggerUri(UriDispatcher.STEP_JOIN_VOLUNTEER);
 		}
 	}
 	

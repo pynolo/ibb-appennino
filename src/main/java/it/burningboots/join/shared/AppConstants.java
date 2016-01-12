@@ -35,7 +35,7 @@ public class AppConstants {
 	public static final String PARAMS_ITEM_NUMBER = "itemNumber";
 	
 	// VALUES
-	//TIPI SPEDIZIONE
+	//ACCOMMODATION
 	public static final Integer ACCOMMODATION_BED = 1;
 	public static final Integer ACCOMMODATION_TENT = 2;
 	public static final Map<Integer, String> ACCOMMODATION_DESC = new HashMap<Integer, String>();
@@ -43,6 +43,11 @@ public class AppConstants {
 		ACCOMMODATION_DESC.put(ACCOMMODATION_BED, "Hut / Rifugio");
 		ACCOMMODATION_DESC.put(ACCOMMODATION_TENT, "Tent / Tenda");};
 	public static final Integer ACCOMMODATION_DEFAULT = ACCOMMODATION_BED;
+	//VOLUNTEER
+	public static final String VOLUNTEER_KITCHEN = "kitchen";
+	public static final String VOLUNTEER_GREETER = "greeter";
+	public static final String VOLUNTEER_WOOD = "wood";
+	
 	
 	// FORMATS
 	public static final String PATTERN_TIMESTAMP = "dd/MM/yyyy HH:mm:ss z";//"dd/MM/yyyy HH:mm";

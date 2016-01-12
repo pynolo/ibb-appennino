@@ -1,7 +1,9 @@
 package it.burningboots.join.client;
 
-import it.burningboots.join.client.frame.Join1Frame;
+import it.burningboots.join.client.frame.JoinFoodFrame;
+import it.burningboots.join.client.frame.JoinNameFrame;
 import it.burningboots.join.client.frame.JoinCheckoutFrame;
+import it.burningboots.join.client.frame.JoinVolunteerFrame;
 
 import com.google.gwt.user.client.ui.SimplePanel;
 
@@ -12,9 +14,9 @@ public class UriDispatcher {
 	public static final String SEPARATOR_VALUES = "=";
 	
 	public static final String INDEX = "index";
-	public static final String STEP_JOIN_1 = "join1";
-	public static final String STEP_JOIN_2 = "join2";
-	public static final String STEP_JOIN_3 = "join3";
+	public static final String STEP_JOIN_NAME = "name";
+	public static final String STEP_JOIN_VOLUNTEER = "volunteer";
+	public static final String STEP_JOIN_FOOD = "food";
 	public static final String STEP_JOIN_CHECKOUT = "checkout";
 	public static final String STEP_FULL = "full";
 	public static final String STEP_CLOSED = "closed";
@@ -35,16 +37,16 @@ public class UriDispatcher {
 			SimplePanel contentPanel = UiSingleton.get().getContentPanel();
 			contentPanel.clear();
 			if (INDEX.equals(token)) {
-				contentPanel.add(new Join1Frame(params));
+				contentPanel.add(new JoinNameFrame(params));
 			}
-			if (STEP_JOIN_1.equals(token)) {
-				contentPanel.add(new Join1Frame(params));
+			if (STEP_JOIN_NAME.equals(token)) {
+				contentPanel.add(new JoinNameFrame(params));
 			}
-			if (STEP_JOIN_2.equals(token)) {
-				//contentPanel.add(new AnagraficheQuickSearchFrame(params));
+			if (STEP_JOIN_FOOD.equals(token)) {
+				contentPanel.add(new JoinFoodFrame(params));
 			}
-			if (STEP_JOIN_3.equals(token)) {
-				//contentPanel.add(new DataEntryQuickFrame());
+			if (STEP_JOIN_VOLUNTEER.equals(token)) {
+				contentPanel.add(new JoinVolunteerFrame(params));
 			}
 			if (STEP_JOIN_CHECKOUT.equals(token)) {
 				contentPanel.add(new JoinCheckoutFrame(params));

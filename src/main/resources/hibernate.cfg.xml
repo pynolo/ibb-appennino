@@ -52,7 +52,5 @@
 
 		<!--mapping package="it.hubzilla.hubchart.model"/-->
 		<mapping class="it.burningboots.join.shared.entity.Config"/>
-		<mapping class="it.burningboots.join.shared.entity.Config"/>
-		<mapping class="it.burningboots.join.shared.entity.Config"/>
     </session-factory>
 </hibernate-configuration>

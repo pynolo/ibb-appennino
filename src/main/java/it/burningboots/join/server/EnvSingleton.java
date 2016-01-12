@@ -13,11 +13,11 @@ public class EnvSingleton {
 	//private static final Logger LOG = LoggerFactory.getLogger(PropertyReader.class);
 	private static EnvSingleton instance = null;
 	
-	private String mysqlUsername = System.getenv(ServerConstants.OPENSHIFT_MYSQL_DB_USERNAME);
-	private String mysqlPassword = System.getenv(ServerConstants.OPENSHIFT_MYSQL_DB_PASSWORD);
-	private String mysqlHost = System.getenv(ServerConstants.OPENSHIFT_MYSQL_DB_HOST);
-	private String mysqlPort = System.getenv(ServerConstants.OPENSHIFT_MYSQL_DB_PORT);
-	private String mysqlDbName = System.getenv(ServerConstants.OPENSHIFT_APP_NAME);
+	private String mysqlUsername = System.getenv(ServerConstants.DEFAULT_MYSQL_DB_USERNAME);
+	private String mysqlPassword = System.getenv(ServerConstants.DEFAULT_MYSQL_DB_PASSWORD);
+	private String mysqlHost = System.getenv(ServerConstants.DEFAULT_MYSQL_DB_HOST);
+	private String mysqlPort = System.getenv(ServerConstants.DEFAULT_MYSQL_DB_PORT);
+	private String mysqlDbName = System.getenv(ServerConstants.DEFAULT_APP_NAME);
     
 	//private static Properties appProps = null;
 	private static Properties testingProps = null;
@@ -38,25 +38,25 @@ public class EnvSingleton {
 		}
 		
 		if (mysqlUsername == null)
-			mysqlUsername=readProperty(ServerConstants.OPENSHIFT_MYSQL_DB_USERNAME);
-		if (mysqlUsername.equals(ServerConstants.OPENSHIFT_MYSQL_DB_USERNAME))
-			mysqlUsername=readProperty(ServerConstants.OPENSHIFT_MYSQL_DB_USERNAME);
+			mysqlUsername=readProperty(ServerConstants.DEFAULT_MYSQL_DB_USERNAME);
+		if (mysqlUsername.equals(ServerConstants.DEFAULT_MYSQL_DB_USERNAME))
+			mysqlUsername=readProperty(ServerConstants.DEFAULT_MYSQL_DB_USERNAME);
 		if (mysqlPassword == null)
-			mysqlPassword=readProperty(ServerConstants.OPENSHIFT_MYSQL_DB_PASSWORD);
-		if (mysqlPassword.equals(ServerConstants.OPENSHIFT_MYSQL_DB_PASSWORD))
-			mysqlPassword=readProperty(ServerConstants.OPENSHIFT_MYSQL_DB_PASSWORD);
+			mysqlPassword=readProperty(ServerConstants.DEFAULT_MYSQL_DB_PASSWORD);
+		if (mysqlPassword.equals(ServerConstants.DEFAULT_MYSQL_DB_PASSWORD))
+			mysqlPassword=readProperty(ServerConstants.DEFAULT_MYSQL_DB_PASSWORD);
 		if (mysqlHost == null)
-			mysqlHost=readProperty(ServerConstants.OPENSHIFT_MYSQL_DB_HOST);
-		if (mysqlHost.equals(ServerConstants.OPENSHIFT_MYSQL_DB_HOST))
-			mysqlHost=readProperty(ServerConstants.OPENSHIFT_MYSQL_DB_HOST);
+			mysqlHost=readProperty(ServerConstants.DEFAULT_MYSQL_DB_HOST);
+		if (mysqlHost.equals(ServerConstants.DEFAULT_MYSQL_DB_HOST))
+			mysqlHost=readProperty(ServerConstants.DEFAULT_MYSQL_DB_HOST);
 		if (mysqlPort == null)
-			mysqlPort=readProperty(ServerConstants.OPENSHIFT_MYSQL_DB_PORT);
-		if (mysqlPort.equals(ServerConstants.OPENSHIFT_MYSQL_DB_PORT))
-			mysqlPort=readProperty(ServerConstants.OPENSHIFT_MYSQL_DB_PORT);
+			mysqlPort=readProperty(ServerConstants.DEFAULT_MYSQL_DB_PORT);
+		if (mysqlPort.equals(ServerConstants.DEFAULT_MYSQL_DB_PORT))
+			mysqlPort=readProperty(ServerConstants.DEFAULT_MYSQL_DB_PORT);
 		if (mysqlDbName == null)
-			mysqlDbName=readProperty(ServerConstants.OPENSHIFT_APP_NAME);
-		if (mysqlDbName.equals(ServerConstants.OPENSHIFT_APP_NAME))
-			mysqlDbName=readProperty(ServerConstants.OPENSHIFT_APP_NAME);
+			mysqlDbName=readProperty(ServerConstants.DEFAULT_APP_NAME);
+		if (mysqlDbName.equals(ServerConstants.DEFAULT_APP_NAME))
+			mysqlDbName=readProperty(ServerConstants.DEFAULT_APP_NAME);
 	}
 	
 	public static EnvSingleton get() throws IOException {

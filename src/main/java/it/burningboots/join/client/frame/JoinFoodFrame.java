@@ -55,10 +55,10 @@ public class JoinFoodFrame extends FramePanel implements IWizardPanel {
 		setTitle("Food restrictions / Restrizioni sul cibo");
 		
 		cp.add(new HTML("<p><i>Please tell us your food restrictions: this is important if you are vegetarian or vegan or if you suffer from an allergy</i><br />"+
-				"<b>Per favore dicci le tue restrizioni sul cibo: &egrave; fondamentale per i vegetariani, i vegani e per chi soffre di allergie</b></p>"));
+				"<b>Per favore dicci le tue restrizioni sul cibo: &egrave; fondamentale per i vegetariani, i vegani e per chi soffre di allergie</b></p><br/>"));
 		foodArea = new TextArea();
 		foodArea.setHeight("5em");
-		foodArea.setWidth("80%");
+		foodArea.setWidth("100%");
 		foodArea.setValue(participant.getFoodRestrictions());
 		cp.add(foodArea);
 		cp.add(new HTML("<p>&nbsp;</p>"));

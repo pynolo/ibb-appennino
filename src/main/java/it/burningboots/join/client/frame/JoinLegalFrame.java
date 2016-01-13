@@ -68,12 +68,13 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		//TITLE
 		setTitle("Required information / Dati obbligatori");
 		
-		HorizontalPanel namePanel = new HorizontalPanel();
-		cp.add(namePanel);
 		
 		cp.add(new HTML("<p><i>According to Italian law, we're required to ask you some extra info, please fill the form carefully!</i><br />"+
 				"<b>A norma di legge, dobbiamo raccogliere alcuni dati identificativi, per favore riempi il modulo con cura!</b></p>"));
 		
+		HorizontalPanel namePanel = new HorizontalPanel();
+		cp.add(namePanel);
+
 		FlowPanel firstNamePanel = new FlowPanel();
 		firstNamePanel.add(new HTML("<i>First name</i><br />"+
 				"<b>Nome</b>"));
@@ -96,8 +97,8 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
-		cp.add(new HTML("<p><i>Which is your birth city? Please specify the country if not Italy</i><br />"+
-				"<b>Quale &egrave; la tua citt&agrave; di nascita? Specifica anche la nazione se non &egrave; Italia</b></p>"));
+		cp.add(new HTML("<p><i>Which is your birth city? (please specify the country)</i><br />"+
+				"<b>Quale &egrave; la tua citt&agrave; di nascita? (specifica la nazione)</b></p>"));
 		birthCityText = new TextBox();
 		birthCityText.setMaxLength(128);
 		birthCityText.setValue(participant.getBirthCity());
@@ -110,6 +111,7 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		DateBox.Format BOX_FORMAT_TIMESTAMP = new DateBox.DefaultFormat(DTF);
 		birthDate.setFormat(BOX_FORMAT_TIMESTAMP);
 		birthDate.setValue(participant.getBirthDt());
+		cp.add(birthDate);
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		//Wizard panel

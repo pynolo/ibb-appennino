@@ -2,4 +2,4 @@ eclipse.preferences.version=1
 jarsExcludedFromWebInfLib=
 lastWarOutDir=/home/paolo/workspace/eclipse_gwt/join/target/join-1.0-SNAPSHOT
 warSrcDir=target/join-2.1
-warSrcDirIsOutput=false
+warSrcDirIsOutput=true

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="apg" default="war-prod" basedir=".">
+<project name="join" default="war-prod" basedir=".">
 	<!-- Arguments to gwtc and devmode targets -->
 	<property name="gwt.args" value="-strict -style OBF" />
 	<!--property name="gwt.args" value="-style PRETTY" /-->
@@ -10,19 +10,16 @@
 	<property name="jdk.dir" location="/usr/lib/jvm/jdk1.7.0" />
 	
 	<path id="project.class.path">
-		<pathelement location="../logappender/target/classes" />
-		<pathelement location="war/WEB-INF/classes" />
+		<pathelement location="target/join-2.1/WEB-INF/classes" />
 		<pathelement location="${gwt.sdk}/gwt-user.jar" />
 		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
 		<!-- Add any additional non-server libs (such as JUnit) -->
-		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
+		<fileset dir="src/main/webapp/WEB-INF/lib" includes="**/*.jar" />
 	</path>
 	
 	<target name="clean" description="Cleans this project">
-		<delete dir="../logappender/target/classes" failonerror="false" />
-		<delete dir="war/WEB-INF/classes" failonerror="false" />
-		<delete dir="war/apg" failonerror="false" />
-		<delete dir="apg" failonerror="false" />
+		<delete dir="target/join-2.1/WEB-INF/classes" failonerror="false" />
+		<delete dir="target/join-2.1/join" failonerror="false" />
 	</target>
 
 	<target name="libs" depends="clean" description="Copy libs to WEB-INF/lib">
@@ -33,20 +30,16 @@
 	</target>
 
 	<target name="javac" depends="libs" description="Compile java source">
-		<mkdir dir="war/WEB-INF/classes" />
-		<javac srcdir="../logappender/src/main/java" includes="**" encoding="utf-8" destdir="war/WEB-INF/classes"
-				source="1.7" target="1.7" nowarn="true" debug="true" debuglevel="lines,vars,source"
-				includeantruntime="false">
-			<classpath refid="project.class.path" />
-		</javac>
-		<javac srcdir="src" includes="**" encoding="utf-8" destdir="war/WEB-INF/classes"
+		<mkdir dir="target/join-2.1/WEB-INF/classes" />
+		<javac srcdir="src/main/java" includes="**" encoding="utf-8"
+			destdir="target/join-2.1/WEB-INF/classes"
 			source="1.7" target="1.7" nowarn="true" debug="true" debuglevel="lines,vars,source"
 			includeantruntime="false">
 			<classpath refid="project.class.path" />
 			<compilerarg value="-Xlint" />
 		</javac>
-		<copy todir="war/WEB-INF/classes">
-			<fileset dir="src" excludes="**/*.java" />
+		<copy todir="target/join-2.1r/WEB-INF/classes">
+			<fileset dir="src/main/java" excludes="**/*.java" />
 		</copy>
 	</target>
 
@@ -61,50 +54,28 @@
 			<jvmarg value="-Xmx1024M" />
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
 			<arg line="${gwt.args}" />
-			<arg value="it.giunti.apg.Apg" />
+			<arg value="it.burningboots.join.Join" />
 		</java>
 	</target>
 		
 	<target name="build" depends="gwtc" description="Build this project" />
 
-	<!-- test tasks -->
-	<target name="copyconf-test" depends="build" description="Copy the production configuration files">
-		<copy todir="war/WEB-INF/classes" overwrite="true" force="true" >
-			<fileset dir="resources">
-				<include name="**/*.xml" />
-				<include name="**/*.properties" />
-			</fileset>
-		</copy>
-		<copy todir="war/WEB-INF/classes" file="resources/app.version" overwrite="true" force="true" />
-	</target>
-	
-	<target name="zip-test" depends="copyconf-test" description="Create a war file">
-		<zip destfile="${workspace}/apg.war" basedir="war" />
-	</target>
-
-	<target name="war-test" depends="zip-test" description="Create a war and clean">
-		<delete dir="war/WEB-INF/classes" failonerror="false" />
-		<delete dir="war/apg" failonerror="false" />
-	</target>
-	
-	<!-- PROD tasks -->
 	<target name="copyconf-prod" depends="build" description="Copy the production configuration files">
-		<copy todir="war/WEB-INF/classes" overwrite="true" force="true" >
-			<fileset dir="resources/prod">
+		<copy todir="target/join-2.1/WEB-INF/classes" overwrite="true" force="true" >
+			<fileset dir="src/main/resources">
 				<include name="**/*.xml" />
 				<include name="**/*.properties" />
 			</fileset>
 		</copy>
-		<copy todir="war/WEB-INF/classes" file="resources/app.version" overwrite="true" force="true" />
 	</target>
 	
 	<target name="zip-prod" depends="copyconf-prod" description="Create a war file">
-		<zip destfile="${workspace}/apg.war" basedir="war" />
+		<zip destfile="${workspace}/join.war" basedir="war" />
 	</target>
 
 	<target name="war-prod" depends="zip-prod" description="Create a war and clean">
-		<delete dir="war/WEB-INF/classes" failonerror="false" />
-		<delete dir="war/apg" failonerror="false" />
+		<delete dir="target/join-2.1/WEB-INF/classes" failonerror="false" />
+		<delete dir="target/join-2.1/join" failonerror="false" />
 	</target>
 	
 </project>

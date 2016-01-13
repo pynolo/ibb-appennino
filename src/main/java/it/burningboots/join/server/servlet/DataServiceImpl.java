@@ -15,6 +15,7 @@ import it.burningboots.join.shared.entity.Config;
 import it.burningboots.join.shared.entity.Participant;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -150,11 +151,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {
-        	//prt.setArrivalTime(DataBusiness.escape(prt.getArrivalTime()));
-        	//prt.setCountryName(DataBusiness.escape(prt.getCountryName()));
+			Date now = new Date();
+			prt.setUpdateDt(now);
 			Participant oldPrt = null;
 			if (prt.getId() != null) oldPrt = GenericDao.findById(ses, Participant.class, prt.getId());
 			if (oldPrt == null) {
+				prt.setFirstNameOriginal(prt.getFirstName());
+				prt.setLastNameOriginal(prt.getLastName());
+				prt.setCreationDt(now);
 				id = (Integer) GenericDao.saveGeneric(ses, prt);
 			} else {
 				id = prt.getId();

@@ -26,8 +26,14 @@ public class Participant implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
 	private Integer id;
-	@Column(name = "created", length = 64)
-	private Date created = null;
+	@Basic(optional = false)
+    @Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "creation_dt", nullable = false)
+	private Date creationDt = null;
+	@Basic(optional = false)
+    @Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "update_dt", nullable = false)
+	private Date updateDt = null;
 	@Basic(optional = false)
 	@Column(name = "item_number", length = 64, nullable = false)
 	private String itemNumber = "";//Codice personale
@@ -37,6 +43,15 @@ public class Participant implements Serializable {
 	private String firstName = "";
 	@Column(name = "last_name", length = 64)
 	private String lastName = "";
+	@Column(name = "first_name_original", length = 64)
+	private String firstNameOriginal = "";
+	@Column(name = "last_name_original", length = 64)
+	private String lastNameOriginal = "";
+	@Column(name = "birth_city", length = 128)
+	private String birthCity = "";
+    @Temporal(TemporalType.DATE)
+	@Column(name = "birth_dt", nullable = false)
+	private Date birthDt = null;
 	@Column(name = "food_restrictions", length = 64)
 	private String foodRestrictions = "";
 	@Column(name = "volunteering", length = 64)
@@ -51,8 +66,8 @@ public class Participant implements Serializable {
 	private String language = "";
 	@Column(name = "payment_amount")
 	private Double paymentAmount = null;
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "payment_dt")
-	@Temporal(TemporalType.DATE)
 	private Date paymentDt = null;
 	
     @OneToMany(fetch = FetchType.EAGER, mappedBy="participant")
@@ -60,25 +75,6 @@ public class Participant implements Serializable {
 	
 	
 	public Participant() {
-	}
-		
-	public Participant(Date created, String itemNumber,
-			String email, String firstName, String lastName,
-			String foodRestrictions, String volunteering,
-			Boolean alreadyBurner, Boolean alreadyIbb,
-			String language,
-			Double paymentAmount, Date paymentDt,
-			Integer accommodationType) {
-		this.itemNumber = itemNumber;
-		this.email = email;
-		this.firstName = firstName;
-		this.created = created;
-		this.alreadyBurner = alreadyBurner;
-		this.alreadyIbb = alreadyIbb;
-		this.foodRestrictions = foodRestrictions;
-		this.volunteering = volunteering;
-		this.paymentAmount = paymentAmount;
-		this.paymentDt = paymentDt;
 	}
 
 	public Integer getId() {
@@ -95,6 +91,54 @@ public class Participant implements Serializable {
 
 	public void setItemNumber(String itemNumber) {
 		this.itemNumber = itemNumber;
+	}
+
+	public Date getCreationDt() {
+		return creationDt;
+	}
+
+	public void setCreationDt(Date creationDt) {
+		this.creationDt = creationDt;
+	}
+
+	public Date getUpdateDt() {
+		return updateDt;
+	}
+
+	public void setUpdateDt(Date updateDt) {
+		this.updateDt = updateDt;
+	}
+
+	public String getFirstNameOriginal() {
+		return firstNameOriginal;
+	}
+
+	public void setFirstNameOriginal(String firstNameOriginal) {
+		this.firstNameOriginal = firstNameOriginal;
+	}
+
+	public String getLastNameOriginal() {
+		return lastNameOriginal;
+	}
+
+	public void setLastNameOriginal(String lastNameOriginal) {
+		this.lastNameOriginal = lastNameOriginal;
+	}
+
+	public String getBirthCity() {
+		return birthCity;
+	}
+
+	public void setBirthCity(String birthCity) {
+		this.birthCity = birthCity;
+	}
+
+	public Date getBirthDt() {
+		return birthDt;
+	}
+
+	public void setBirthDt(Date birthDt) {
+		this.birthDt = birthDt;
 	}
 
 	public String getEmail() {
@@ -119,14 +163,6 @@ public class Participant implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
 	}
 
 	public String getFoodRestrictions() {

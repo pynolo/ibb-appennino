@@ -4,6 +4,7 @@ import it.burningboots.join.client.frame.JoinFoodFrame;
 import it.burningboots.join.client.frame.JoinInclusionFrame;
 import it.burningboots.join.client.frame.JoinLegalFrame;
 import it.burningboots.join.client.frame.JoinCheckoutFrame;
+import it.burningboots.join.client.frame.JoinThankYouFrame;
 import it.burningboots.join.client.frame.JoinVolunteerFrame;
 
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -63,7 +64,7 @@ public class UriDispatcher {
 				//contentPanel.add(new AnagraficheModifiedFindFrame(params));
 			}
 			if (STEP_THANK_YOU.equals(token)) {
-				//contentPanel.add(new FeedbackAnagraficheFindFrame(params));
+				contentPanel.add(new JoinThankYouFrame(params));
 			}
 			if (PARTICIPANTS.equals(token)) {
 				//contentPanel.add(new FeedbackAnagraficaFrame(params));

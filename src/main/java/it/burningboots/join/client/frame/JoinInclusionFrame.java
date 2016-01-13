@@ -69,10 +69,10 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 		VerticalPanel hp = new VerticalPanel();
 		cp.add(hp);
 		ibbCheck = new CheckBox("&nbsp; Italian Burning Boots 2015", true);
-		ibbCheck.setValue(participant.isAlreadyIbb());
+		ibbCheck.setValue(participant.getAlreadyIbb());
 		hp.add(ibbCheck);
 		burnerCheck = new CheckBox("&nbsp; Nowhere, Burning Man or other burns", true);
-		burnerCheck.setValue(participant.isAlreadyBurner());
+		burnerCheck.setValue(participant.getAlreadyBurner());
 		hp.add(burnerCheck);
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		

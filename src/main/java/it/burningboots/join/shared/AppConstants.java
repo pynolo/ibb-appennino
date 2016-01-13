@@ -1,5 +1,7 @@
 package it.burningboots.join.shared;
 
+import it.burningboots.join.client.UriDispatcher;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,15 +9,15 @@ import java.util.Map;
 
 public class AppConstants {
 
-	public static final String BASE_URL= "http://ibb.tarine.net";
+	public static final String BASE_URL= "https://join.burningboots.it";
 	public static final String IPN_URL= BASE_URL+"/ipn";
-	public static final String THANKYOU_URL= BASE_URL+"/thankyou.jsp";
-	public static final String EVENT_URL= "http://www.italianburningboots.org";
-	public static final String EVENT_EMAIL= "registration@italianburningboots.org";
-	public static final String PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr";
-	//public static final String PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr";//SANDBOX
-	public static final String PAYPAL_ACCOUNT = "ibb.registration@tarine.net";
-	//public static final String PAYPAL_ACCOUNT = "paolo-facilitator@tarine.net";//SANDBOX
+	public static final String THANKYOU_URL= BASE_URL+"/#"+UriDispatcher.STEP_THANK_YOU;
+	public static final String EVENT_URL= "https://burningboots.it";
+	public static final String EVENT_EMAIL= "registration@burningboots.it";
+	//public static final String PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr"; //PRODUCTION
+	public static final String PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr";//SANDBOX
+	//public static final String PAYPAL_ACCOUNT = "ibb.registration@tarine.net"; //PRODUCTION
+	public static final String PAYPAL_ACCOUNT = "paolo-facilitator@tarine.net";//SANDBOX
 	public static final int ITEM_NUMBER_LENGHT = 6;
 	
 	public static final String CONFIG_MAX_TICKET_COUNT = "maxTicketCount";
@@ -42,7 +44,6 @@ public class AppConstants {
 	static {
 		ACCOMMODATION_DESC.put(ACCOMMODATION_BED, "Hut / Rifugio");
 		ACCOMMODATION_DESC.put(ACCOMMODATION_TENT, "Tent / Tenda");};
-	public static final Integer ACCOMMODATION_DEFAULT = ACCOMMODATION_BED;
 	//VOLUNTEER
 	public static final String VOLUNTEER_KITCHEN = "kitchen";
 	public static final String VOLUNTEER_GREETER = "greeter";

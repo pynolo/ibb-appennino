@@ -181,6 +181,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			String itemNumber = DataBusiness.createCode(this.getClass().getName(), AppConstants.ITEM_NUMBER_LENGHT);
 			Participant prt = new Participant();
 			prt.setItemNumber(itemNumber);
+			prt.setAccommodationType(AppConstants.ACCOMMODATION_BED);
 			return prt;
 		} catch (Exception e) {
 			throw new SystemException(e.getMessage(), e);

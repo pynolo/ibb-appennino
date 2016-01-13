@@ -1,5 +1,7 @@
 package it.burningboots.join.shared.entity;
 
+import it.burningboots.join.shared.AppConstants;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -52,7 +54,7 @@ public class Participant implements Serializable {
     @Temporal(TemporalType.DATE)
 	@Column(name = "birth_dt", nullable = false)
 	private Date birthDt = null;
-	@Column(name = "food_restrictions", length = 64)
+	@Column(name = "food_restrictions", length = 2024)
 	private String foodRestrictions = "";
 	@Column(name = "volunteering", length = 64)
 	private String volunteering = "";
@@ -64,6 +66,8 @@ public class Participant implements Serializable {
 	private boolean alreadyIbb;
 	@Column(name = "language", length = 4)
 	private String language = "";
+	@Column(name = "accommodation_type")
+	private Integer accommodationType = AppConstants.ACCOMMODATION_BED;
 	@Column(name = "payment_amount")
 	private Double paymentAmount = null;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -197,7 +201,7 @@ public class Participant implements Serializable {
 		this.ipnResponses = ipnResponses;
 	}
 
-	public boolean isAlreadyBurner() {
+	public boolean getAlreadyBurner() {
 		return alreadyBurner;
 	}
 
@@ -205,7 +209,7 @@ public class Participant implements Serializable {
 		this.alreadyBurner = alreadyBurner;
 	}
 
-	public boolean isAlreadyIbb() {
+	public boolean getAlreadyIbb() {
 		return alreadyIbb;
 	}
 
@@ -219,6 +223,14 @@ public class Participant implements Serializable {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public Integer getAccommodationType() {
+		return accommodationType;
+	}
+
+	public void setAccommodationType(Integer accommodationType) {
+		this.accommodationType = accommodationType;
 	}
 
 	public Double getPaymentAmount() {

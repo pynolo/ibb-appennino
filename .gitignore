@@ -19,5 +19,9 @@ Thumbs.db
 *.war
 gwt-unitCache
 /gwt-unitCache/
-/war/
+/war/join/
+/war/META-INF/maven
+/war/WEB-INF/classes
+/war/WEB-INF/deploy
 /target/
+

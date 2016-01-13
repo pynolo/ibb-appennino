@@ -1,7 +1,8 @@
 package it.burningboots.join.client;
 
 import it.burningboots.join.client.frame.JoinFoodFrame;
-import it.burningboots.join.client.frame.JoinNameFrame;
+import it.burningboots.join.client.frame.JoinInclusionFrame;
+import it.burningboots.join.client.frame.JoinLegalFrame;
 import it.burningboots.join.client.frame.JoinCheckoutFrame;
 import it.burningboots.join.client.frame.JoinVolunteerFrame;
 
@@ -14,7 +15,8 @@ public class UriDispatcher {
 	public static final String SEPARATOR_VALUES = "=";
 	
 	public static final String INDEX = "index";
-	public static final String STEP_JOIN_NAME = "name";
+	public static final String STEP_JOIN_INCLUSION = "inclusion";
+	public static final String STEP_JOIN_LEGAL = "legal";
 	public static final String STEP_JOIN_VOLUNTEER = "volunteer";
 	public static final String STEP_JOIN_FOOD = "food";
 	public static final String STEP_JOIN_CHECKOUT = "checkout";
@@ -37,10 +39,13 @@ public class UriDispatcher {
 			SimplePanel contentPanel = UiSingleton.get().getContentPanel();
 			contentPanel.clear();
 			if (INDEX.equals(token)) {
-				contentPanel.add(new JoinNameFrame(params));
+				contentPanel.add(new JoinInclusionFrame(params));
 			}
-			if (STEP_JOIN_NAME.equals(token)) {
-				contentPanel.add(new JoinNameFrame(params));
+			if (STEP_JOIN_INCLUSION.equals(token)) {
+				contentPanel.add(new JoinInclusionFrame(params));
+			}
+			if (STEP_JOIN_LEGAL.equals(token)) {
+				contentPanel.add(new JoinLegalFrame(params));
 			}
 			if (STEP_JOIN_FOOD.equals(token)) {
 				contentPanel.add(new JoinFoodFrame(params));

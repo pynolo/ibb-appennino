@@ -94,16 +94,6 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 	}
 	
 	@Override
-	public void goForward() {
-		storeInBean();
-		Participant participant = WizardSingleton.get().getParticipantBean();
-		//Forward
-		UriBuilder param = new UriBuilder();
-		param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-		param.triggerUri(UriDispatcher.STEP_JOIN_CHECKOUT);
-	}
-	
-	@Override
 	public void goBackward() {
 		storeInBean();
 		Participant participant = WizardSingleton.get().getParticipantBean();
@@ -111,6 +101,16 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 		UriBuilder param = new UriBuilder();
 		param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
 		param.triggerUri(UriDispatcher.STEP_JOIN_FOOD);
+	}
+	
+	@Override
+	public void goForward() {
+		storeInBean();
+		Participant participant = WizardSingleton.get().getParticipantBean();
+		//Forward
+		UriBuilder param = new UriBuilder();
+		param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
+		param.triggerUri(UriDispatcher.STEP_JOIN_LEGAL);
 	}
 
 	

@@ -11,9 +11,8 @@
 @font-face {font-family: 'Arvo'; font-weight: normal; font-style: italic; src: url('fonts/Arvo/Arvo-Italic.ttf') format('truetype');}
 @font-face {font-family: 'Arvo'; font-weight: normal; font-style: normal; src: url('fonts/Arvo/Arvo-Regular.ttf') format('truetype');}
 
-body, table td, td, select, button {
-	font-family: 'Arvo',tahoma,'Lucida Sans',sans;
-	font-size: 1em;
+body, table td, select, button {
+	font-family: 'Arvo',tahoma,'Lucida Sans',sans !important;
 }
 
 #header {

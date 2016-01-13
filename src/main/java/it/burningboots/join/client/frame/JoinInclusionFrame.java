@@ -38,10 +38,11 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 		} else {
 			this.params = new UriBuilder();
 		}
-		Integer idParticipant = this.params.getIntValue(AppConstants.PARAMS_ID);
+		String itemNumber = this.params.getValue(AppConstants.PARAMS_ITEM_NUMBER);
+		if (itemNumber == null) itemNumber = "";
 		cp = new VerticalPanel();
 		this.add(cp);
-		loadAsyncData(idParticipant);
+		loadAsyncData(itemNumber);
 	}
 	
 	private void draw() {
@@ -68,8 +69,10 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 		VerticalPanel hp = new VerticalPanel();
 		cp.add(hp);
 		ibbCheck = new CheckBox("&nbsp; Italian Burning Boots 2015", true);
+		ibbCheck.setValue(participant.isAlreadyIbb());
 		hp.add(ibbCheck);
 		burnerCheck = new CheckBox("&nbsp; Nowhere, Burning Man or other burns", true);
+		burnerCheck.setValue(participant.isAlreadyBurner());
 		hp.add(burnerCheck);
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
@@ -86,6 +89,11 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, false, true);
 		cp.add(wb);
+	}
+	
+	@Override
+	public void goBackward() {
+		/* disabled */
 	}
 	
 	@Override
@@ -114,18 +122,13 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 			param.triggerUri(UriDispatcher.STEP_JOIN_FOOD);
 		}
 	}
-	
-	@Override
-	public void goBackward() {
-		/* disabled */
-	}
 
 	
 	
 	//Async methods
 	
 	
-	private void loadAsyncData(Integer idParticipant) {
+	private void loadAsyncData(String itemNumber) {
 		AsyncCallback<Participant> callback = new AsyncCallback<Participant>() {
 			@Override
 			public void onFailure(Throwable caught) {
@@ -138,17 +141,18 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 			}
 		};
 		
-		if (idParticipant == null) {
-			//No idParticipant passed => brand new participant
+		if (itemNumber.length() == 0) {
+			//No itemNumber passed => brand new participant
 			dataService.createTransientParticipant(callback);
 		} else {
 			//itemNumberKey passed => check participant in WizardSingleton and load it from DB if empty
 			Participant prt = WizardSingleton.get().getParticipantBean();
 			if (prt == null) {
-				dataService.findParticipantById(idParticipant, callback);
+				dataService.findParticipantByItemNumber(itemNumber, callback);
+			} else {
+				draw();
 			}
 		}
-		
 	}
 	
 }

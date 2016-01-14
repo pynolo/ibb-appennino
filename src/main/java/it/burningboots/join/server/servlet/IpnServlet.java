@@ -1,6 +1,7 @@
 package it.burningboots.join.server.servlet;
 
 import it.burningboots.join.server.persistence.GenericDao;
+import it.burningboots.join.server.persistence.ParticipantDao;
 import it.burningboots.join.server.persistence.SessionFactory;
 import it.burningboots.join.shared.AppConstants;
 import it.burningboots.join.shared.BusinessException;
@@ -79,7 +80,7 @@ public class IpnServlet extends HttpServlet {
 					" paymentDate="+paymentDate+" pendingReason="+pendingReason+" paymentType="+paymentType);
 			try {
 				IpnResponse ipnr = new IpnResponse(itemNumber, paymentStatus, payerEmail,
-						mcGross, mcCurrency, paymentDate, pendingReason, paymentType, false);
+						mcGross, mcCurrency, paymentDate, pendingReason, paymentType, null);
 				registerPayment(ipnr);
 			} catch (Exception e) {
 				throw new ServletException(e);
@@ -105,10 +106,10 @@ public class IpnServlet extends HttpServlet {
 		Transaction trn = ses.beginTransaction();
 		try {
 			GenericDao.saveGeneric(ses, ipnr);
-			Participant prt = GenericDao.findById(ses, Participant.class, ipnr.getItemNumber());
+			Participant prt = ParticipantDao.findByItemNumber(ses, ipnr.getItemNumber());
 			if (prt != null) {
 				//Partecipante identificato => gli assegna pagamento
-				ipnr.setParticipantFound(true);
+				ipnr.setParticipant(prt);
 				//Set<IpnResponse> ipnResponseList = prt.getIpnResponses();
 				//if (ipnResponseList == null) {
 				//	ipnResponseList = new HashSet<IpnResponse>();
@@ -121,7 +122,7 @@ public class IpnServlet extends HttpServlet {
 				GenericDao.updateGeneric(ses, prt.getId(), prt);
 			} else {
 				//Partecipante NON identificato => marca pagamento come non assegnato
-				ipnr.setParticipantFound(false);
+				ipnr.setParticipant(null);
 			}
 			GenericDao.updateGeneric(ses, ipnr.getId(), ipnr);
 			trn.commit();

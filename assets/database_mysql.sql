@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `ipn_response`;
 CREATE TABLE `ipn_response` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`id_participant` int(11) DEFAULT NULL,
-	`item_number` varchar(64) NOT NULL,
+	`item_number` varchar(64) DEFAULT NULL,
 	`payment_status` varchar(64) DEFAULT NULL,
 	`payer_email` varchar(64) DEFAULT NULL,
 	`mc_gross` varchar(64) DEFAULT NULL,
@@ -82,9 +82,6 @@ CREATE TABLE `participant` (
 	`accommodation_type` int NOT NULL DEFAULT 1,
 	`payment_amount` varchar(64) DEFAULT NULL,
 	`payment_dt` datetime DEFAULT NULL,
-	/*`accommodation_type` int(11) DEFAULT NULL,
-	`arrival_time` varchar(64) DEFAULT NULL,
-	`country_name` varchar(64) DEFAULT NULL,*/
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

@@ -23,8 +23,7 @@ public class IpnResponse implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
 	private Integer id;
-	@Basic(optional = false)
-	@Column(name = "item_number", length = 64, nullable = false)
+	@Column(name = "item_number", length = 64)
     private String itemNumber;
 	@Column(name = "payment_status", length = 64)
     private String paymentStatus;
@@ -40,11 +39,8 @@ public class IpnResponse implements Serializable {
     private String pendingReason;
 	@Column(name = "payment_type", length = 64)
     private String paymentType;
-	@Basic(optional = false)
-	@Column(name = "participant_found", nullable = false)
-	private boolean participantFound = false;
 	
-	@JoinColumn(name = "id_participant", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "id_participant", referencedColumnName = "id")
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Participant.class)
 	private Participant participant;
 	
@@ -54,7 +50,7 @@ public class IpnResponse implements Serializable {
 	
 	public IpnResponse(String itemNumber, String paymentStatus, String payerEmail, String mcGross,
 			String mcCurrency, String paymentDate, String pendingReason, String paymentType,
-			boolean participantFound) {
+			Participant participant) {
 		this.itemNumber=itemNumber;
 		this.paymentStatus=paymentStatus;
 		this.payerEmail=payerEmail;
@@ -63,7 +59,7 @@ public class IpnResponse implements Serializable {
 		this.paymentDate=paymentDate;
 		this.pendingReason=pendingReason;
 		this.paymentType=paymentType;
-		this.participantFound=participantFound;
+		this.participant=participant;
 	}
 	
 	public Integer getId() {
@@ -144,14 +140,6 @@ public class IpnResponse implements Serializable {
 
 	public void setPaymentType(String paymentType) {
 		this.paymentType = paymentType;
-	}
-
-	public boolean getParticipantFound() {
-		return participantFound;
-	}
-
-	public void setParticipantFound(boolean participantFound) {
-		this.participantFound = participantFound;
 	}
 	
 	

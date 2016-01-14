@@ -71,7 +71,7 @@ public class JoinThankYouFrame extends FramePanel {
 
 		cp.add(new HTML("<p>&nbsp;</p>"));
 				
-		cp.add(new HTML("<a href='https://burningboots.it'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a>"));
+		cp.add(new HTML("<h3><a href='https://burningboots.it'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));
 	}
 	
 		

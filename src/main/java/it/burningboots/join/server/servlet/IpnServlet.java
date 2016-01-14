@@ -1,6 +1,5 @@
 package it.burningboots.join.server.servlet;
 
-import it.burningboots.join.server.DataBusiness;
 import it.burningboots.join.server.persistence.GenericDao;
 import it.burningboots.join.server.persistence.SessionFactory;
 import it.burningboots.join.shared.AppConstants;
@@ -44,6 +43,7 @@ public class IpnServlet extends HttpServlet {
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		CloseableHttpClient client = HttpClientBuilder.create().build();
+		System.out.println("/ipn IpnSevlet have been launched");
 		HttpPost post = new HttpPost(AppConstants.PAYPAL_URL);
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("cmd", "_notify-validate")); // You need to add this parameter to tell PayPal to verify
@@ -51,6 +51,7 @@ public class IpnServlet extends HttpServlet {
 			String name = e.nextElement();
 			String value = request.getParameter(name);
 			params.add(new BasicNameValuePair(name, value));
+			System.out.println("params "+name+"="+value);
 		}
 		post.setEntity(new UrlEncodedFormEntity(params));
 		String rc = getRC(client.execute(post)).trim();
@@ -73,10 +74,12 @@ public class IpnServlet extends HttpServlet {
 				if (pair.getName().equals("payment_type")) paymentType=pair.getValue();
 				if (pair.getName().equals("pending_reason")) pendingReason=pair.getValue();
 			}
+			System.out.println("itemNumber="+itemNumber+" paymentStatus="+paymentStatus+
+					" payerEmail="+payerEmail+" mcGross="+mcGross+" mcCurrency="+mcCurrency+
+					" paymentDate="+paymentDate+" pendingReason="+pendingReason+" paymentType="+paymentType);
 			try {
-				String idKey = DataBusiness.createCode(this.getClass().getCanonicalName(), 32);
-				IpnResponse ipnr = new IpnResponse(idKey, itemNumber, paymentStatus, payerEmail,
-						mcGross, mcCurrency, paymentDate, pendingReason, paymentType);
+				IpnResponse ipnr = new IpnResponse(itemNumber, paymentStatus, payerEmail,
+						mcGross, mcCurrency, paymentDate, pendingReason, paymentType, false);
 				registerPayment(ipnr);
 			} catch (Exception e) {
 				throw new ServletException(e);

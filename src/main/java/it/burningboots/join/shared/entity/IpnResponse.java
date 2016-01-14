@@ -22,7 +22,7 @@ public class IpnResponse implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
-	private String id;
+	private Integer id;
 	@Basic(optional = false)
 	@Column(name = "item_number", length = 64, nullable = false)
     private String itemNumber;
@@ -52,24 +52,28 @@ public class IpnResponse implements Serializable {
 	public IpnResponse() {
 	}
 	
-	public IpnResponse(String id, String itemNumber, String paymentStatus, String payerEmail,
-			String mcGross, String mcCurrency, String paymentDate,
-			String pendingReason, String paymentType) {
-		this.id = id;
-		this.itemNumber = itemNumber;
-		this.paymentStatus = paymentStatus;
-		this.payerEmail = payerEmail;
-		this.mcGross = mcGross;
-		this.mcCurrency = mcCurrency;
-		this.paymentDate = paymentDate;
-		this.pendingReason = pendingReason;
-		this.paymentType = paymentType;
+	public IpnResponse(String itemNumber, String paymentStatus, String payerEmail, String mcGross,
+			String mcCurrency, String paymentDate, String pendingReason, String paymentType,
+			boolean participantFound) {
+		this.itemNumber=itemNumber;
+		this.paymentStatus=paymentStatus;
+		this.payerEmail=payerEmail;
+		this.mcGross=mcGross;
+		this.mcCurrency=mcCurrency;
+		this.paymentDate=paymentDate;
+		this.pendingReason=pendingReason;
+		this.paymentType=paymentType;
+		this.participantFound=participantFound;
 	}
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Participant getParticipant() {
 		return participant;
 	}

@@ -16,9 +16,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -103,16 +101,17 @@ public class IpnServlet extends HttpServlet {
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {
+			GenericDao.saveGeneric(ses, ipnr);
 			Participant prt = GenericDao.findById(ses, Participant.class, ipnr.getItemNumber());
 			if (prt != null) {
 				//Partecipante identificato => gli assegna pagamento
 				ipnr.setParticipantFound(true);
-				Set<IpnResponse> ipnResponseList = prt.getIpnResponses();
-				if (ipnResponseList == null) {
-					ipnResponseList = new HashSet<IpnResponse>();
-					prt.setIpnResponses(ipnResponseList);
-				}
-				ipnResponseList.add(ipnr);
+				//Set<IpnResponse> ipnResponseList = prt.getIpnResponses();
+				//if (ipnResponseList == null) {
+				//	ipnResponseList = new HashSet<IpnResponse>();
+				//	prt.setIpnResponses(ipnResponseList);
+				//}
+				//ipnResponseList.add(ipnr);
 				Double amount = Double.valueOf(ipnr.getMcGross());
 				prt.setPaymentAmount(amount);
 				prt.setPaymentDt(new Date());

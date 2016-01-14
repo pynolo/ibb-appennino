@@ -3,6 +3,7 @@ package it.burningboots.join.client.frame;
 import it.burningboots.join.client.ClientConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
+import it.burningboots.join.client.UriDispatcher;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
@@ -78,9 +79,11 @@ public class JoinCheckoutFrame extends FramePanel {
 				"<input type='hidden' name='currency_code' value='EUR'>"+
 				"<input type='hidden' name='lc' value='US'>"+
 				"<input type='hidden' name='notify_url' value='"+AppConstants.IPN_URL+"'>"+
-				"<input type='hidden' name='return' value='"+AppConstants.THANKYOU_URL+"?code="+participant.getItemNumber()+"'>"+
+				"<input type='hidden' name='return' value='"+AppConstants.THANKYOU_URL+
+						UriDispatcher.SEPARATOR_TOKEN+AppConstants.PARAMS_ITEM_NUMBER+UriDispatcher.SEPARATOR_VALUES+
+						participant.getItemNumber()+"'>"+
 				"<input type='submit' name='submit' title='PayPal' class='btn btn-primary btn-lg' "+
-						"value=' Donate to confirm / Per confermare fai una donazione ' />"+
+						"value=' Donate to confirm / Per confermare fai una donazione ' />&nbsp;"+
 					"<i>Minimum &euro;"+amountString+"</i> / "+
 					"<b>Minimo &euro;"+amountString+"</b>"+
 					"<!--input type='image' src='https://www.paypal.com/en_AU/i/btn/btn_buynow_LG.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online.'-->"+

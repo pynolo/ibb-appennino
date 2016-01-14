@@ -53,7 +53,7 @@ public class ParticipantDao {
 			throws OrmException {
 		Long result = null;
 		try {
-			String qs = "select count p.id from Participant p "+
+			String qs = "select count(p.id) from Participant p "+
 				"where p.paymentDt is not null ";
 			Query q = ses.createQuery(qs);
 			List<Object> list = q.list();

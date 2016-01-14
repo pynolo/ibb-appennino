@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class AppConstants {
 
-	public static final String BASE_URL= "https://join.burningboots.it";
+	public static final String BASE_URL= "https://burningboots.it/join";
 	public static final String IPN_URL= BASE_URL+"/ipn";
 	public static final String THANKYOU_URL= BASE_URL+"/#"+UriDispatcher.STEP_THANK_YOU;
 	public static final String EVENT_URL= "https://burningboots.it";
@@ -17,7 +17,8 @@ public class AppConstants {
 	//public static final String PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr"; //PRODUCTION
 	public static final String PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr";//SANDBOX
 	//public static final String PAYPAL_ACCOUNT = "ibb.registration@tarine.net"; //PRODUCTION
-	public static final String PAYPAL_ACCOUNT = "paolo-facilitator@tarine.net";//SANDBOX
+	public static final String PAYPAL_ACCOUNT = "paolo-facilitator@tarine.net";//SANDBOX pw low level
+	//BUYER TEST ACCOUNT paolo-buyer@tarine.net pw low level
 	public static final int ITEM_NUMBER_LENGHT = 6;
 	
 	public static final String CONFIG_MAX_TICKET_COUNT = "maxTicketCount";

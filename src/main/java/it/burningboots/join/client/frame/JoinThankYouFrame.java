@@ -37,41 +37,41 @@ public class JoinThankYouFrame extends FramePanel {
 	
 	private void draw() {
 		Participant participant = WizardSingleton.get().getParticipantBean();
-
+		String amountString = "##";
+		if (participant.getPaymentAmount() != null)
+				amountString = ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount());
+		
 		//TITLE
 		setTitle("You're in! / Sei dei nostri!");
 		
-		cp.add(new HTML("<p><i>Hooray for "+participant.getFirstName()+"!<br/>"+
-				"We just received a donation of &euro;"+
-				ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount())+
+		cp.add(new HTML("<p><i>We just received a donation of &euro;"+amountString+
 				" from you and your registration is confirmed!</i><br />"+
-				"<b>Grande "+participant.getFirstName()+"!<br/>"+
-				"&Egrave; appena arrivata l'offerta di &euro;"+
-				ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount())+
-				" da parte tua e la tua registrazione &grave; confermata!</b></p>"));
+				"<b>&Egrave; appena arrivata l'offerta di &euro;"+amountString+
+				" da parte tua e la tua registrazione &egrave; confermata!</b></p>"));
 		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
-		cp.add(new HTML("<p><i>Take note of your <b>secret personal</b> code:</i><br />"+
-				"<b>Prendi nota del tuo codice <i>segreto personale</i>:</b></p>"));
+		cp.add(new HTML("<p style='text-align: center; font-size: 1.5em; color: #e32077;'>"+
+				"transfer code</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 4.5em; color: #e32077;'>"+
 				participant.getItemNumber().toUpperCase()+"</p>"));
-
+		cp.add(new HTML("<p style='text-align: center; font-size: 1em;'>"+
+				"take note ;)</p>"));
+		
 		cp.add(new HTML("<p><i>What's this code for?!<br />"+
-				"That's simple. Give it to someone else to let her/him <b>replace your registration</b> data.<br />"+
-				"So, if you will not be able to join us, just tell the one replacing you to click "+
-				"TRANSFER on the IBB website, to provide the code and then the data.</i></p>"+
+				"That's simple. Tell it to someone else to let her/him take your place "+
+				"at IBB </i><b>replacing your registration</b><i> data.<br />"+
+				"This feature is available clicking TRANSFER on the IBB website.</i></p>"+
 					
 				"<p><b>A che serve il codice?!<br />"+
-				"Semplice. Dallo a qualcun altro perch&egrave; possa <i>sostituire i suoi dati</i> ai tuoi.<br />"+
-				"Cos&igrave;, se non potrai partecipare, baster&agrave; che tu dica chi "+
-				"ti sostituir&agrave; di cliccare TRANSFER sul sito IBB, "+
-				"inserire il codice e poi i dati.</b></p>"));
+				"Semplice. Dallo a qualcun altro perch&eacute; possa prendere il tuo "+
+				"posto a IBB </b><i>sostituendo i suoi dati</i><b> ai tuoi.<br />"+
+				"Chiunque pu&ograve; farlo cliccando TRANSFER sul sito IBB</b></p>"));
 
 		cp.add(new HTML("<p>&nbsp;</p>"));
 				
-		cp.add(new HTML("<a href='https://burningboots.it'>Italian Burning Boots 2016</a>"));
+		cp.add(new HTML("<a href='https://burningboots.it'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a>"));
 	}
 	
 		

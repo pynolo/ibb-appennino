@@ -44,15 +44,15 @@ public class JoinThankYouFrame extends FramePanel {
 		//TITLE
 		setTitle("You're in! / Sei dei nostri!");
 		
-		cp.add(new HTML("<p><i>We just received a donation of &euro;"+amountString+
-				" from you and your registration is confirmed!</i><br />"+
-				"<b>&Egrave; appena arrivata l'offerta di &euro;"+amountString+
-				" da parte tua e la tua registrazione &egrave; confermata!</b></p>"));
+		cp.add(new HTML("<p><i>Donation: &euro;"+amountString+
+				". Your registration is confirmed!</i><br />"+
+				"<b>Donazione: &euro;"+amountString+
+				". La tua registrazione &egrave; confermata!</b></p>"));
 		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 1.5em; color: #e32077;'>"+
-				"transfer code</p>"));
+				"transfer code:</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 4.5em; color: #e32077;'>"+
 				participant.getItemNumber().toUpperCase()+"</p>"));
@@ -60,14 +60,14 @@ public class JoinThankYouFrame extends FramePanel {
 				"take note ;)</p>"));
 		
 		cp.add(new HTML("<p><i>What's this code for?!<br />"+
-				"That's simple. Tell it to someone else to let her/him take your place "+
-				"at IBB </i><b>replacing your registration</b><i> data.<br />"+
-				"This feature is available clicking TRANSFER on the IBB website.</i></p>"+
+				"Tell it to someone else to let her/him take your place "+
+				"at IBB </i><b>replacing your registration</b><i> data. "+
+				"(TRANSFER link on the IBB website)</i></p>"+
 					
 				"<p><b>A che serve il codice?!<br />"+
-				"Semplice. Dallo a qualcun altro perch&eacute; possa prendere il tuo "+
-				"posto a IBB </b><i>sostituendo i suoi dati</i><b> ai tuoi.<br />"+
-				"Chiunque pu&ograve; farlo cliccando TRANSFER sul sito IBB</b></p>"));
+				"Dallo a qualcun altro perch&eacute; possa prendere il tuo "+
+				"posto a IBB </b><i>sostituendo i suoi dati</i><b> ai tuoi. "+
+				"(Cerca TRANSFER sul sito IBB)</b></p>"));
 
 		cp.add(new HTML("<p>&nbsp;</p>"));
 				

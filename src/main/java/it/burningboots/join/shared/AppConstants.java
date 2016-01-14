@@ -10,7 +10,7 @@ import java.util.Map;
 public class AppConstants {
 
 	public static final String BASE_URL= "https://burningboots.it/join";
-	public static final String IPN_URL= "https://burningboots.it/join/ipn";
+	public static final String IPN_URL= "https://burningboots.it/join/ipn";//TO BE SET ON PAYPAL TOO https://www.paypal.com/cgi-bin/customerprofileweb?cmd=_profile-ipn-notify
 	public static final String THANKYOU_URL= BASE_URL+"/#"+UriDispatcher.STEP_THANK_YOU;
 	public static final String EVENT_URL= "https://burningboots.it";
 	public static final String EVENT_EMAIL= "registration@burningboots.it";

@@ -7,7 +7,6 @@ import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
 import it.burningboots.join.shared.AppConstants;
-import it.burningboots.join.shared.PropertyBean;
 import it.burningboots.join.shared.StringValidator;
 import it.burningboots.join.shared.ValidationException;
 import it.burningboots.join.shared.entity.Participant;
@@ -25,7 +24,6 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
-	private int participantCount = 0;
 	
 	private TextBox emailText;
 	private CheckBox ibbCheck;
@@ -46,17 +44,9 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 	}
 	
 	private void draw() {
-		PropertyBean properties = WizardSingleton.get().getPropertyBean();
+		forwardIfJoinNotPossible();
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
-		//Check if joining wizard can be active
-		if ( properties.getClosed() ) {
-			UriDispatcher.loadContent(UriDispatcher.STEP_CLOSED);
-		}
-		if ( (participantCount >= properties.getBedAvailableUntil()) &&
-				(participantCount >= properties.getTentAvailableUntil()) ) {
-			UriDispatcher.loadContent(UriDispatcher.STEP_FULL);
-		}
 		//TITLE
 		setTitle("Registration / Iscrizione");
 		

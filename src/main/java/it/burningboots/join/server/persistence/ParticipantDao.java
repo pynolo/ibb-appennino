@@ -33,12 +33,12 @@ public class ParticipantDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Participant> find(Session ses, boolean pagato)
+	public static List<Participant> find(Session ses, boolean confirmed)
 			throws OrmException {
 		List<Participant> entities = new ArrayList<Participant>();
 		try {
 			String qs = "from Participant p ";
-			if (pagato) qs += "where p.paymentDt is not null ";
+			if (confirmed) qs += "where p.paymentDt is not null ";
 			qs += "order by itemNumber";
 			Query q = ses.createQuery(qs);
 			entities = (List<Participant>) q.list();
@@ -47,4 +47,25 @@ public class ParticipantDao {
 		}
 		return entities;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static Integer countConfirmed(Session ses)
+			throws OrmException {
+		Long result = null;
+		try {
+			String qs = "select count p.id from Participant p "+
+				"where p.paymentDt is not null ";
+			Query q = ses.createQuery(qs);
+			List<Object> list = q.list();
+			if (list != null) {
+				if (list.size() > 0) {
+					result = (Long) list.get(0);
+				}
+			}
+		} catch (HibernateException e) {
+			throw new OrmException(e.getMessage(), e);
+		}
+		return result.intValue();
+	}
+	
 }

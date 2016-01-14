@@ -11,10 +11,6 @@
 @font-face {font-family: 'Arvo'; font-weight: normal; font-style: italic; src: url('fonts/Arvo/Arvo-Italic.ttf') format('truetype');}
 @font-face {font-family: 'Arvo'; font-weight: normal; font-style: normal; src: url('fonts/Arvo/Arvo-Regular.ttf') format('truetype');}
 
-body, table td, select, button {
-	font-family: 'Arvo',tahoma,'Lucida Sans',sans !important;
-}
-
 #header {
 	margin: 0 auto;
 	text-align: center;
@@ -28,6 +24,7 @@ body, table td, select, button {
 	border: 0px;
 	padding: 0px 0px;
 	text-align: left;
+	font-family: 'Arvo',tahoma,'Lucida Sans',sans !important;
 }
 #message-panel {
 	position: fixed ; /* absolute: in page - fixed: in browser window */

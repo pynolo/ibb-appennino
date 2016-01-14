@@ -128,12 +128,12 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public List<Participant> findParticipants(boolean paid) throws SystemException {
+	public List<Participant> findParticipants(boolean confirmed) throws SystemException {
 		List<Participant> pList = new ArrayList<Participant>();
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {
-			pList = ParticipantDao.find(ses, paid);
+			pList = ParticipantDao.find(ses, confirmed);
 			trn.commit();
 		} catch (OrmException e) {
 			trn.rollback();
@@ -145,6 +145,24 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return pList;
 	}
 
+	@Override
+	public Integer countConfirmedParticipants() throws SystemException {
+		Integer result = null;
+		Session ses = SessionFactory.getSession();
+		Transaction trn = ses.beginTransaction();
+		try {
+			result = ParticipantDao.countConfirmed(ses);
+			trn.commit();
+		} catch (OrmException e) {
+			trn.rollback();
+			LOG.error(e.getMessage(), e);
+			throw new SystemException(e.getMessage(), e);
+		} finally {
+			ses.close();
+		}
+		return result;
+	}
+	
 	@Override
 	public Integer saveOrUpdateParticipant(Participant prt) throws SystemException {
 		Integer id = null;

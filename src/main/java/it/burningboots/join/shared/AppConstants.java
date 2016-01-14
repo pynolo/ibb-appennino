@@ -37,6 +37,9 @@ public class AppConstants {
 	public static final String PARAMS_ITEM_NUMBER = "itemNumber";
 	
 	// VALUES
+	//WIZARD
+	public static final Integer WIZARD_REGISTER = 1;
+	public static final Integer WIZARD_TRANSFER = 2;
 	//ACCOMMODATION
 	public static final Integer ACCOMMODATION_BED = 1;
 	public static final Integer ACCOMMODATION_TENT = 2;

@@ -3,12 +3,10 @@ package it.burningboots.join.client.frame;
 import it.burningboots.join.client.ClientConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
-import it.burningboots.join.client.UriDispatcher;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
 import it.burningboots.join.shared.AppConstants;
-import it.burningboots.join.shared.PropertyBean;
 import it.burningboots.join.shared.entity.Participant;
 
 import com.google.gwt.core.client.GWT;
@@ -22,7 +20,6 @@ public class JoinCheckoutFrame extends FramePanel {
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
-	private int participantCount = 0;
 	
 	private VerticalPanel checkoutPanel = null;
 	
@@ -41,26 +38,14 @@ public class JoinCheckoutFrame extends FramePanel {
 	}
 	
 	private void draw() {
-		PropertyBean properties = WizardSingleton.get().getPropertyBean();
+		forwardIfJoinNotPossible();
+		Participant participant = WizardSingleton.get().getParticipantBean();
 		
-		//Check if joining wizard can be active
-		if ( properties.getClosed() ) {
-			UriDispatcher.loadContent(UriDispatcher.STEP_CLOSED);
-		}
-		if ( (participantCount >= properties.getBedAvailableUntil()) &&
-				(participantCount >= properties.getTentAvailableUntil()) ) {
-			UriDispatcher.loadContent(UriDispatcher.STEP_FULL);
-		}
 		//TITLE
 		setTitle("Confirm your registration / Conferma la registrazione");
 		
-		drawCheckoutPanel();
-	}
-	
-	private void drawCheckoutPanel() {
 		checkoutPanel = new VerticalPanel();
 		cp.add(checkoutPanel);
-		Participant participant = WizardSingleton.get().getParticipantBean();
 		String amountString = "[ERROR]";
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
 			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPrice());

@@ -1,5 +1,11 @@
 package it.burningboots.join.client;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+
+import it.burningboots.join.client.service.DataService;
+import it.burningboots.join.client.service.DataServiceAsync;
+import it.burningboots.join.shared.AppConstants;
 import it.burningboots.join.shared.PropertyBean;
 import it.burningboots.join.shared.entity.Participant;
 
@@ -8,6 +14,8 @@ public class WizardSingleton {
 	private static WizardSingleton instance = null;
 	private Participant participantBean = null;
 	private PropertyBean propertyBean = null;
+	private int participantCount = 0;
+	private Integer wizardType = AppConstants.WIZARD_REGISTER;
 	
 	private WizardSingleton() {}
 	
@@ -15,6 +23,7 @@ public class WizardSingleton {
 		if (instance == null) {
 			instance = new WizardSingleton();
 			instance.setParticipantBean(new Participant());
+			instance.loadParticipantCount();
 		}
 		return instance;
 	}
@@ -34,5 +43,42 @@ public class WizardSingleton {
 	public void setPropertyBean(PropertyBean propertyBean) {
 		this.propertyBean = propertyBean;
 	}
+
+	public Integer getWizardType() {
+		return wizardType;
+	}
+
+	public void setWizardType(Integer wizardType) {
+		this.wizardType = wizardType;
+	}	
 	
+	public int getParticipantCount() {
+		return participantCount;
+	}
+
+	public void setParticipantCount(int participantCount) {
+		this.participantCount = participantCount;
+	}
+	
+	
+	
+	// Async methods
+
+	
+
+	private void loadParticipantCount() {
+		DataServiceAsync dataService = GWT.create(DataService.class);
+		
+		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				UiSingleton.get().addError(caught);
+			}
+			@Override
+			public void onSuccess(Integer result) {
+				participantCount = result;
+			}
+		};
+		dataService.countConfirmedParticipants(callback);
+	}
 }

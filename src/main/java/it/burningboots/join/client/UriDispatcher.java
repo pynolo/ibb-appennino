@@ -6,6 +6,7 @@ import it.burningboots.join.client.frame.JoinLegalFrame;
 import it.burningboots.join.client.frame.JoinCheckoutFrame;
 import it.burningboots.join.client.frame.JoinThankYouFrame;
 import it.burningboots.join.client.frame.JoinVolunteerFrame;
+import it.burningboots.join.shared.AppConstants;
 
 import com.google.gwt.user.client.ui.SimplePanel;
 
@@ -21,12 +22,11 @@ public class UriDispatcher {
 	public static final String STEP_JOIN_VOLUNTEER = "volunteer";
 	public static final String STEP_JOIN_FOOD = "food";
 	public static final String STEP_JOIN_CHECKOUT = "checkout";
-	public static final String STEP_FULL = "full";
-	public static final String STEP_CLOSED = "closed";
+	public static final String STEP_ERR_FULL = "full";
+	public static final String STEP_ERR_CLOSED = "closed";
 	public static final String STEP_THANK_YOU = "thankyou";
 	public static final String PARTICIPANTS = "participants";
-	public static final String STEP_TRANSFER_1 = "transfer1";
-	public static final String STEP_TRANSFER_2 = "transfer2";
+	public static final String STEP_TRANSFER = "transfer";
 	
 	//Reloads the current page from the server reload(true) and not from cache reload(false)
 	public static native void hardReload() /*-{
@@ -40,6 +40,7 @@ public class UriDispatcher {
 			SimplePanel contentPanel = UiSingleton.get().getContentPanel();
 			contentPanel.clear();
 			if (INDEX.equals(token)) {
+				WizardSingleton.get().setWizardType(AppConstants.WIZARD_REGISTER);
 				contentPanel.add(new JoinInclusionFrame(params));
 			}
 			if (STEP_JOIN_INCLUSION.equals(token)) {
@@ -57,10 +58,10 @@ public class UriDispatcher {
 			if (STEP_JOIN_CHECKOUT.equals(token)) {
 				contentPanel.add(new JoinCheckoutFrame(params));
 			}
-			if (STEP_FULL.equals(token)) {
+			if (STEP_ERR_FULL.equals(token)) {
 				//contentPanel.add(new AnagraficheFindFrame(params));
 			}
-			if (STEP_CLOSED.equals(token)) {
+			if (STEP_ERR_CLOSED.equals(token)) {
 				//contentPanel.add(new AnagraficheModifiedFindFrame(params));
 			}
 			if (STEP_THANK_YOU.equals(token)) {
@@ -69,11 +70,9 @@ public class UriDispatcher {
 			if (PARTICIPANTS.equals(token)) {
 				//contentPanel.add(new FeedbackAnagraficaFrame(params));
 			}
-			if (STEP_TRANSFER_1.equals(token)) {
+			if (STEP_TRANSFER.equals(token)) {
+				WizardSingleton.get().setWizardType(AppConstants.WIZARD_TRANSFER);
 				//contentPanel.add(new AbbonamentoFrame(params));
-			}
-			if (STEP_TRANSFER_2.equals(token)) {
-				//contentPanel.add(new AbbonamentiModifiedFindFrame(params));
 			}
 		}
 	}

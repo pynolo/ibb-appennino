@@ -1,11 +1,14 @@
 package it.burningboots.join.client;
 
+import it.burningboots.join.client.frame.ErrorClosedFrame;
+import it.burningboots.join.client.frame.ErrorFullFrame;
 import it.burningboots.join.client.frame.JoinFoodFrame;
 import it.burningboots.join.client.frame.JoinInclusionFrame;
 import it.burningboots.join.client.frame.JoinLegalFrame;
 import it.burningboots.join.client.frame.JoinCheckoutFrame;
 import it.burningboots.join.client.frame.JoinThankYouFrame;
 import it.burningboots.join.client.frame.JoinVolunteerFrame;
+import it.burningboots.join.client.frame.ParticipantFrame;
 import it.burningboots.join.shared.AppConstants;
 
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -59,16 +62,16 @@ public class UriDispatcher {
 				contentPanel.add(new JoinCheckoutFrame(params));
 			}
 			if (STEP_ERR_FULL.equals(token)) {
-				//contentPanel.add(new AnagraficheFindFrame(params));
+				contentPanel.add(new ErrorFullFrame(params));
 			}
 			if (STEP_ERR_CLOSED.equals(token)) {
-				//contentPanel.add(new AnagraficheModifiedFindFrame(params));
+				contentPanel.add(new ErrorClosedFrame(params));
 			}
 			if (STEP_THANK_YOU.equals(token)) {
 				contentPanel.add(new JoinThankYouFrame(params));
 			}
 			if (PARTICIPANTS.equals(token)) {
-				//contentPanel.add(new FeedbackAnagraficaFrame(params));
+				contentPanel.add(new ParticipantFrame(params));
 			}
 			if (STEP_TRANSFER.equals(token)) {
 				WizardSingleton.get().setWizardType(AppConstants.WIZARD_TRANSFER);

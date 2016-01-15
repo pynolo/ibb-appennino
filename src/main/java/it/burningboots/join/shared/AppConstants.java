@@ -27,6 +27,7 @@ public class AppConstants {
 	public static final String CONFIG_PRICE_FOREIGNER_TICKET = "priceForeign";
 	public static final String CONFIG_PRICE_REDUCED_TICKET = "priceReduced";
 	public static final String CONFIG_SERVICE_OPEN = "serviceOpen";
+	public static final String CONFIG_ACCESS_KEY = "accessKey";
 	
 	// CONFIG FILES
 	public static final String HIBERNATE_CONFIG_FILE="/hibernate.cfg.xml";
@@ -34,7 +35,7 @@ public class AppConstants {
 	public static final String DB_PROPERTY_FILE = "/db.properties";
 	
 	// PARAMS
-	public static final String PARAMS_ID = "id";
+	public static final String PARAM_ID = "id";
 	public static final String PARAMS_ITEM_NUMBER = "itemNumber";
 	
 	// VALUES

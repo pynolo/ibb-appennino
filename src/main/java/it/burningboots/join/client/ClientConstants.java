@@ -22,7 +22,7 @@ public class ClientConstants {
 	public static final DateTimeFormat FORMAT_YEAR = DateTimeFormat.getFormat("yyyy");
 	public static final NumberFormat FORMAT_CURRENCY = NumberFormat.getFormat(AppConstants.PATTERN_CURRENCY);
 	public static final NumberFormat FORMAT_INTEGER = NumberFormat.getFormat("#0");
-	
+
 	//Icons
 	public static final String ICON_LOADING_BIG = "<img src='img/chat_loading.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
 	public static final String ICON_LOADING_SMALL = "<img src='img/ajax-loader-small.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
@@ -31,8 +31,13 @@ public class ClientConstants {
 	public static final String MSG_ICON_INFO = "<img src='img/dialog-information.png' style='vertical-align:middle' />";
 	public static final String MSG_ICON_WARN = "<img src='img/dialog-warning.png' style='vertical-align:middle' />";
 	public static final String MSG_ICON_ERROR = "<img src='img/dialog-error.png' style='vertical-align:middle' />";
+	//LABELS
+	public static final String LABEL_EMPTY_RESULT = "<i>Nessun risultato</i>";
+	public static final String LABEL_LOADING = ICON_LOADING_SMALL+" <i>caricamento in corso...</i>";
 	
 	//COOKIE
 	public static final String COOKIE_VERSION = "appVersion";
+	public static final String COOKIE_ACCESS_KEY = "ak";
+	public static final String COOKIE_FILTER_CONFIRMED = "confirmed";
 	
 }

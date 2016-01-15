@@ -32,7 +32,7 @@ public class AppConstants {
 	// CONFIG FILES
 	public static final String HIBERNATE_CONFIG_FILE="/hibernate.cfg.xml";
 	public static final String APP_PROPERTY_FILE = "/app.properties";
-	public static final String DB_PROPERTY_FILE = "/db.properties";
+	public static final String CUSTOM_PROPERTY_FILE = "/custom.properties";
 	
 	// PARAMS
 	public static final String PARAM_ID = "id";

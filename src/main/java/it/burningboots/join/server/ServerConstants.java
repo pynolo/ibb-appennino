@@ -16,13 +16,13 @@ public class ServerConstants {
 	private static final Logger LOG = LoggerFactory.getLogger(ServerConstants.class);
 
 	
-	// DATABASE
+	// ENV
 	public static final String MYSQL_DB_USERNAME = "MYSQL_DB_USERNAME";
 	public static final String MYSQL_DB_PASSWORD = "MYSQL_DB_PASSWORD";
 	public static final String MYSQL_DB_HOST = "MYSQL_DB_HOST";
 	public static final String MYSQL_DB_PORT = "MYSQL_DB_PORT";
 	public static final String MYSQL_DB_NAME = "APP_NAME";
-	
+	public static final String ACCESS_KEY = "ACCESS_KEY";
 	
 	public static final String PROPERTY_FILE = "/app.properties";
 	public static final String UPLOAD_DIRECTORY = System.getProperty("java.io.tmpdir");

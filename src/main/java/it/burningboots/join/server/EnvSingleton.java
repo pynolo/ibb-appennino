@@ -18,7 +18,8 @@ public class EnvSingleton {
 	private String mysqlHost = System.getenv(ServerConstants.MYSQL_DB_HOST);
 	private String mysqlPort = System.getenv(ServerConstants.MYSQL_DB_PORT);
 	private String mysqlDbName = System.getenv(ServerConstants.MYSQL_DB_NAME);
-    
+	private String accessKey = null;
+	
 	private static Properties appProps = null;
 	
 	private EnvSingleton() throws IOException {
@@ -26,7 +27,7 @@ public class EnvSingleton {
 		//File appPropertyFile = new File(appPropertyUrl.getPath());
 		//appProps = new Properties();
 		//appProps.load(new FileInputStream(appPropertyFile));
-		URL dbPropertyUrl = this.getClass().getResource(AppConstants.DB_PROPERTY_FILE);
+		URL dbPropertyUrl = this.getClass().getResource(AppConstants.CUSTOM_PROPERTY_FILE);
 		if (dbPropertyUrl != null) {
 			File dbPropertyFile = new File(dbPropertyUrl.getPath());
 			if (dbPropertyFile.exists()) {
@@ -44,24 +45,16 @@ public class EnvSingleton {
 		
 		if (mysqlUsername == null)
 			mysqlUsername=readProperty(ServerConstants.MYSQL_DB_USERNAME);
-		if (mysqlUsername.equals(ServerConstants.MYSQL_DB_USERNAME))
-			mysqlUsername=readProperty(ServerConstants.MYSQL_DB_USERNAME);
 		if (mysqlPassword == null)
-			mysqlPassword=readProperty(ServerConstants.MYSQL_DB_PASSWORD);
-		if (mysqlPassword.equals(ServerConstants.MYSQL_DB_PASSWORD))
 			mysqlPassword=readProperty(ServerConstants.MYSQL_DB_PASSWORD);
 		if (mysqlHost == null)
 			mysqlHost=readProperty(ServerConstants.MYSQL_DB_HOST);
-		if (mysqlHost.equals(ServerConstants.MYSQL_DB_HOST))
-			mysqlHost=readProperty(ServerConstants.MYSQL_DB_HOST);
 		if (mysqlPort == null)
-			mysqlPort=readProperty(ServerConstants.MYSQL_DB_PORT);
-		if (mysqlPort.equals(ServerConstants.MYSQL_DB_PORT))
 			mysqlPort=readProperty(ServerConstants.MYSQL_DB_PORT);
 		if (mysqlDbName == null)
 			mysqlDbName=readProperty(ServerConstants.MYSQL_DB_NAME);
-		if (mysqlDbName.equals(ServerConstants.MYSQL_DB_NAME))
-			mysqlDbName=readProperty(ServerConstants.MYSQL_DB_NAME);
+		if (accessKey == null)
+			accessKey=readProperty(ServerConstants.ACCESS_KEY);
 	}
 	
 	public static EnvSingleton get() throws IOException {
@@ -99,4 +92,7 @@ public class EnvSingleton {
 		return mysqlDbName;
 	}
 	
+	public String getAccessKey() {
+		return accessKey;
+	}
 }

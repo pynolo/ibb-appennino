@@ -1,18 +1,12 @@
 package it.burningboots.join.client;
 
-import it.burningboots.join.client.service.DataService;
-import it.burningboots.join.client.service.DataServiceAsync;
-import it.burningboots.join.shared.AppConstants;
-import it.burningboots.join.shared.SystemException;
-import it.burningboots.join.shared.entity.Config;
+import it.burningboots.join.server.EnvSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -25,8 +19,6 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class AuthSingleton {
-
-	private final DataServiceAsync dataService = GWT.create(DataService.class);
 		
 	private static AuthSingleton instance = null;
 	private List<IAuthenticatedWidget> widgetList = null;
@@ -88,38 +80,17 @@ public class AuthSingleton {
 
 	private void authenticateOrPopUp(String accessKey,
 			List<IAuthenticatedWidget> widgetList) {
-		final List<IAuthenticatedWidget> fWidgetList = widgetList;
-		AsyncCallback<Config> callback = new AsyncCallback<Config>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				WaitSingleton.get().stop();
-				if (caught instanceof SystemException) {
-					new AuthPopUp("Errore di connessione al db", fWidgetList);
-				} else {
-					String message = caught.getMessage();
-					if (message == null) message = "Autorizzazione impossibile";
-					if (message.equals("")) message = "Autorizzazione impossibile";
-					new AuthPopUp(message, fWidgetList);
-				}
-			}
-			@Override
-			public void onSuccess(Config result) {
-				if (result == null) {
-					new AuthPopUp("Config '"+AppConstants.CONFIG_ACCESS_KEY+"' has no value", fWidgetList);
-				} else {
-					persistedAK = result.getVal();
-					saveCookie(persistedAK);
-					unlockWidgets(fWidgetList);
-				}
-				WaitSingleton.get().stop();
-			}
-		};
 		try {
 			if (accessKey != null) {
-				WaitSingleton.get().start();
-				dataService.findConfigByKey(AppConstants.CONFIG_ACCESS_KEY, callback);
+				String ac = EnvSingleton.get().getAccessKey();
+				persistedAK = null;
+				if (accessKey.equals(ac)) {
+					persistedAK = accessKey;
+					saveCookie(ac);
+					unlockWidgets(widgetList);
+				}
 			} else {
-				new AuthPopUp("", fWidgetList);
+				new AuthPopUp("", widgetList);
 			}
 		} catch (Exception e) {
 			//Will never be called because Exceptions will be caught by callback
@@ -157,7 +128,7 @@ public class AuthSingleton {
 			FlexTable table = new FlexTable();
 			int r=0;
 			
-			Image bannerImg = new Image("img/giunti_app_banner.png");
+			Image bannerImg = new Image("img/ibb_banner.png");
 			table.setWidget(r, 0, bannerImg);
 			table.getFlexCellFormatter().setColSpan(r, 0, 2);
 			r++;
@@ -176,11 +147,9 @@ public class AuthSingleton {
 			r++;
 			
 			//Tipo Anagrafica
-			table.setHTML(r, 0, "Access key");
+			table.setHTML(r, 0, "Access&nbsp;key&nbsp;&nbsp;");
 			accessKeyText = new TextBox();
 			accessKeyText.setWidth("12em");
-			accessKeyText.setTitle("username");
-			accessKeyText.setName("username");
 			table.setWidget(r, 1, accessKeyText);
 			r++;
 			

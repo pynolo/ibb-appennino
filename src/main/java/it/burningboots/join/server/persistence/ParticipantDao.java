@@ -54,7 +54,8 @@ public class ParticipantDao {
 		Long result = null;
 		try {
 			String qs = "select count(p.id) from Participant p "+
-				"where p.paymentDt is not null ";
+				"where p.paymentDt is not null and "+
+				"p.paymentAmount is not null";
 			Query q = ses.createQuery(qs);
 			List<Object> list = q.list();
 			if (list != null) {

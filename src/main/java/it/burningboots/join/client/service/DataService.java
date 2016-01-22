@@ -18,6 +18,7 @@ public interface DataService extends RemoteService {
 	
 	//Properties
 	public PropertyBean getPropertyBean();
+	public String getAccessKey() throws SystemException;
 	
 	//Config
 	public Config findConfigByKey(String key) throws SystemException;

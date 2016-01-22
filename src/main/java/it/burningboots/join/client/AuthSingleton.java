@@ -1,7 +1,5 @@
 package it.burningboots.join.client;
 
-import it.burningboots.join.server.EnvSingleton;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class AuthSingleton {
 		
 	private static AuthSingleton instance = null;
 	private List<IAuthenticatedWidget> widgetList = null;
-	private String persistedAK = null;
+	private String verifiedAccessKey = null;
 	
 	private TextBox accessKeyText = null;
 	
@@ -43,7 +41,7 @@ public class AuthSingleton {
 	}
 	
 	public void queueForAuthentication(IAuthenticatedWidget widget) {
-		if (persistedAK != null) {
+		if (verifiedAccessKey != null) {
 			widget.onSuccessfulAuthentication();
 		} else {
 			widgetList.add(widget);
@@ -82,10 +80,10 @@ public class AuthSingleton {
 			List<IAuthenticatedWidget> widgetList) {
 		try {
 			if (accessKey != null) {
-				String ac = EnvSingleton.get().getAccessKey();
-				persistedAK = null;
+				String ac = WizardSingleton.get().getAccessKey();
+				verifiedAccessKey = null;
 				if (accessKey.equals(ac)) {
-					persistedAK = accessKey;
+					verifiedAccessKey = accessKey;
 					saveCookie(ac);
 					unlockWidgets(widgetList);
 				}

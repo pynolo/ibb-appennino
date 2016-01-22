@@ -16,6 +16,7 @@ public class WizardSingleton {
 	private PropertyBean propertyBean = null;
 	private int participantCount = 0;
 	private Integer wizardType = AppConstants.WIZARD_REGISTER;
+	private String accessKey = null;
 	
 	private WizardSingleton() {}
 	
@@ -24,6 +25,7 @@ public class WizardSingleton {
 			instance = new WizardSingleton();
 			instance.setParticipantBean(new Participant());
 			instance.loadParticipantCount();
+			instance.loadAccessKey();
 		}
 		return instance;
 	}
@@ -58,13 +60,21 @@ public class WizardSingleton {
 
 	public void setParticipantCount(int participantCount) {
 		this.participantCount = participantCount;
+	}	
+
+	public String getAccessKey() {
+		return accessKey;
+	}
+
+	public void setAccessKey(String accessKey) {
+		this.accessKey = accessKey;
 	}
 	
 	
 	
 	// Async methods
 
-	
+
 
 	private void loadParticipantCount() {
 		DataServiceAsync dataService = GWT.create(DataService.class);
@@ -80,5 +90,21 @@ public class WizardSingleton {
 			}
 		};
 		dataService.countConfirmedParticipants(callback);
+	}
+	
+	private void loadAccessKey() {
+		DataServiceAsync dataService = GWT.create(DataService.class);
+		
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				UiSingleton.get().addError(caught);
+			}
+			@Override
+			public void onSuccess(String result) {
+				accessKey = result;
+			}
+		};
+		dataService.getAccessKey(callback);
 	}
 }

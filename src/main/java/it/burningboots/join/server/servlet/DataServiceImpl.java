@@ -2,6 +2,7 @@ package it.burningboots.join.server.servlet;
 
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.server.DataBusiness;
+import it.burningboots.join.server.EnvSingleton;
 import it.burningboots.join.server.PropertyReader;
 import it.burningboots.join.server.persistence.ConfigDao;
 import it.burningboots.join.server.persistence.GenericDao;
@@ -14,6 +15,7 @@ import it.burningboots.join.shared.SystemException;
 import it.burningboots.join.shared.entity.Config;
 import it.burningboots.join.shared.entity.Participant;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -161,6 +163,17 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			ses.close();
 		}
 		return result;
+	}
+	
+	@Override
+	public String getAccessKey() throws SystemException {
+		String ac;
+		try {
+			ac = EnvSingleton.get().getAccessKey();
+		} catch (IOException e) {
+			throw new SystemException(e.getMessage(), e);
+		}
+		return ac;
 	}
 	
 	@Override

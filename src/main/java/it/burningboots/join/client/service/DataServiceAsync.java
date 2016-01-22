@@ -11,7 +11,7 @@ public interface DataServiceAsync
      * @see it.burningboots.join.client.service.DataService
      */
     void getPropertyBean( AsyncCallback<it.burningboots.join.shared.PropertyBean> callback );
-   
+    void getAccessKey(AsyncCallback<String> callback);
     void findConfigByKey( java.lang.String key, AsyncCallback<it.burningboots.join.shared.entity.Config> callback );
     void saveOrUpdateConfig( it.burningboots.join.shared.entity.Config config, AsyncCallback<java.lang.Integer> callback );
 

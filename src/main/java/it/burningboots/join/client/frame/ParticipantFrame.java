@@ -43,6 +43,7 @@ public class ParticipantFrame extends FramePanel implements IAuthenticatedWidget
 	}
 	
 	private void draw() {
+		setTitle("Participants");
 		panel = new VerticalPanel();
 		this.add(panel);
 		// Periodico

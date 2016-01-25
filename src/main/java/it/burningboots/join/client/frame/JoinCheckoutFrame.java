@@ -48,22 +48,28 @@ public class JoinCheckoutFrame extends FramePanel {
 		checkoutPanel = new VerticalPanel();
 		cp.add(checkoutPanel);
 		String amountString = "[ERROR]";
+		String typeIt = "";
+		String typeEn = "";
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
 			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPrice());
+			typeIt = "rifugio";
+			typeEn = "hut";
 		} 
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
 			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getTentPrice());
+			typeIt = "tenda";
+			typeEn = "tent";
 		} 
 		
 		checkoutPanel.add(new HTML("<p><i>YOU'RE NOT REGISTERED YET, there's just one more step:<br />"+
 				"You need to confirm with a donation, to cover costs like rental and food.</i></p>"+
-				"<p><i>Minimum amount is </i><b>&euro;"+amountString+"</b><i> "+ 
+				"<p><i>Minimum amount is </i><b>&euro;"+amountString+"</b><i> ("+typeEn+") "+ 
 				"but if you want to donate more contact us, we'll use it to add some extras!</i><br/>"+
 				"&nbsp;</p>"));
 		
 		checkoutPanel.add(new HTML("<p><b>LA REGISTRAZIONE NON &Egrave; FINITA, manca solo l'ultimo passo:<br />"+
 				"Devi confermare con una donazione, per coprire costi come affitti e cibo.</b></p>"+
-				"<p><b>L'importo minimo &egrave; </b><i>&euro;"+amountString+"</i><b> "+
+				"<p><b>L'importo minimo &egrave; </b><i>&euro;"+amountString+"</i><b> ("+typeIt+") "+ 
 				"ma se vuoi donare di pi&ugrave; contattaci e penseremo a degli extra!</b><br />"+
 				"&nbsp</p>"));
 		

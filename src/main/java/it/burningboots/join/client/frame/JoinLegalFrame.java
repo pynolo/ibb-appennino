@@ -16,6 +16,7 @@ import java.util.Date;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -37,6 +38,8 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 	private TextBox lastNameText;
 	private DateBox birthDate;
 	private TextBox birthCityText;
+	private CheckBox ibbCheck;
+	private CheckBox burnerCheck;
 	
 	public JoinLegalFrame(UriBuilder params) {
 		super();
@@ -88,21 +91,44 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
-		cp.add(new HTML("<p><i>Which is your birth city? (please specify the country)</i><br />"+
-				"<b>Quale &egrave; la tua citt&agrave; di nascita? (specifica la nazione)</b></p>"));
+		HorizontalPanel birthPanel = new HorizontalPanel();
+		cp.add(birthPanel);
+		
+		FlowPanel birthCityPanel = new FlowPanel();
+		birthCityPanel.add(new HTML("<p><i>Birth city & country</i><br />"+
+				"<b>Luogo di nascita</b></p>"));
 		birthCityText = new TextBox();
 		birthCityText.setMaxLength(128);
 		birthCityText.setValue(participant.getBirthCity());
-		cp.add(birthCityText);
-		cp.add(new HTML("<p>&nbsp;</p>"));
+		birthCityPanel.add(birthCityText);
+		birthPanel.add(birthCityPanel);
 		
-		cp.add(new HTML("<p><i>What is your birth date? (dd/mm/yyyy)</i><br/>"+
-				"<b>Quale &egrave; la tua data di nascita? (gg/mm/aaaa)</b></p>"));
+		birthPanel.add(new InlineHTML("&nbsp;"));
+		
+		FlowPanel birthDatePanel = new FlowPanel();
+		birthDatePanel.add(new HTML("<p><i>Birth date (dd/mm/yyyy)</i><br/>"+
+				"<b>Data di nascita (gg/mm/aaaa)</b></p>"));
 		birthDate = new DateBox();
 		DateBox.Format BOX_FORMAT_TIMESTAMP = new DateBox.DefaultFormat(DTF);
 		birthDate.setFormat(BOX_FORMAT_TIMESTAMP);
 		birthDate.setValue(participant.getBirthDt());
-		cp.add(birthDate);
+		birthDatePanel.add(birthDate);
+		birthPanel.add(birthDatePanel);
+		
+		cp.add(new HTML("<p>&nbsp;</p>"));
+		
+		
+		cp.add(new HTML("<p><i>Have you already been at IBB or similar events?</i><br />"+
+				"<b>Hai gi&agrave; partecipato a IBB o a eventi simili?</b></p>"));
+		VerticalPanel hp = new VerticalPanel();
+		cp.add(hp);
+		ibbCheck = new CheckBox("&nbsp; Italian Burning Boots 2015", true);
+		ibbCheck.setValue(participant.getAlreadyIbb());
+		hp.add(ibbCheck);
+		burnerCheck = new CheckBox("&nbsp; Nowhere, Burning Man or other burns", true);
+		burnerCheck.setValue(participant.getAlreadyBurner());
+		hp.add(burnerCheck);
+		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		//Wizard panel
@@ -147,6 +173,8 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 			participant.setLastName(lastName);
 			participant.setBirthCity(birthCity);
 			participant.setBirthDt(birthDt);
+			participant.setAlreadyIbb(ibbCheck.getValue());
+			participant.setAlreadyBurner(burnerCheck.getValue());
 		}
 		return isError;
 	}

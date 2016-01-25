@@ -2,10 +2,10 @@ package it.burningboots.join.client;
 
 import it.burningboots.join.client.frame.ErrorClosedFrame;
 import it.burningboots.join.client.frame.ErrorFullFrame;
-import it.burningboots.join.client.frame.JoinFoodFrame;
-import it.burningboots.join.client.frame.JoinInclusionFrame;
-import it.burningboots.join.client.frame.JoinLegalFrame;
+import it.burningboots.join.client.frame.JoinBaseFrame;
 import it.burningboots.join.client.frame.JoinCheckoutFrame;
+import it.burningboots.join.client.frame.JoinFoodFrame;
+import it.burningboots.join.client.frame.JoinLegalFrame;
 import it.burningboots.join.client.frame.JoinThankYouFrame;
 import it.burningboots.join.client.frame.JoinVolunteerFrame;
 import it.burningboots.join.client.frame.ParticipantFrame;
@@ -20,7 +20,7 @@ public class UriDispatcher {
 	public static final String SEPARATOR_VALUES = "=";
 	
 	public static final String INDEX = "index";
-	public static final String STEP_JOIN_INCLUSION = "inclusion";
+	public static final String STEP_JOIN_BASE = "base";
 	public static final String STEP_JOIN_LEGAL = "legal";
 	public static final String STEP_JOIN_VOLUNTEER = "volunteer";
 	public static final String STEP_JOIN_FOOD = "food";
@@ -44,10 +44,10 @@ public class UriDispatcher {
 			contentPanel.clear();
 			if (INDEX.equals(token)) {
 				WizardSingleton.get().setWizardType(AppConstants.WIZARD_REGISTER);
-				contentPanel.add(new JoinInclusionFrame(params));
+				contentPanel.add(new JoinBaseFrame(params));
 			}
-			if (STEP_JOIN_INCLUSION.equals(token)) {
-				contentPanel.add(new JoinInclusionFrame(params));
+			if (STEP_JOIN_BASE.equals(token)) {
+				contentPanel.add(new JoinBaseFrame(params));
 			}
 			if (STEP_JOIN_LEGAL.equals(token)) {
 				contentPanel.add(new JoinLegalFrame(params));

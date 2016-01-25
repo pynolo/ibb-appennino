@@ -1,5 +1,6 @@
 package it.burningboots.join.client.frame;
 
+import it.burningboots.join.client.ClientConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -7,29 +8,31 @@ import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
 import it.burningboots.join.shared.AppConstants;
+import it.burningboots.join.shared.PropertyBean;
 import it.burningboots.join.shared.StringValidator;
 import it.burningboots.join.shared.ValidationException;
 import it.burningboots.join.shared.entity.Participant;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
+public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
 	
+	private RadioButton bedRadio;
+	private RadioButton tentRadio;
 	private TextBox emailText;
-	private CheckBox ibbCheck;
-	private CheckBox burnerCheck;
 	
-	public JoinInclusionFrame(UriBuilder params) {
+	public JoinBaseFrame(UriBuilder params) {
 		super();
 		if (params != null) {
 			this.params = params;
@@ -45,36 +48,61 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 	
 	private void draw() {
 		forwardIfJoinNotPossible();
+		PropertyBean pb = WizardSingleton.get().getPropertyBean();
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE
 		setTitle("Registration / Iscrizione");
 		
-		cp.add(new HTML("<p><i>Welcome to IBB registration form!</i><br />"+
-				"<b>IBB ti d&agrave; il benvenuto sul form di registrazione!</b></p>"));
+		VerticalPanel accommodationPanel = new VerticalPanel();
+		cp.add(accommodationPanel);
+		
+		accommodationPanel.add(new HTML("<p><i>Welcome to IBB registration form! Choose your accommodation:</i><br />"+
+				"<b>IBB ti d&agrave; il benvenuto sul form di registrazione! Scegli dove vuoi dormire:</b></p>"));
+		
+		HorizontalPanel bedPanel = new HorizontalPanel();
+		accommodationPanel.add(bedPanel);
+		bedRadio = new RadioButton("accommodation", "<b>Hut / Rifugio</b> - &euro;"+
+				ClientConstants.FORMAT_CURRENCY.format(pb.getBedPrice())+"&nbsp;&nbsp;", true);
+		bedPanel.add(bedRadio);
+		int bedAvail = pb.getAvailableBed();
+		String bedDescr = "";
+		if (bedAvail <= 4) {
+			bedDescr += "<b>"+bedAvail+"</b> to sold-out!<br />";
+		}
+		bedDescr += "<i>Food included, sleeping bag needed</i><br />"+
+				"<b>Cibo incluso, serve un sacco a pelo</b>";
+		bedPanel.add(new HTML(bedDescr));
+		
+		HorizontalPanel tentPanel = new HorizontalPanel();
+		accommodationPanel.add(tentPanel);
+		tentRadio = new RadioButton("accommodation", "<b>Tent / Tenda</b> - &euro;"+
+				ClientConstants.FORMAT_CURRENCY.format(pb.getTentPrice())+"&nbsp;&nbsp;", true);
+		tentPanel.add(tentRadio);
+		int tentAvail = pb.getAvailableTent();
+		String tentDescr = "";
+		if (tentAvail <= 4) {
+			tentDescr += "<b>"+tentAvail+"</b> to sold-out!<br />";
+		}
+		tentDescr += "<i>Food not included, radical self-reliance</i><br />"+
+				"<b>Cibo non incluso, autosostentamento radicale</b>";
+		tentPanel.add(new HTML(tentDescr));
+		
+		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
+			tentRadio.setValue(true);
+		} else {
+			bedRadio.setValue(true);
+		}
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
-		cp.add(new HTML("<p><i>Have you already been at IBB or similar events?</i><br />"+
-				"<b>Hai gi&agrave; partecipato a IBB o a eventi simili?</b></p>"));
-		VerticalPanel hp = new VerticalPanel();
-		cp.add(hp);
-		ibbCheck = new CheckBox("&nbsp; Italian Burning Boots 2015", true);
-		ibbCheck.setValue(participant.getAlreadyIbb());
-		hp.add(ibbCheck);
-		burnerCheck = new CheckBox("&nbsp; Nowhere, Burning Man or other burns", true);
-		burnerCheck.setValue(participant.getAlreadyBurner());
-		hp.add(burnerCheck);
-		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		cp.add(new HTML("<p><i>Your email to receive information about the event</i><br/>"+
 				"<b>La tua email per ricevere dettagli e avvisi sull'evento</b></p>"));
 		emailText = new TextBox();
 		emailText.setValue(participant.getEmail());
 		cp.add(emailText);
-		cp.add(new HTML("<p>&nbsp;</p>"));
-		
-		cp.add(new HTML("<p><i>(You will be signed up to the mailing list for participants and official announcements)</i><br/>"
-				+ "<b>(Il tuo indirizzo sar&agrave; inserito nella mailing list dei partecipanti e degli annunci ufficiali)</b></p>"));
+		cp.add(new HTML("<p><i>(You will be signed up to the official announcement miling list)</i><br/>"
+				+ "<b>(Il tuo indirizzo sar&agrave; inserito nella mailing list degli annunci ufficiali)</b></p>"));
 		
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, false, true);
@@ -103,9 +131,12 @@ public class JoinInclusionFrame extends FramePanel implements IWizardPanel {
 		} else {
 			//Store in bean
 			Participant participant = WizardSingleton.get().getParticipantBean();
+			if (tentRadio.getValue()) {
+				participant.setAccommodationType(AppConstants.ACCOMMODATION_TENT);
+			} else {
+				participant.setAccommodationType(AppConstants.ACCOMMODATION_BED);
+			}
 			participant.setEmail(email);
-			participant.setAlreadyIbb(ibbCheck.getValue());
-			participant.setAlreadyBurner(burnerCheck.getValue());
 			//Forward
 			UriBuilder param = new UriBuilder();
 			param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());

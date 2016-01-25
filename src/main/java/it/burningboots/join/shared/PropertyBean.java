@@ -83,29 +83,39 @@ public class PropertyBean implements Serializable {
 	public void setTentPrice(String tentPrice) {
 		this.tentPrice =  Double.parseDouble(tentPrice);
 	}
-
 	public int getBedCount() {
 		return bedCount;
 	}
-
 	public void setBedCount(int bedCount) {
 		this.bedCount = bedCount;
 	}
-
 	public int getTentCount() {
 		return tentCount;
 	}
-
 	public void setTentCount(int tentCount) {
 		this.tentCount = tentCount;
 	}
-
 	public String getAccessKey() {
 		return accessKey;
 	}
-
 	public void setAccessKey(String accessKey) {
 		this.accessKey = accessKey;
 	}
 
+	
+	public int getAvailableBed() {
+		int total = bedCount+tentCount;
+		int a1 = bedMax-bedCount;
+		int a2 = bedAvailableUntil-total;
+		if (a1 < a2) return a1;
+		return a2;
+	}
+	
+	public int getAvailableTent() {
+		int total = bedCount+tentCount;
+		int a1 = tentMax-tentCount;
+		int a2 = tentAvailableUntil-total;
+		if (a1 < a2) return a1;
+		return a2;
+	}
 }

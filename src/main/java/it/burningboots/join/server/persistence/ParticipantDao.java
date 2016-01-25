@@ -40,7 +40,7 @@ public class ParticipantDao {
 		try {
 			String qs = "from Participant p ";
 			if (confirmed) qs += "where p.paymentDt is not null ";
-			qs += "order by itemNumber";
+			qs += "order by p.creationDt";
 			Query q = ses.createQuery(qs);
 			entities = (List<Participant>) q.list();
 		} catch (HibernateException e) {

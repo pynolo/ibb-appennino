@@ -28,9 +28,9 @@ public class ParticipantFrame extends FramePanel implements IAuthenticatedWidget
 		if (params == null) {
 			params = new UriBuilder();
 		}
-		String sc = CookieSingleton.get().getCookie(ClientConstants.COOKIE_FILTER_CONFIRMED);
-		if (sc != null) {
-			filterConfirmed = sc;
+		String fc = CookieSingleton.get().getCookie(ClientConstants.COOKIE_FILTER_CONFIRMED);
+		if (fc != null) {
+			if (!fc.equals(""))	filterConfirmed = fc;
 		}
 		
 		this.setWidth("100%");
@@ -44,12 +44,13 @@ public class ParticipantFrame extends FramePanel implements IAuthenticatedWidget
 	
 	private void draw() {
 		panel = new VerticalPanel();
+		this.add(panel);
 		// Periodico
 		FlowPanel topPanel = new FlowPanel();
 		topPanel.add(new HTML("Mostra:&nbsp;"));
 		final ListBox confirmList = new ListBox();
-		confirmList.addItem("0", "Tutti");
-		confirmList.addItem("1", "Solo i confermati");
+		confirmList.addItem("Tutti","0");
+		confirmList.addItem("Solo i confermati", "1");
 		if (filterConfirmed.equals("0")) {
 			confirmList.setSelectedIndex(0);
 		} else {
@@ -61,6 +62,7 @@ public class ParticipantFrame extends FramePanel implements IAuthenticatedWidget
 				filterConfirmed = confirmList.getSelectedValue();
 				CookieSingleton.get().setCookie(ClientConstants.COOKIE_FILTER_CONFIRMED,
 						filterConfirmed);
+				refreshTable();
 			}
 		});
 		confirmList.setEnabled(true);

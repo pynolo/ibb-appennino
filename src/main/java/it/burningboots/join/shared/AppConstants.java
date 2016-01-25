@@ -53,7 +53,8 @@ public class AppConstants {
 	public static final String VOLUNTEER_KITCHEN = "kitchen";
 	public static final String VOLUNTEER_GREETER = "greeter";
 	public static final String VOLUNTEER_WOOD = "wood";
-	
+	public static final String VOLUNTEER_LNT = "lnt";
+	public static final String VOLUNTEER_DECO = "deco";
 	
 	// FORMATS
 	public static final String PATTERN_TIMESTAMP = "dd/MM/yyyy HH:mm:ss z";//"dd/MM/yyyy HH:mm";

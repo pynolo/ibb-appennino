@@ -66,3 +66,32 @@ ul.list-icons {
 .text-error {
 	color: red;
 }
+
+
+
+/* TABLE */
+td, th {
+	padding: 2px;
+}
+tr td {
+	padding: 2px;
+	/*color: #669;*/
+}
+.apg-table {
+	margin-bottom: 0.8em;
+	text-align: left;
+	border-collapse: collapse;
+}
+.apg-table .apg-row-odd {
+	background: #ffffff; /*background: transparent; */
+}
+.apg-table .apg-row-even {
+	background: #e3ecf9;
+}
+.apg-table .apg-row-top {
+	background: #e0e0e0; 
+	font-weight: bold;
+}
+.apg-table .apg-row-bot {
+	background: #f0f0f0; 
+}

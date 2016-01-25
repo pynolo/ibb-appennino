@@ -22,9 +22,11 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
 	
+	private CheckBox lntCheck;
 	private CheckBox kitchenCheck;
 	private CheckBox woodCheck;
 	private CheckBox greeterCheck;
+	private CheckBox decoCheck;
 	
 	public JoinVolunteerFrame(UriBuilder params) {
 		super();
@@ -51,9 +53,15 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 		setTitle("Participation / Partecipazione");
 		
 		cp.add(new HTML("<p><i>IBB exists only because everyone does their part :) Tell us how you'd like to help!</i><br/>"+
-				"<b>IBB esiste solo perch&eacute; tutti fanno qualcosa :) Scegli ci&ograve; di cui potresti occuparti!</b></p>"));
+				"<b>IBB esiste solo perch&eacute; tutti fanno qualcosa :) Scegli tutto ci&ograve; di cui potresti occuparti!</b></p>"));
 		
-		kitchenCheck = new CheckBox("Kitchen superstar", true);
+		lntCheck = new CheckBox("Leave No Trace Angel", true);
+		lntCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_LNT));
+		cp.add(lntCheck);
+		cp.add(new HTML("<i>to check if we're actually leaving no trace</i> / "+
+				"<b>per controllare che realmente non stiamo lasciando traccia</b><br/>&nbsp;"));
+		
+		kitchenCheck = new CheckBox("Kitchen Superstar", true);
 		kitchenCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_KITCHEN));
 		cp.add(kitchenCheck);
 		cp.add(new HTML("<i>to give your personal touch in the kitchen</i> / "+
@@ -65,11 +73,17 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 		cp.add(new HTML("<i>to welcome people and help them at arrival</i> / "+
 				"<b>per dare il benvenuto e aiutare all'arrivo</b><br/>&nbsp;"));
 		
-		woodCheck = new CheckBox("Wood bandit", true);
+		woodCheck = new CheckBox("Wood Bandit", true);
 		woodCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_WOOD));
 		cp.add(woodCheck);
 		cp.add(new HTML("<i>to explore the woods and prepare the bonfire</i> / "+
 				"<b>per esplorare i boschi e preparare il fuoco</b><br/>&nbsp;"));
+		
+		decoCheck = new CheckBox("Deco artist", true);
+		decoCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_DECO));
+		cp.add(decoCheck);
+		cp.add(new HTML("<i>to decorate and to make the location wonderfully unique</i> / "+
+				"<b>per decorare e rendere il rifugio un luogo unico e originale</b><br/>&nbsp;"));
 		
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, true, true);
@@ -79,9 +93,11 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 	private void storeInBean() {
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		String volunteer = "";
+		if (lntCheck.getValue()) volunteer += AppConstants.VOLUNTEER_LNT+" ";
 		if (kitchenCheck.getValue()) volunteer += AppConstants.VOLUNTEER_KITCHEN+" ";
 		if (greeterCheck.getValue()) volunteer += AppConstants.VOLUNTEER_GREETER+" ";
 		if (woodCheck.getValue()) volunteer += AppConstants.VOLUNTEER_WOOD+" ";
+		if (decoCheck.getValue()) volunteer += AppConstants.VOLUNTEER_DECO+" ";
 		participant.setVolunteering(volunteer);
 	}
 	

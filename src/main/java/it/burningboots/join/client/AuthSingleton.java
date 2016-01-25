@@ -41,8 +41,8 @@ public class AuthSingleton {
 	}
 	
 	public void queueForAuthentication(IAuthenticatedWidget widget) {
-		if (verifiedAccessKey.equals("")) verifiedAccessKey = null;
-		if (verifiedAccessKey != null) {
+		if (verifiedAccessKey == null) verifiedAccessKey = "";
+		if (!verifiedAccessKey.equals("")) {
 			widget.onSuccessfulAuthentication();
 		} else {
 			widgetList.add(widget);
@@ -87,6 +87,8 @@ public class AuthSingleton {
 					verifiedAccessKey = userAccessKey;
 					saveCookie(userAccessKey);
 					unlockWidgets(widgetList);
+				} else {
+					new AuthPopUp("", widgetList);
 				}
 			} else {
 				new AuthPopUp("", widgetList);

@@ -74,7 +74,7 @@ public class JoinFoodFrame extends FramePanel implements IWizardPanel {
 		//Forward
 		UriBuilder param = new UriBuilder();
 		param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-		param.triggerUri(UriDispatcher.STEP_JOIN_INCLUSION);
+		param.triggerUri(UriDispatcher.STEP_JOIN_VOLUNTEER);
 	}
 	
 	@Override
@@ -84,7 +84,7 @@ public class JoinFoodFrame extends FramePanel implements IWizardPanel {
 		//Forward
 		UriBuilder param = new UriBuilder();
 		param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-		param.triggerUri(UriDispatcher.STEP_JOIN_VOLUNTEER);
+		param.triggerUri(UriDispatcher.STEP_JOIN_LEGAL);
 	}
 
 	

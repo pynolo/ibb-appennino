@@ -40,17 +40,17 @@ public class FramePanel extends FlowPanel {
 	//}
 	
 	public void forwardIfJoinNotPossible() {
-		PropertyBean properties = WizardSingleton.get().getPropertyBean();
-		Integer participantCount = WizardSingleton.get().getParticipantCount();
+		PropertyBean p = WizardSingleton.get().getPropertyBean();
 		Boolean isRegisterWizard = WizardSingleton.get().getWizardType()
 				.equals(AppConstants.WIZARD_REGISTER);
 		//Check if joining wizard can be active
 		if (isRegisterWizard) {
-			if ( properties.getClosed() ) {
+			if ( p.getClosed() ) {
 				UriDispatcher.loadContent(UriDispatcher.STEP_ERR_CLOSED);
 			}
-			if ( (participantCount >= properties.getBedAvailableUntil()) &&
-					(participantCount >= properties.getTentAvailableUntil()) ) {
+			if ( ((p.getBedCount() >= p.getBedAvailableUntil()) && (p.getTentCount() >= p.getTentAvailableUntil()))
+					||
+					((p.getBedCount() >= p.getBedMax()) && (p.getTentCount() >= p.getTentMax())) ) {
 				UriDispatcher.loadContent(UriDispatcher.STEP_ERR_CLOSED);
 			}
 		}

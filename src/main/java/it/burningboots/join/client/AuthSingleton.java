@@ -41,6 +41,7 @@ public class AuthSingleton {
 	}
 	
 	public void queueForAuthentication(IAuthenticatedWidget widget) {
+		if (verifiedAccessKey.equals("")) verifiedAccessKey = null;
 		if (verifiedAccessKey != null) {
 			widget.onSuccessfulAuthentication();
 		} else {
@@ -76,15 +77,15 @@ public class AuthSingleton {
 	// METODI ASINCRONI
 
 
-	private void authenticateOrPopUp(String accessKey,
+	private void authenticateOrPopUp(String userAccessKey,
 			List<IAuthenticatedWidget> widgetList) {
 		try {
-			if (accessKey != null) {
-				String ac = WizardSingleton.get().getAccessKey();
+			if (userAccessKey != null) {
+				String dbAccessKey = WizardSingleton.get().getPropertyBean().getAccessKey();
 				verifiedAccessKey = null;
-				if (accessKey.equals(ac)) {
-					verifiedAccessKey = accessKey;
-					saveCookie(ac);
+				if (userAccessKey.equals(dbAccessKey)) {
+					verifiedAccessKey = userAccessKey;
+					saveCookie(userAccessKey);
 					unlockWidgets(widgetList);
 				}
 			} else {

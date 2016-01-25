@@ -11,14 +11,12 @@ public interface DataServiceAsync
      * @see it.burningboots.join.client.service.DataService
      */
     void getPropertyBean( AsyncCallback<it.burningboots.join.shared.PropertyBean> callback );
-    void getAccessKey(AsyncCallback<String> callback);
     void findConfigByKey( java.lang.String key, AsyncCallback<it.burningboots.join.shared.entity.Config> callback );
     void saveOrUpdateConfig( it.burningboots.join.shared.entity.Config config, AsyncCallback<java.lang.Integer> callback );
 
     void findParticipantById( java.lang.Integer id, AsyncCallback<it.burningboots.join.shared.entity.Participant> callback );
     void findParticipantByItemNumber( java.lang.String itemNumber, AsyncCallback<it.burningboots.join.shared.entity.Participant> callback );
     void findParticipants( boolean confirmed, AsyncCallback<java.util.List<it.burningboots.join.shared.entity.Participant>> callback );
-    void countConfirmedParticipants(AsyncCallback<Integer> callback );
     void createTransientParticipant( AsyncCallback<it.burningboots.join.shared.entity.Participant> callback );
     void saveOrUpdateParticipant( it.burningboots.join.shared.entity.Participant prt, AsyncCallback<java.lang.Integer> callback );
 

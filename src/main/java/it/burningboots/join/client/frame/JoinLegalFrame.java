@@ -159,7 +159,7 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 			//Forward
 			UriBuilder param = new UriBuilder();
 			param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-			param.triggerUri(UriDispatcher.STEP_JOIN_VOLUNTEER);
+			param.triggerUri(UriDispatcher.STEP_JOIN_FOOD);
 		}
 	}
 	

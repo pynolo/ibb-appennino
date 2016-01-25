@@ -6,13 +6,19 @@ public class PropertyBean implements Serializable {
 	private static final long serialVersionUID = 5717993261825827825L;
 	
 	private String version = null;
+	private String accessKey = null;
 	private boolean closed = true;
 	private int bedAvailableFrom = -1;
 	private int bedAvailableUntil = -1;
+	private int bedMax = -1;
 	private double bedPrice = -1D;
 	private int tentAvailableFrom = -1;
 	private int tentAvailableUntil = -1;
+	private int tentMax = -1;
 	private double tentPrice = -1D;
+	
+	private int bedCount = -1;
+	private int tentCount = -1;
 	
 	public PropertyBean() {
 	}
@@ -53,6 +59,18 @@ public class PropertyBean implements Serializable {
 	public void setTentAvailableUntil(String tentAvailableUntil) {
 		this.tentAvailableUntil = Integer.parseInt(tentAvailableUntil);
 	}
+	public int getBedMax() {
+		return bedMax;
+	}
+	public void setBedMax(String bedMax) {
+		this.bedMax = Integer.parseInt(bedMax);
+	}
+	public int getTentMax() {
+		return tentMax;
+	}
+	public void setTentMax(String tentMax) {
+		this.tentMax = Integer.parseInt(tentMax);
+	}
 	public double getBedPrice() {
 		return bedPrice;
 	}
@@ -65,5 +83,29 @@ public class PropertyBean implements Serializable {
 	public void setTentPrice(String tentPrice) {
 		this.tentPrice =  Double.parseDouble(tentPrice);
 	}
-	
+
+	public int getBedCount() {
+		return bedCount;
+	}
+
+	public void setBedCount(int bedCount) {
+		this.bedCount = bedCount;
+	}
+
+	public int getTentCount() {
+		return tentCount;
+	}
+
+	public void setTentCount(int tentCount) {
+		this.tentCount = tentCount;
+	}
+
+	public String getAccessKey() {
+		return accessKey;
+	}
+
+	public void setAccessKey(String accessKey) {
+		this.accessKey = accessKey;
+	}
+
 }

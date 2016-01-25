@@ -92,7 +92,7 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 		//Forward
 		UriBuilder param = new UriBuilder();
 		param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-		param.triggerUri(UriDispatcher.STEP_JOIN_FOOD);
+		param.triggerUri(UriDispatcher.STEP_JOIN_INCLUSION);
 	}
 	
 	@Override
@@ -102,7 +102,7 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 		//Forward
 		UriBuilder param = new UriBuilder();
 		param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-		param.triggerUri(UriDispatcher.STEP_JOIN_LEGAL);
+		param.triggerUri(UriDispatcher.STEP_JOIN_FOOD);
 	}
 
 	

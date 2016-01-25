@@ -37,18 +37,44 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	private static final Logger LOG = LoggerFactory.getLogger(IpnServlet.class);
 	
 	@Override
-	public PropertyBean getPropertyBean() {
+	public PropertyBean getPropertyBean() throws SystemException {
 		PropertyBean bean = new PropertyBean();
-		bean.setVersion(PropertyReader.readProperty(PropertyReader.PROPERTY_VERSION));
-		String closedString = PropertyReader.readProperty(PropertyReader.PROPERTY_CLOSED);
-		if (closedString.equals("false")) bean.setClosed(false);
-		if (closedString.equals("true")) bean.setClosed(true);
-		bean.setBedAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_FROM));
-		bean.setBedAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_UNTIL));
-		bean.setBedPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_PRICE));
-		bean.setTentAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_FROM));
-		bean.setTentAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_UNTIL));
-		bean.setTentPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_PRICE));
+		try {
+			//From app file
+			bean.setVersion(PropertyReader.readProperty(PropertyReader.PROPERTY_VERSION));
+			String closedString = PropertyReader.readProperty(PropertyReader.PROPERTY_CLOSED);
+			if (closedString.equals("false")) bean.setClosed(false);
+			if (closedString.equals("true")) bean.setClosed(true);
+			bean.setBedAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_FROM));
+			bean.setBedAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_UNTIL));
+			bean.setBedMax(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_MAX));
+			bean.setBedPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_PRICE));
+			bean.setTentAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_FROM));
+			bean.setTentAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_UNTIL));
+			bean.setTentMax(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_MAX));
+			bean.setTentPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_PRICE));
+			//From config file
+			bean.setAccessKey(EnvSingleton.get().getAccessKey());
+		} catch (IOException e) { // catch exception in case properties file does not exist
+			LOG.error(e.getMessage(), e);
+			throw new SystemException(e.getMessage(), e);
+		}
+		//From DB
+		Session ses = SessionFactory.getSession();
+		Transaction trn = ses.beginTransaction();
+		try {
+			int bedCount = ParticipantDao.countConfirmed(ses, AppConstants.ACCOMMODATION_BED);
+			bean.setBedCount(bedCount);
+			int tentCount = ParticipantDao.countConfirmed(ses, AppConstants.ACCOMMODATION_TENT);
+			bean.setTentCount(tentCount);
+			trn.commit();
+		} catch (OrmException e) {
+			trn.rollback();
+			LOG.error(e.getMessage(), e);
+			throw new SystemException(e.getMessage(), e);
+		} finally {
+			ses.close();
+		}
 		return bean;
 	}
 	
@@ -145,35 +171,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			ses.close();
 		}
 		return pList;
-	}
-
-	@Override
-	public Integer countConfirmedParticipants() throws SystemException {
-		Integer result = null;
-		Session ses = SessionFactory.getSession();
-		Transaction trn = ses.beginTransaction();
-		try {
-			result = ParticipantDao.countConfirmed(ses);
-			trn.commit();
-		} catch (OrmException e) {
-			trn.rollback();
-			LOG.error(e.getMessage(), e);
-			throw new SystemException(e.getMessage(), e);
-		} finally {
-			ses.close();
-		}
-		return result;
-	}
-	
-	@Override
-	public String getAccessKey() throws SystemException {
-		String ac;
-		try {
-			ac = EnvSingleton.get().getAccessKey();
-		} catch (IOException e) {
-			throw new SystemException(e.getMessage(), e);
-		}
-		return ac;
 	}
 	
 	@Override

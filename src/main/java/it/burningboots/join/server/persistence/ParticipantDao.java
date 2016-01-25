@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.type.IntegerType;
 
 public class ParticipantDao {
 	
@@ -49,14 +50,16 @@ public class ParticipantDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static Integer countConfirmed(Session ses)
+	public static Integer countConfirmed(Session ses, int accommodationType)
 			throws OrmException {
 		Long result = null;
 		try {
 			String qs = "select count(p.id) from Participant p "+
 				"where p.paymentDt is not null and "+
-				"p.paymentAmount is not null";
+				"p.paymentAmount is not null and "+
+				"p.accommodationType = :i1";
 			Query q = ses.createQuery(qs);
+			q.setParameter("i1", accommodationType, IntegerType.INSTANCE);
 			List<Object> list = q.list();
 			if (list != null) {
 				if (list.size() > 0) {

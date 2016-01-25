@@ -4,10 +4,10 @@
 <web-app>
 
 	<!-- Filters -->
-	<filter>
+	<!-- <filter>
 		<filter-name>gwtCacheControlFilter</filter-name>
 		<filter-class>it.burningboots.join.server.servlet.GWTCacheControlFilter</filter-class>
-	</filter>
+	</filter>-->
 	
 	<!-- Servlets -->
 	<servlet>

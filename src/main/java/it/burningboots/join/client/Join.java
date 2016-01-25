@@ -43,7 +43,7 @@ public class Join implements EntryPoint {
 				//LAUNCH APP:
 				//GWT.setUncaughtExceptionHandler(new BrowserException());
 				UiSingleton.get().drawUi();
-				UiSingleton.get().addInfo("IBB-join version "+bean.getVersion());
+				//UiSingleton.get().addInfo("IBB-join version "+bean.getVersion());
 			}
 		};
 		dataService.getPropertyBean(callback);

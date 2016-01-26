@@ -13,6 +13,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -46,8 +47,8 @@ public class ParticipantFrame extends FramePanel implements IAuthenticatedWidget
 		setTitle("Participants");
 		panel = new VerticalPanel();
 		this.add(panel);
-		// Periodico
-		FlowPanel topPanel = new FlowPanel();
+		// Select
+		HorizontalPanel topPanel = new HorizontalPanel();
 		topPanel.add(new HTML("Mostra:&nbsp;"));
 		final ListBox confirmList = new ListBox();
 		confirmList.addItem("Tutti","0");

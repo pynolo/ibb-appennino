@@ -52,69 +52,60 @@ public class ParticipantTable extends PagingTable<Participant> {
 	@Override
 	protected void addTableRow(int rowNum, Participant rowObj) {
 		final Participant rowFinal = rowObj;
-		//CONFIRM
-		if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
-			if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED))
-					getInnerTable().setHTML(rowNum, 0, "<i class='fa fa-home'></i>");
-			if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT))
-					getInnerTable().setHTML(rowNum, 0, "<i class='fa fa-tree'></i>");
-		}
-		//COGNOME
-		String cognome = "";
-		if (rowFinal.getLastName() != null) cognome = rowFinal.getLastName();
-		getInnerTable().setHTML(rowNum, 1, "<b>"+cognome+"</b>");
-		//NOME
-		String nome = "";
-		if (rowFinal.getFirstName() != null) nome = rowFinal.getFirstName();
-		getInnerTable().setHTML(rowNum, 2, "<b>"+nome+"</b>");
 		//ACCOMMODATION TYPE
 		String acType = "";
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
 			acType="Hut";
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				bedCount++;
-				acType += " ("+bedCount+"&deg;)";
+				acType = "<i class='fa fa-home'></i> <b>"+acType+" ("+bedCount+"&deg;)</b>";
 			}
 		}
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
 			acType="Tent";
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				tentCount++;
-				acType += " ("+tentCount+"&deg;)";
+				acType = "<i class='fa fa-tree'></i> <b>"+acType+" ("+tentCount+"&deg;)</b>";
 			}
 		}
-		getInnerTable().setHTML(rowNum, 3, acType);
+		getInnerTable().setHTML(rowNum, 0, acType);
 		//EMAIL
-		getInnerTable().setHTML(rowNum, 4, "<b>"+rowFinal.getEmail()+"</b> ");
-		//TRANSFER
-		getInnerTable().setHTML(rowNum, 5, rowFinal.getItemNumber());
+		getInnerTable().setHTML(rowNum, 1, "<b>"+rowFinal.getEmail()+"</b> ");
+		//COGNOME
+		String cognome = "";
+		if (rowFinal.getLastName() != null) cognome = rowFinal.getLastName();
+		getInnerTable().setHTML(rowNum, 2, cognome);
+		//NOME
+		String nome = "";
+		if (rowFinal.getFirstName() != null) nome = rowFinal.getFirstName();
+		getInnerTable().setHTML(rowNum, 3, nome);
 		//NASCITA
 		String nascita = "";
 		nascita += ClientConstants.FORMAT_DAY.format(rowFinal.getBirthDt())+" ";
 		if (rowFinal.getBirthCity() != null) nascita += rowFinal.getBirthCity()+" ";
-		getInnerTable().setHTML(rowNum, 6, nascita);
-		//CIBO
+		getInnerTable().setHTML(rowNum, 5, nascita);
+		//FOOD RESTRICTIONS
 		String food = "";
 		if (rowFinal.getFoodRestrictions() != null) food = rowFinal.getFoodRestrictions();
-		getInnerTable().setHTML(rowNum, 7, food);
+		getInnerTable().setHTML(rowNum, 6, food);
 		//VOLONTARIATO
 		String vol = "";
 		if (rowFinal.getVolunteering() != null) vol = rowFinal.getVolunteering();
-		getInnerTable().setHTML(rowNum, 8, vol);
+		getInnerTable().setHTML(rowNum, 7, vol);
 		//ESPERIENZA
 		String exp = "";
 		if (rowFinal.getAlreadyIbb()) exp += "ibb ";
 		if (rowFinal.getAlreadyBurner()) exp += "other ";
-		getInnerTable().setHTML(rowNum, 9, exp);
+		getInnerTable().setHTML(rowNum, 8, exp);
 		//PAGAMENTO
 		String pag = "";
 		if (rowFinal.getPaymentAmount() != null)
 				pag += "<b>&euro;"+ClientConstants.FORMAT_CURRENCY.format(rowFinal.getPaymentAmount())+"</b> ";
 		if (rowFinal.getPaymentDt() != null)
 				pag += ClientConstants.FORMAT_TIMESTAMP.format(rowFinal.getPaymentDt())+" ";
-		getInnerTable().setHTML(rowNum, 10, pag);
-		//UPDATES
-		String repl = "";
+		getInnerTable().setHTML(rowNum, 9, pag);
+		//TRANSFER
+		String repl = rowFinal.getItemNumber()+" ";
 		if (rowFinal.getUpdateDt().after(rowFinal.getCreationDt())) {
 			if (rowFinal.getLastNameOriginal() != null)
 					repl += rowFinal.getLastNameOriginal()+" ";
@@ -122,24 +113,22 @@ public class ParticipantTable extends PagingTable<Participant> {
 					repl += rowFinal.getFirstNameOriginal()+" ";
 			repl += ClientConstants.FORMAT_DAY.format(rowFinal.getUpdateDt())+" ";
 		}
-		getInnerTable().setHTML(rowNum, 11, repl);
+		getInnerTable().setHTML(rowNum, 10, repl);
 	}
 	
 	@Override
 	protected void addHeader() {
 		// Set the data in the current row
-		getInnerTable().setHTML(0, 0, "");
-		getInnerTable().setHTML(0, 1, "Last name");
-		getInnerTable().setHTML(0, 2, "First name");
-		getInnerTable().setHTML(0, 3, "Type");
-		getInnerTable().setHTML(0, 4, "Email");
-		getInnerTable().setHTML(0, 5, "Transfer");
-		getInnerTable().setHTML(0, 6, "Birth");
-		getInnerTable().setHTML(0, 7, "Experience");
-		getInnerTable().setHTML(0, 8, "Food restr.");
-		getInnerTable().setHTML(0, 9, "Volunteer");
-		getInnerTable().setHTML(0, 10, "Payment");
-		getInnerTable().setHTML(0, 11, "Updates");
+		getInnerTable().setHTML(0, 0, "Type");
+		getInnerTable().setHTML(0, 1, "Email");
+		getInnerTable().setHTML(0, 2, "Last name");
+		getInnerTable().setHTML(0, 3, "First name");
+		getInnerTable().setHTML(0, 5, "Birth");
+		getInnerTable().setHTML(0, 6, "Food restr.");
+		getInnerTable().setHTML(0, 7, "Volunteer");
+		getInnerTable().setHTML(0, 8, "Experience");
+		getInnerTable().setHTML(0, 9, "Payment");
+		getInnerTable().setHTML(0, 10, "Transfer");
 	}
 	
 	@Override

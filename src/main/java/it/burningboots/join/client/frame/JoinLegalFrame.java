@@ -56,7 +56,8 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 	}
 	
 	private void draw() {
-		forwardIfJoinNotPossible();
+		if (WizardSingleton.get().getWizardType().equals(AppConstants.WIZARD_REGISTER)) 
+				forwardIfJoinNotPossible();
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE
@@ -199,7 +200,13 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 			//Forward
 			UriBuilder param = new UriBuilder();
 			param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-			param.triggerUri(UriDispatcher.STEP_JOIN_CHECKOUT);
+			if (WizardSingleton.get().getWizardType() == AppConstants.WIZARD_REGISTER) {
+				// REGISTER
+				param.triggerUri(UriDispatcher.STEP_JOIN_CHECKOUT);
+			} else {
+				// TRANSFER
+				param.triggerUri(UriDispatcher.STEP_REPLACE_SAVE);
+			}
 		}
 	}
 	

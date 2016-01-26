@@ -31,6 +31,16 @@ public class StringValidator {
 		}
 	}
 	
+	public static void validateItemNumber(String itemNumber) throws ValidationException {
+		if (itemNumber == null) {
+			throw new ValidationException("Please enter a valid replacement code / Inserisci il codice di sostituzione corretto per favore");
+		} else {
+			if (itemNumber.length() != AppConstants.ITEM_NUMBER_LENGHT) {
+				throw new ValidationException("Please enter a valid replacement code / Inserisci il codice di sostituzione corretto per favore");
+			}
+		}
+	}
+	
 //	private static final String emailRegExp = "^([\\w_!#\\$%&'\\*\\+\\-/=\\?\\^`\\{\\|\\}~\\.])+@([\\w\\-\\.]+\\.)+[\\w]{2,8}$";
 //	//private static final String emailRegExp = "^([a-zA-Z0-9_\\-\\.])+@([\\w\\-\\.]+\\.)+[A-Z]{2,6}$";
 //	private static final Pattern emailPattern = Pattern.compile(emailRegExp, Pattern.CASE_INSENSITIVE);

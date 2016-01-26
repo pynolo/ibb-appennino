@@ -39,7 +39,8 @@ public class JoinFoodFrame extends FramePanel implements IWizardPanel {
 	}
 	
 	private void draw() {
-		forwardIfJoinNotPossible();
+		if (WizardSingleton.get().getWizardType().equals(AppConstants.WIZARD_REGISTER))
+				forwardIfJoinNotPossible();
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE

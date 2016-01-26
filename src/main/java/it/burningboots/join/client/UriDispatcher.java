@@ -10,6 +10,8 @@ import it.burningboots.join.client.frame.JoinLegalFrame;
 import it.burningboots.join.client.frame.JoinThankYouFrame;
 import it.burningboots.join.client.frame.JoinVolunteerFrame;
 import it.burningboots.join.client.frame.ParticipantFrame;
+import it.burningboots.join.client.frame.ReplaceBaseFrame;
+import it.burningboots.join.client.frame.ReplaceSaveFrame;
 import it.burningboots.join.shared.AppConstants;
 
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -31,7 +33,8 @@ public class UriDispatcher {
 	public static final String ERROR_PAYMENT = "errPayment";
 	public static final String STEP_THANK_YOU = "thankyou";
 	public static final String PARTICIPANTS = "participants";
-	public static final String STEP_TRANSFER = "transfer";
+	public static final String STEP_REPLACE_BASE = "replace";
+	public static final String STEP_REPLACE_SAVE = "save";
 	
 	//Reloads the current page from the server reload(true) and not from cache reload(false)
 	public static native void hardReload() /*-{
@@ -78,9 +81,12 @@ public class UriDispatcher {
 			if (PARTICIPANTS.equals(token)) {
 				contentPanel.add(new ParticipantFrame(params));
 			}
-			if (STEP_TRANSFER.equals(token)) {
+			if (STEP_REPLACE_BASE.equals(token)) {
 				WizardSingleton.get().setWizardType(AppConstants.WIZARD_TRANSFER);
-				//contentPanel.add(new AbbonamentoFrame(params));
+				contentPanel.add(new ReplaceBaseFrame(params));
+			}
+			if (STEP_REPLACE_SAVE.equals(token)) {
+				contentPanel.add(new ReplaceSaveFrame(params));
 			}
 		}
 	}

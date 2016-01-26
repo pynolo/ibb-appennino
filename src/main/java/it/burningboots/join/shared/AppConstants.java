@@ -11,10 +11,10 @@ public class AppConstants {
 
 	// IPN
 	// GUIDE https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNSetup/
-	public static final String BASE_URL= "http://burningboots.it/join";
-	public static final String IPN_URL= "http://burningboots.it/join/ipn";//TO BE SET ON PAYPAL TOO https://www.paypal.com/cgi-bin/customerprofileweb?cmd=_profile-ipn-notify
+	public static final String BASE_URL= "https://burningboots.it/join";
+	public static final String IPN_URL= "https://burningboots.it/join/ipn";//TO BE SET ON PAYPAL TOO https://www.paypal.com/cgi-bin/customerprofileweb?cmd=_profile-ipn-notify
 	public static final String THANKYOU_URL= BASE_URL+"/#"+UriDispatcher.STEP_THANK_YOU;
-	public static final String EVENT_URL= "http://burningboots.it";
+	public static final String EVENT_URL= "https://burningboots.it";
 	public static final String EVENT_EMAIL= "registration@burningboots.it";
 	//public static final String PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr"; //PRODUCTION
 	public static final String PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr";//SANDBOX

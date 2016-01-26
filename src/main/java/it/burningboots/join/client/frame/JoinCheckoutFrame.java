@@ -39,7 +39,8 @@ public class JoinCheckoutFrame extends FramePanel {
 	}
 	
 	private void draw() {
-		forwardIfJoinNotPossible();
+		if (WizardSingleton.get().getWizardType().equals(AppConstants.WIZARD_REGISTER)) 
+				forwardIfJoinNotPossible();
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE

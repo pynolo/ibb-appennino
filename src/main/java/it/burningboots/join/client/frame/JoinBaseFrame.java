@@ -47,7 +47,8 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 	}
 	
 	private void draw() {
-		forwardIfJoinNotPossible();
+		if (WizardSingleton.get().getWizardType().equals(AppConstants.WIZARD_REGISTER))
+				forwardIfJoinNotPossible();
 		PropertyBean pb = WizardSingleton.get().getPropertyBean();
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		

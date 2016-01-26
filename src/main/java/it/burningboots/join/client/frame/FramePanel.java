@@ -46,12 +46,12 @@ public class FramePanel extends FlowPanel {
 		//Check if joining wizard can be active
 		if (isRegisterWizard) {
 			if ( p.getClosed() ) {
-				UriDispatcher.loadContent(UriDispatcher.STEP_ERR_CLOSED);
+				UriDispatcher.loadContent(UriDispatcher.ERROR_CLOSED);
 			}
 			if ( ((p.getBedCount() >= p.getBedAvailableUntil()) && (p.getTentCount() >= p.getTentAvailableUntil()))
 					||
 					((p.getBedCount() >= p.getBedMax()) && (p.getTentCount() >= p.getTentMax())) ) {
-				UriDispatcher.loadContent(UriDispatcher.STEP_ERR_CLOSED);
+				UriDispatcher.loadContent(UriDispatcher.ERROR_CLOSED);
 			}
 		}
 	}

@@ -3,6 +3,7 @@ package it.burningboots.join.client.frame;
 import it.burningboots.join.client.ClientConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
+import it.burningboots.join.client.UriDispatcher;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
@@ -38,9 +39,14 @@ public class JoinThankYouFrame extends FramePanel {
 	private void draw() {
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		String amountString = "##";
-		if (participant.getPaymentAmount() != null)
-				amountString = ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount());
-		
+		if (participant.getPaymentAmount() != null) {
+			amountString = ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount());
+		} else {
+			//Payment not registered
+			UriBuilder param = new UriBuilder();
+			param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
+			param.triggerUri(UriDispatcher.ERROR_PAYMENT);
+		}
 		//TITLE
 		setTitle("You're in! / Sei dei nostri!");
 		
@@ -71,7 +77,7 @@ public class JoinThankYouFrame extends FramePanel {
 
 		cp.add(new HTML("<p>&nbsp;</p>"));
 				
-		cp.add(new HTML("<h3><a href='https://burningboots.it'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));
+		cp.add(new HTML("<h3><a href='"+AppConstants.EVENT_URL+"'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));
 	}
 	
 		

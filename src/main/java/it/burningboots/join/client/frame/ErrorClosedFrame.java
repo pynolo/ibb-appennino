@@ -1,6 +1,7 @@
 package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.UriBuilder;
+import it.burningboots.join.shared.AppConstants;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -28,7 +29,7 @@ public class ErrorClosedFrame extends FramePanel {
 				"Se hai domande importanti al riguardo, scrivi a registrations</b>@<b>burningboots.it</b></p>"));
 		cp.add(new HTML("<p>&nbsp;</p>"));
 	
-		cp.add(new HTML("<h3><a href='https://burningboots.it'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));
+		cp.add(new HTML("<h3><a href='"+AppConstants.EVENT_URL+"'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));
 	}
 	
 }

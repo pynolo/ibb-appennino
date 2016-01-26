@@ -6,11 +6,11 @@ import it.burningboots.join.shared.AppConstants;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ErrorFullFrame extends FramePanel {
+public class ErrorPaymentFrame extends FramePanel {
 	
 	private VerticalPanel cp = null; // Content panel
 		
-	public ErrorFullFrame(UriBuilder params) {
+	public ErrorPaymentFrame(UriBuilder params) {
 		super();
 		cp = new VerticalPanel();
 		this.add(cp);
@@ -21,12 +21,12 @@ public class ErrorFullFrame extends FramePanel {
 		forwardIfJoinNotPossible();
 		
 		//TITLE
-		setTitle("Sorry, we're full / Siamo al completo");
+		setTitle("Error during transaction / Errore durante il pagamento");
 		
-		cp.add(new HTML("<p><i>It looks like there are no more places left!<br />"+
-				"But don't worry, there's a discussion group where you can find persons who can't attend, so you can replace them.</i><br />"+
-				"<b>Purtroppo siamo al completo!<br />"+
-				"Ma non preoccuparti, c'&egrave; un gruppo di discussione dove puoi trovare persone che puoi sostituire perch&eacute; non possono partecipare.</b></p>"));
+		cp.add(new HTML("<p><i>It looks like there has been an error during payment!<br />"+
+				"But don't worry, just write to info@burningboots.it so we can mark your registration as confirmed/paid!</i></p>"+
+				"<p><b>C'&egrave; stato un errore durante il pagamento!<br />"+
+				"Ma non preoccuparti, scrivi subito a info@burningboots.it cos&igrave; segneremo la tua iscrizione come confermata/pagata!</b></p>"));
 		cp.add(new HTML("<p>&nbsp;</p>"));
 	
 		cp.add(new HTML("<h3><a href='"+AppConstants.EVENT_URL+"'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));

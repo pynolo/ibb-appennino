@@ -2,6 +2,7 @@ package it.burningboots.join.client;
 
 import it.burningboots.join.client.frame.ErrorClosedFrame;
 import it.burningboots.join.client.frame.ErrorFullFrame;
+import it.burningboots.join.client.frame.ErrorPaymentFrame;
 import it.burningboots.join.client.frame.JoinBaseFrame;
 import it.burningboots.join.client.frame.JoinCheckoutFrame;
 import it.burningboots.join.client.frame.JoinFoodFrame;
@@ -25,8 +26,9 @@ public class UriDispatcher {
 	public static final String STEP_JOIN_VOLUNTEER = "volunteer";
 	public static final String STEP_JOIN_FOOD = "food";
 	public static final String STEP_JOIN_CHECKOUT = "checkout";
-	public static final String STEP_ERR_FULL = "full";
-	public static final String STEP_ERR_CLOSED = "closed";
+	public static final String ERROR_FULL = "errFull";
+	public static final String ERROR_CLOSED = "errClosed";
+	public static final String ERROR_PAYMENT = "errPayment";
 	public static final String STEP_THANK_YOU = "thankyou";
 	public static final String PARTICIPANTS = "participants";
 	public static final String STEP_TRANSFER = "transfer";
@@ -61,11 +63,14 @@ public class UriDispatcher {
 			if (STEP_JOIN_CHECKOUT.equals(token)) {
 				contentPanel.add(new JoinCheckoutFrame(params));
 			}
-			if (STEP_ERR_FULL.equals(token)) {
+			if (ERROR_FULL.equals(token)) {
 				contentPanel.add(new ErrorFullFrame(params));
 			}
-			if (STEP_ERR_CLOSED.equals(token)) {
+			if (ERROR_CLOSED.equals(token)) {
 				contentPanel.add(new ErrorClosedFrame(params));
+			}
+			if (ERROR_PAYMENT.equals(token)) {
+				contentPanel.add(new ErrorPaymentFrame(params));
 			}
 			if (STEP_THANK_YOU.equals(token)) {
 				contentPanel.add(new JoinThankYouFrame(params));

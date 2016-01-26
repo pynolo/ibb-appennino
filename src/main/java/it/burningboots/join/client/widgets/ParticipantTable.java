@@ -91,36 +91,36 @@ public class ParticipantTable extends PagingTable<Participant> {
 		//NASCITA
 		String nascita = "";
 		nascita += ClientConstants.FORMAT_DAY.format(rowFinal.getBirthDt())+" ";
-		if (rowFinal.getBirthCity() != null) nascita = rowFinal.getBirthCity()+" ";
+		if (rowFinal.getBirthCity() != null) nascita += rowFinal.getBirthCity()+" ";
 		getInnerTable().setHTML(rowNum, 6, nascita);
 		//CIBO
 		String food = "";
 		if (rowFinal.getFoodRestrictions() != null) food = rowFinal.getFoodRestrictions();
 		getInnerTable().setHTML(rowNum, 7, food);
-		//Esperienza
-		String exp = "";
-		if (rowFinal.getAlreadyIbb()) exp += "ibb ";
-		if (rowFinal.getAlreadyBurner()) exp += "other ";
-		getInnerTable().setHTML(rowNum, 8, exp);
 		//VOLONTARIATO
 		String vol = "";
 		if (rowFinal.getVolunteering() != null) vol = rowFinal.getVolunteering();
-		getInnerTable().setHTML(rowNum, 9, vol);
+		getInnerTable().setHTML(rowNum, 8, vol);
+		//ESPERIENZA
+		String exp = "";
+		if (rowFinal.getAlreadyIbb()) exp += "ibb ";
+		if (rowFinal.getAlreadyBurner()) exp += "other ";
+		getInnerTable().setHTML(rowNum, 9, exp);
 		//PAGAMENTO
 		String pag = "";
 		if (rowFinal.getPaymentAmount() != null)
-				pag += "&euro;"+ClientConstants.FORMAT_CURRENCY.format(rowFinal.getPaymentAmount())+" ";
+				pag += "<b>&euro;"+ClientConstants.FORMAT_CURRENCY.format(rowFinal.getPaymentAmount())+"</b> ";
 		if (rowFinal.getPaymentDt() != null)
 				pag += ClientConstants.FORMAT_TIMESTAMP.format(rowFinal.getPaymentDt())+" ";
 		getInnerTable().setHTML(rowNum, 10, pag);
 		//UPDATES
 		String repl = "";
 		if (rowFinal.getUpdateDt().after(rowFinal.getCreationDt())) {
-				if (rowFinal.getLastNameOriginal() != null)
+			if (rowFinal.getLastNameOriginal() != null)
 					repl += rowFinal.getLastNameOriginal()+" ";
-				if (rowFinal.getFirstNameOriginal() != null)
+			if (rowFinal.getFirstNameOriginal() != null)
 					repl += rowFinal.getFirstNameOriginal()+" ";
-				repl += ClientConstants.FORMAT_DAY.format(rowFinal.getUpdateDt())+" ";
+			repl += ClientConstants.FORMAT_DAY.format(rowFinal.getUpdateDt())+" ";
 		}
 		getInnerTable().setHTML(rowNum, 11, repl);
 	}
@@ -135,8 +135,8 @@ public class ParticipantTable extends PagingTable<Participant> {
 		getInnerTable().setHTML(0, 4, "Email");
 		getInnerTable().setHTML(0, 5, "Transfer");
 		getInnerTable().setHTML(0, 6, "Birth");
-		getInnerTable().setHTML(0, 7, "Food restr.");
-		getInnerTable().setHTML(0, 8, "Experience");
+		getInnerTable().setHTML(0, 7, "Experience");
+		getInnerTable().setHTML(0, 8, "Food restr.");
 		getInnerTable().setHTML(0, 9, "Volunteer");
 		getInnerTable().setHTML(0, 10, "Payment");
 		getInnerTable().setHTML(0, 11, "Updates");

@@ -102,8 +102,8 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		emailText = new TextBox();
 		emailText.setValue(participant.getEmail());
 		cp.add(emailText);
-		cp.add(new HTML("<p><i>(You will be signed up to the official announcement miling list)</i><br/>"
-				+ "<b>(Il tuo indirizzo sar&agrave; inserito nella mailing list degli annunci ufficiali)</b></p>"));
+		cp.add(new HTML("<p><i>(You will be receiving IBB 2016 official announcements)</i><br/>"
+				+ "<b>(Riceverai gli annunci ufficiali di IBB 2016)</b></p>"));
 		
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, false, true);

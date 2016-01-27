@@ -58,7 +58,7 @@ public class JoinThankYouFrame extends FramePanel {
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 1.5em; color: #e32077;'>"+
-				"transfer code:</p>"));
+				"Replacement code / Codice di sostituzione</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 4.5em; color: #e32077;'>"+
 				participant.getItemNumber().toUpperCase()+"</p>"));
@@ -66,14 +66,14 @@ public class JoinThankYouFrame extends FramePanel {
 				"take note ;)</p>"));
 		
 		cp.add(new HTML("<p><i>What's this code for?!<br />"+
-				"Tell it to someone else to let her/him take your place "+
-				"at IBB </i><b>replacing your registration</b><i> data. "+
-				"(TRANSFER link on the IBB website)</i></p>"+
+				"Tell it to someone to let her/him take your place "+
+				"at IBB </i><b>replacing your registration</b><i> data.<br/>"+
+				"(You can find people to replace you in the &quot;Replacement&quot; Forum)</i></p>"+
 					
 				"<p><b>A che serve il codice?!<br />"+
 				"Dallo a qualcun altro perch&eacute; possa prendere il tuo "+
-				"posto a IBB </b><i>sostituendo i suoi dati</i><b> ai tuoi. "+
-				"(Cerca TRANSFER sul sito IBB)</b></p>"));
+				"posto a IBB </b><i>sostituendo i suoi dati</i><b> ai tuoi.<br/>"+
+				"(Puoi trovare chi ti pu&ograve; sostituire nel Forum &quot;Sostituzione&quot;)</b></p>"));
 
 		cp.add(new HTML("<p>&nbsp;</p>"));
 				

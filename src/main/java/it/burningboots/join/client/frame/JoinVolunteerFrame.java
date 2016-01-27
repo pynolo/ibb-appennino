@@ -106,10 +106,17 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 	public void goBackward() {
 		storeInBean();
 		Participant participant = WizardSingleton.get().getParticipantBean();
-		//Forward
+		//Backward
 		UriBuilder param = new UriBuilder();
 		param.add(AppConstants.PARAMS_ITEM_NUMBER, participant.getItemNumber());
-		param.triggerUri(UriDispatcher.STEP_JOIN_BASE);
+		if (WizardSingleton.get().getWizardType() == AppConstants.WIZARD_REGISTER) {
+			// REGISTER
+			param.triggerUri(UriDispatcher.STEP_JOIN_BASE);
+		} else {
+			// TRANSFER
+			param.triggerUri(UriDispatcher.STEP_REPLACE_BASE);
+		}
+		
 	}
 	
 	@Override

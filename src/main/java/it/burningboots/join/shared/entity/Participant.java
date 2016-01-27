@@ -42,10 +42,8 @@ public class Participant implements Serializable {
 	private String firstName = "";
 	@Column(name = "last_name", length = 64)
 	private String lastName = "";
-	@Column(name = "first_name_original", length = 64)
-	private String firstNameOriginal = "";
-	@Column(name = "last_name_original", length = 64)
-	private String lastNameOriginal = "";
+	@Column(name = "email_original", length = 64)
+	private String emailOriginal = "";
 	@Column(name = "birth_city", length = 128)
 	private String birthCity = "";
     @Temporal(TemporalType.DATE)
@@ -110,20 +108,12 @@ public class Participant implements Serializable {
 		this.updateDt = updateDt;
 	}
 
-	public String getFirstNameOriginal() {
-		return firstNameOriginal;
+	public String getEmailOriginal() {
+		return emailOriginal;
 	}
 
-	public void setFirstNameOriginal(String firstNameOriginal) {
-		this.firstNameOriginal = firstNameOriginal;
-	}
-
-	public String getLastNameOriginal() {
-		return lastNameOriginal;
-	}
-
-	public void setLastNameOriginal(String lastNameOriginal) {
-		this.lastNameOriginal = lastNameOriginal;
+	public void setEmailOriginal(String emailOriginal) {
+		this.emailOriginal = emailOriginal;
 	}
 
 	public String getBirthCity() {

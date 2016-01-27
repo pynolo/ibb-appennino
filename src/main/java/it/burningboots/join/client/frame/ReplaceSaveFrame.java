@@ -47,10 +47,10 @@ public class ReplaceSaveFrame extends FramePanel {
 		
 		checkoutPanel = new VerticalPanel();
 		cp.add(checkoutPanel);
-		String amountString = " NOT PAID";
+		String amountString = null;
 		if (participant.getPaymentAmount() != null) {
 			if (participant.getPaymentAmount() > 0) {
-				amountString = ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount());
+				amountString = "&euro;"+ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount());
 			}
 		}
 		
@@ -64,16 +64,21 @@ public class ReplaceSaveFrame extends FramePanel {
 			typeIt = "tenda";
 			typeEn = "tent";
 		} 
+		if (amountString == null) {
+			typeIt += " NON CONFERMATO";
+			typeEn += " NOT CONFIRMED";
+			amountString = "--";
+		}
 		
-		checkoutPanel.add(new HTML("<p><i>Congratulations, your replacement is confirmed!<br />"+
-				"Details<br />"+
-				"donation amount: &euro;"+amountString+"<br />"+
-				"accommodation type: "+typeEn+"</i></p>"));
+		checkoutPanel.add(new HTML("<p><i>Congratulations, your replacement is confirmed!<br /><br />"+
+				"DETAILS<br />"+
+				"Donation amount: "+amountString+"<br />"+
+				"Accommodation type: "+typeEn+"</i></p>"));
 		
-		checkoutPanel.add(new HTML("<p><b>COngratulazioni, la tua sostituzione &egrave; confermata.<br />"+
-				"Dettagli<br />"+
-				"donazione: &euro;"+amountString+"<br />"+
-				"tipo di sistemazione: "+typeIt+"</b></p>"));
+		checkoutPanel.add(new HTML("<p><b>Congratulazioni, la tua sostituzione &egrave; confermata.<br /><br />"+
+				"DETAILS<br />"+
+				"Donazione: &euro;"+amountString+"<br />"+
+				"Tipo di sistemazione: "+typeIt+"</b></p>"));
 		
 		cp.add(new HTML("<h3><a href='"+AppConstants.EVENT_URL+"'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));
 

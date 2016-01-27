@@ -184,8 +184,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			Participant oldPrt = null;
 			if (prt.getId() != null) oldPrt = GenericDao.findById(ses, Participant.class, prt.getId());
 			if (oldPrt == null) {
-				prt.setFirstNameOriginal(prt.getFirstName());
-				prt.setLastNameOriginal(prt.getLastName());
+				prt.setEmailOriginal(prt.getEmail());
 				prt.setCreationDt(now);
 				id = (Integer) GenericDao.saveGeneric(ses, prt);
 			} else {

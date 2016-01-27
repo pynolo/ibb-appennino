@@ -107,11 +107,10 @@ public class ParticipantTable extends PagingTable<Participant> {
 		//TRANSFER
 		String repl = rowFinal.getItemNumber()+" ";
 		if (rowFinal.getUpdateDt().after(rowFinal.getCreationDt())) {
-			if (rowFinal.getLastNameOriginal() != null)
-					repl += rowFinal.getLastNameOriginal()+" ";
-			if (rowFinal.getFirstNameOriginal() != null)
-					repl += rowFinal.getFirstNameOriginal()+" ";
-			repl += ClientConstants.FORMAT_DAY.format(rowFinal.getUpdateDt())+" ";
+			repl += "( was ";
+			if (rowFinal.getEmailOriginal() != null)
+					repl += rowFinal.getEmailOriginal()+" ";
+			repl += ClientConstants.FORMAT_DAY.format(rowFinal.getUpdateDt())+") ";
 		}
 		getInnerTable().setHTML(rowNum, 10, repl);
 	}

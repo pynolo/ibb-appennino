@@ -34,7 +34,7 @@ public class UriDispatcher {
 	public static final String STEP_THANK_YOU = "thankyou";
 	public static final String PARTICIPANTS = "participants";
 	public static final String STEP_REPLACE_BASE = "replace";
-	public static final String STEP_REPLACE_SAVE = "save";
+	public static final String STEP_REPLACE_SAVE = "replaceSave";
 	
 	//Reloads the current page from the server reload(true) and not from cache reload(false)
 	public static native void hardReload() /*-{

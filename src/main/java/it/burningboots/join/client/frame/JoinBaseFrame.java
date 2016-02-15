@@ -1,6 +1,7 @@
 package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.ClientConstants;
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -24,6 +25,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
@@ -46,47 +48,44 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		loadAsyncData(itemNumber);
 	}
 	
-	private void draw() {
+	private void draw() {		
 		if (WizardSingleton.get().getWizardType().equals(AppConstants.WIZARD_REGISTER))
 				forwardIfJoinNotPossible();
 		PropertyBean pb = WizardSingleton.get().getPropertyBean();
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE
-		setTitle("Registration / Iscrizione");
+		setTitle(constants.joinBaseTitle());
 		
 		VerticalPanel accommodationPanel = new VerticalPanel();
 		cp.add(accommodationPanel);
 		
-		accommodationPanel.add(new HTML("<p><i>Welcome to IBB registration form! Choose your accommodation:</i><br />"+
-				"<b>IBB ti d&agrave; il benvenuto sul form di registrazione! Scegli dove vuoi dormire:</b></p>"));
+		accommodationPanel.add(new HTML("<p>"+constants.joinBaseWelcome()+"</p>"));
 		
 		HorizontalPanel bedPanel = new HorizontalPanel();
 		accommodationPanel.add(bedPanel);
-		bedRadio = new RadioButton("accommodation", "<b>Hut / Rifugio</b> - &euro;"+
+		bedRadio = new RadioButton("accommodation", "<b>"+constants.hut()+"</b> - &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(pb.getBedPrice())+"&nbsp;&nbsp;", true);
 		bedPanel.add(bedRadio);
 		int bedAvail = pb.getAvailableBed();
 		String bedDescr = "";
 		if (bedAvail <= 4) {
-			bedDescr += "<b>"+bedAvail+"</b> to sold-out!<br />";
+			bedDescr += "<b>"+bedAvail+"</b> "+constants.joinBaseSoldOut()+"<br />";
 		}
-		bedDescr += "<i>Food included, sleeping bag needed</i><br />"+
-				"<b>Cibo incluso, serve un sacco a pelo</b>";
+		bedDescr += constants.joinBaseBedFeatures();
 		bedPanel.add(new HTML(bedDescr));
 		
 		HorizontalPanel tentPanel = new HorizontalPanel();
 		accommodationPanel.add(tentPanel);
-		tentRadio = new RadioButton("accommodation", "<b>Tent / Tenda</b> - &euro;"+
+		tentRadio = new RadioButton("accommodation", "<b>"+constants.tent()+"</b> - &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(pb.getTentPrice())+"&nbsp;&nbsp;", true);
 		tentPanel.add(tentRadio);
 		int tentAvail = pb.getAvailableTent();
 		String tentDescr = "";
 		if (tentAvail <= 4) {
-			tentDescr += "<b>"+tentAvail+"</b> to sold-out!<br />";
+			tentDescr += "<b>"+tentAvail+"</b> "+constants.tent()+"<br />";
 		}
-		tentDescr += "<i>Food not included, radical self-reliance</i><br />"+
-				"<b>Cibo non incluso, autosostentamento radicale</b>";
+		tentDescr += constants.joinBaseTentFeatures();
 		tentPanel.add(new HTML(tentDescr));
 		
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
@@ -97,13 +96,11 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		
-		cp.add(new HTML("<p><i>Your email to receive information about the event</i><br/>"+
-				"<b>La tua email per ricevere dettagli e avvisi sull'evento</b></p>"));
+		cp.add(new HTML("<p>"+constants.joinBaseEmail()+"</p>"));
 		emailText = new TextBox();
 		emailText.setValue(participant.getEmail());
 		cp.add(emailText);
-		cp.add(new HTML("<p><i>(You will be receiving IBB 2016 official announcements)</i><br/>"
-				+ "<b>(Riceverai gli annunci ufficiali di IBB 2016)</b></p>"));
+		cp.add(new HTML("<p><i>"+constants.joinBaseEmailWarning()+"</i></p>"));
 		
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, false, true);
@@ -144,7 +141,6 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 			param.triggerUri(UriDispatcher.STEP_JOIN_VOLUNTEER);
 		}
 	}
-
 	
 	
 	//Async methods

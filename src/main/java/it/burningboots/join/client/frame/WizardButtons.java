@@ -1,5 +1,8 @@
 package it.burningboots.join.client.frame;
 
+import it.burningboots.join.client.LocaleConstants;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -9,6 +12,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 public class WizardButtons extends FlowPanel {
 
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
+	
 	private IWizardPanel parent;
 	boolean prevEnabled = false;
 	boolean nextEnabled = false;
@@ -30,7 +35,7 @@ public class WizardButtons extends FlowPanel {
 		leftPanel.setStyleName("col-xs-2");
 		prevButton = new Button();
 		prevButton.setHTML("&nbsp;<i class='glyphicon glyphicon-chevron-left'></i>"+
-				"<i class='glyphicon glyphicon-chevron-left'></i> Prev");
+				"<i class='glyphicon glyphicon-chevron-left'></i> "+constants.prev());
 		prevButton.setEnabled(prevEnabled);
 		prevButton.setStyleName("btn btn-primary");
 		prevButton.addClickHandler(new ClickHandler() {
@@ -50,7 +55,7 @@ public class WizardButtons extends FlowPanel {
 		SimplePanel rightPanel = new SimplePanel();
 		rightPanel.setStyleName("col-xs-2");
 		nextButton = new Button();
-		nextButton.setHTML("Next <i class='glyphicon glyphicon-chevron-right'></i>"+
+		nextButton.setHTML(constants.next()+" <i class='glyphicon glyphicon-chevron-right'></i>"+
 		"<i class='glyphicon glyphicon-chevron-right'></i>&nbsp;");
 		nextButton.setEnabled(nextEnabled);
 		nextButton.setStyleName("btn btn-primary");

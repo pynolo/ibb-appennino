@@ -8,8 +8,9 @@
 <module rename-to='join'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
-  <extend-property name="locale" values="en_US"/>
-  <set-property name="locale" value="en_US" />
+  <extend-property name="locale" values="it"/>
+  <extend-property name="locale" values="en"/>
+  <set-property-fallback name="locale" value="en"/>
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->

@@ -138,8 +138,15 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	@Override
-	public Participant findParticipantByItemNumber(String itemNumber) throws SystemException {
+	public Participant findParticipantByItemNumber(String itemNumber, int delayMillis) throws SystemException {
 		Participant p = null;
+		if (delayMillis > 0) {
+			try {
+			    Thread.sleep(delayMillis);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		}
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {

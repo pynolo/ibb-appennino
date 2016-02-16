@@ -5,6 +5,7 @@ import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
+import it.burningboots.join.client.WaitSingleton;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
@@ -151,22 +152,26 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 			@Override
 			public void onFailure(Throwable caught) {
 				UiSingleton.get().addError(caught);
+				WaitSingleton.get().stop();
 			}
 			@Override
 			public void onSuccess(Participant result) {
 				WizardSingleton.get().setParticipantBean(result);
 				draw();
+				WaitSingleton.get().stop();
 			}
 		};
 		
 		if (itemNumber.length() == 0) {
 			//No itemNumber passed => brand new participant
 			dataService.createTransientParticipant(callback);
+			WaitSingleton.get().start();
 		} else {
 			//itemNumberKey passed => check participant in WizardSingleton and load it from DB if empty
 			Participant prt = WizardSingleton.get().getParticipantBean();
 			if (prt == null) {
-				dataService.findParticipantByItemNumber(itemNumber, callback);
+				WaitSingleton.get().start();
+				dataService.findParticipantByItemNumber(itemNumber, 0, callback);
 			} else {
 				draw();
 			}

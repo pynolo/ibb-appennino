@@ -4,6 +4,7 @@ import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
+import it.burningboots.join.client.WaitSingleton;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
@@ -115,6 +116,7 @@ public class ReplaceBaseFrame extends FramePanel implements IWizardPanel {
 			@Override
 			public void onFailure(Throwable caught) {
 				UiSingleton.get().addError(caught);
+				WaitSingleton.get().stop();
 			}
 			@Override
 			public void onSuccess(Participant result) {
@@ -133,10 +135,11 @@ public class ReplaceBaseFrame extends FramePanel implements IWizardPanel {
 					param.add(AppConstants.PARAMS_ITEM_NUMBER, result.getItemNumber());
 					param.triggerUri(UriDispatcher.STEP_JOIN_VOLUNTEER);
 				}
+				WaitSingleton.get().stop();
 			}
 		};
-		
-		dataService.findParticipantByItemNumber(itemNumber, callback);
+		WaitSingleton.get().start();
+		dataService.findParticipantByItemNumber(itemNumber, 0, callback);
 	}
 	
 }

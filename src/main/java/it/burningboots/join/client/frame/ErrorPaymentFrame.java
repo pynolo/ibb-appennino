@@ -1,12 +1,16 @@
 package it.burningboots.join.client.frame;
 
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.shared.AppConstants;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ErrorPaymentFrame extends FramePanel {
+	
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private VerticalPanel cp = null; // Content panel
 		
@@ -21,12 +25,10 @@ public class ErrorPaymentFrame extends FramePanel {
 		forwardIfJoinNotPossible();
 		
 		//TITLE
-		setTitle("Error during transaction / Errore durante il pagamento");
+		setTitle(constants.errorPaymentTitle());
 		
-		cp.add(new HTML("<p><i>It looks like there has been an error during payment!<br />"+
-				"But don't worry, just write to info@burningboots.it so we can mark your registration as confirmed/paid!</i></p>"+
-				"<p><b>C'&egrave; stato un errore durante il pagamento!<br />"+
-				"Ma non preoccuparti, scrivi subito a info@burningboots.it cos&igrave; segneremo la tua iscrizione come confermata/pagata!</b></p>"));
+		cp.add(new HTML("<p>"+constants.errorPaymentInfo()+"<br />"+
+				constants.errorPaymentDontWorry()+"</p>"));
 		cp.add(new HTML("<p>&nbsp;</p>"));
 	
 		cp.add(new HTML("<h3><a href='"+AppConstants.EVENT_URL+"'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));

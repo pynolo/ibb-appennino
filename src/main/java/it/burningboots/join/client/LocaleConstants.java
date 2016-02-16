@@ -75,4 +75,14 @@ public interface LocaleConstants extends Constants {
 	String replaceSaveAccommodation();
 	String replaceSaveErrorCode();
 
+	String errorPaymentTitle();
+	String errorPaymentInfo();
+	String errorPaymentDontWorry();
+	String errorFullTitle();
+	String errorFullInfo();
+	String errorFullDontWorry();
+	String errorClosedTitle();
+	String errorClosedInfo();
+	String errorClosedAsk();
+
 }

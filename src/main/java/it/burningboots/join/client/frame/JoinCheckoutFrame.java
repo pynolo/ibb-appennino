@@ -59,7 +59,8 @@ public class JoinCheckoutFrame extends FramePanel {
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
 			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getTentPrice());
 			type = constants.tent();
-		} 
+		}
+		amountString = amountString.replaceAll(",", "\\.");//Non deve essere nel formato italiano
 		
 		checkoutPanel.add(new HTML("<p>"+constants.joinCheckoutOneMoreStep()+"<br />"+
 				constants.joinCheckoutPleaseConfirm()+"</p>"+
@@ -84,8 +85,7 @@ public class JoinCheckoutFrame extends FramePanel {
 						participant.getItemNumber()+"'>"+
 				"<input type='submit' name='submit' title='PayPal' class='btn btn-primary btn-lg' "+
 						"value=' "+constants.joinCheckoutDonateButton()+" ' />&nbsp;"+
-					"<i>Minimum &euro;"+amountString+"</i> / "+
-					"<b>Minimo &euro;"+amountString+"</b>"+
+						constants.joinCheckoutMinimum()+" &euro;"+amountString+
 					"<!--input type='image' src='https://www.paypal.com/en_AU/i/btn/btn_buynow_LG.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online.'-->"+
 				"</form>"));
 	}

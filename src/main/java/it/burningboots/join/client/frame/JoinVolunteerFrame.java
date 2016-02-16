@@ -1,5 +1,6 @@
 package it.burningboots.join.client.frame;
 
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -18,6 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
@@ -51,40 +53,34 @@ public class JoinVolunteerFrame extends FramePanel implements IWizardPanel {
 		if (volunteer == null) volunteer = "";
 		
 		//TITLE
-		setTitle("Participation / Partecipazione");
+		setTitle(constants.joinVolunteerTitle());
 		
-		cp.add(new HTML("<p><i>IBB exists only because everyone does their part :) Tell us how you'd like to help!</i><br/>"+
-				"<b>IBB esiste solo perch&eacute; tutti fanno qualcosa :) Scegli tutto ci&ograve; di cui potresti occuparti!</b></p>"));
+		cp.add(new HTML("<p>"+constants.joinVolunteerIntro()+"</p>"));
 		
-		lntCheck = new CheckBox("Leave No Trace Angel", true);
+		lntCheck = new CheckBox(constants.joinVolunteerLntName(), true);
 		lntCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_LNT));
 		cp.add(lntCheck);
-		cp.add(new HTML("<i>to check if we're actually leaving no trace</i> / "+
-				"<b>per controllare che realmente non stiamo lasciando traccia</b><br/>&nbsp;"));
+		cp.add(new HTML(constants.joinVolunteerLntDescr()+"<br/>&nbsp;"));
 		
-		kitchenCheck = new CheckBox("Kitchen Superstar", true);
+		kitchenCheck = new CheckBox(constants.joinVolunteerKitchenName(), true);
 		kitchenCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_KITCHEN));
 		cp.add(kitchenCheck);
-		cp.add(new HTML("<i>to give your personal touch in the kitchen</i> / "+
-				"<b>per dare il tuo tocco personale in cucina</b><br/>&nbsp;"));
+		cp.add(new HTML(constants.joinVolunteerKitchenDescr()+"<br/>&nbsp;"));
 		
-		greeterCheck = new CheckBox("Greeter", true);
+		greeterCheck = new CheckBox(constants.joinVolunteerGreeterName(), true);
 		greeterCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_GREETER));
 		cp.add(greeterCheck);
-		cp.add(new HTML("<i>to welcome people and help them at arrival</i> / "+
-				"<b>per dare il benvenuto e aiutare all'arrivo</b><br/>&nbsp;"));
+		cp.add(new HTML(constants.joinVolunteerGreeterDescr()+"<br/>&nbsp;"));
 		
-		woodCheck = new CheckBox("Wood Bandit", true);
+		woodCheck = new CheckBox(constants.joinVolunteerWoodName(), true);
 		woodCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_WOOD));
 		cp.add(woodCheck);
-		cp.add(new HTML("<i>to explore the woods and prepare the bonfire</i> / "+
-				"<b>per esplorare i boschi e preparare il fuoco</b><br/>&nbsp;"));
+		cp.add(new HTML(constants.joinVolunteerWoodDescr()+"<br/>&nbsp;"));
 		
-		decoCheck = new CheckBox("Deco artist", true);
+		decoCheck = new CheckBox(constants.joinVolunteerDecoName(), true);
 		decoCheck.setValue(volunteer.contains(AppConstants.VOLUNTEER_DECO));
 		cp.add(decoCheck);
-		cp.add(new HTML("<i>to decorate and to make the location wonderfully unique</i> / "+
-				"<b>per decorare e rendere il rifugio un luogo unico e originale</b><br/>&nbsp;"));
+		cp.add(new HTML(constants.joinVolunteerDecoDescr()+"<br/>&nbsp;"));
 		
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, true, true);

@@ -1,6 +1,7 @@
 package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.ClientConstants;
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -18,6 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class JoinThankYouFrame extends FramePanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
@@ -48,32 +50,24 @@ public class JoinThankYouFrame extends FramePanel {
 			param.triggerUri(UriDispatcher.ERROR_PAYMENT);
 		}
 		//TITLE
-		setTitle("You're in! / Sei dei nostri!");
+		setTitle(constants.joinThankYouTitle());
 		
-		cp.add(new HTML("<p><i>Donation: &euro;"+amountString+
-				". Your registration is confirmed!</i><br />"+
-				"<b>Donazione: &euro;"+amountString+
-				". La tua registrazione &egrave; confermata!</b></p>"));
+		cp.add(new HTML("<p>"+constants.joinThankYouDonation()+" &euro;"+amountString+
+				". "+constants.joinThankYouConfirmed()+"</p>"));
 		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 1.5em; color: #e32077;'>"+
-				"Replacement code / Codice di sostituzione</p>"));
+				constants.joinThankYouReplacement()+"</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 4.5em; color: #e32077;'>"+
 				participant.getItemNumber().toUpperCase()+"</p>"));
 		cp.add(new HTML("<p style='text-align: center; font-size: 1em;'>"+
-				"take note ;)</p>"));
+				constants.joinThankYouTakeNote()+"</p>"));
 		
-		cp.add(new HTML("<p><i>What's this code for?!<br />"+
-				"Tell it to someone to let her/him take your place "+
-				"at IBB </i><b>replacing your registration</b><i> data.<br/>"+
-				"(You can find people to replace you in the &quot;Replacement&quot; Forum)</i></p>"+
-					
-				"<p><b>A che serve il codice?!<br />"+
-				"Dallo a qualcun altro perch&eacute; possa prendere il tuo "+
-				"posto a IBB </b><i>sostituendo i suoi dati</i><b> ai tuoi.<br/>"+
-				"(Puoi trovare chi ti pu&ograve; sostituire nel Forum &quot;Sostituzione&quot;)</b></p>"));
+		cp.add(new HTML("<p>"+constants.joinThankYouWhatIs()+"<br />"+
+				"<b>"+constants.joinThankYouTellSomeone()+"</b><br/>"+
+				"("+constants.joinThankYouGoToForum()+")</p>"));
 
 		cp.add(new HTML("<p>&nbsp;</p>"));
 				

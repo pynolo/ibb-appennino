@@ -120,6 +120,7 @@ public class ReplaceBaseFrame extends FramePanel implements IWizardPanel {
 			}
 			@Override
 			public void onSuccess(Participant result) {
+				if (result == null) result = new Participant();
 				if (result.getEmail() == null) result.setEmail("");
 				if (result.getEmail().equals("")) {
 					// NOT FOUND

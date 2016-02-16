@@ -53,7 +53,7 @@ public class ReplaceSaveFrame extends FramePanel {
 		String amountString = null;
 		if (participant.getPaymentAmount() != null) {
 			if (participant.getPaymentAmount() > 0) {
-				amountString = "&euro;"+ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount());
+				amountString = ClientConstants.FORMAT_CURRENCY.format(participant.getPaymentAmount());
 			}
 		}
 		
@@ -65,7 +65,7 @@ public class ReplaceSaveFrame extends FramePanel {
 			type = constants.tent();
 		} 
 		if (amountString == null) {
-			type += constants.replaceSaveNotConfirmed();
+			type += " ["+constants.replaceSaveNotConfirmed()+"]";
 			amountString = "--";
 		}
 		

@@ -13,7 +13,9 @@
   <extend-property name="locale" values="it"/>
   <extend-property name="locale" values="en"/>
   <set-property-fallback name="locale" value="en"/>
-
+  <set-configuration-property name="locale.useragent" value="Y"/>
+  <set-configuration-property name="locale.searchorder" value="queryparam,cookie,useragent" />
+  
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
   <!-- any one of the following lines.                            -->

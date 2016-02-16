@@ -46,8 +46,18 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		if (itemNumber == null) itemNumber = "";
 		cp = new VerticalPanel();
 		this.add(cp);
+		//saveLocaleCookie();
 		loadAsyncData(itemNumber);
 	}
+	
+	//private void saveLocaleCookie() {
+	//	String locale = LocaleInfo.getCurrentLocale().getLocaleName();
+	//	Date date = new Date();
+	//	long currentTime = date.getTime();
+	//	date.setTime(currentTime + 2592000000L);// 30 giorni
+	//	Cookies.setCookie("locale", locale, date);
+	//	//Window.Location.reload();
+	//}
 	
 	private void draw() {		
 		if (WizardSingleton.get().getWizardType().equals(AppConstants.WIZARD_REGISTER))

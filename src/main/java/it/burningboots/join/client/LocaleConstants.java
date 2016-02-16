@@ -3,6 +3,7 @@ package it.burningboots.join.client;
 import com.google.gwt.i18n.client.Constants;
 
 public interface LocaleConstants extends Constants {
+	String locale();
 	String prev();
 	String next();
 	String hut();

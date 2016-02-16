@@ -81,7 +81,9 @@ public class JoinCheckoutFrame extends FramePanel {
 				"<input type='hidden' name='currency_code' value='EUR'>"+
 				"<input type='hidden' name='lc' value='US'>"+
 				"<input type='hidden' name='notify_url' value='"+AppConstants.IPN_URL+"'>"+
-				"<input type='hidden' name='return' value='"+AppConstants.THANKYOU_URL+
+				"<input type='hidden' name='return' value='"+
+						AppConstants.BASE_URL+"/"+/*?locale="+constants.locale()+*/
+						"#"+UriDispatcher.STEP_THANK_YOU+
 						UriDispatcher.SEPARATOR_TOKEN+AppConstants.PARAMS_ITEM_NUMBER+UriDispatcher.SEPARATOR_VALUES+
 						participant.getItemNumber()+"'>"+
 				"<input type='submit' name='submit' title='PayPal' class='btn btn-primary btn-lg' "+

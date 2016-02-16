@@ -1,5 +1,6 @@
 package it.burningboots.join.client.frame;
 
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -28,6 +29,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private DateTimeFormat DTF = DateTimeFormat.getFormat("dd/MM/yyyy");
 	
@@ -61,18 +63,16 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE
-		setTitle("Required information / Dati obbligatori");
+		setTitle(constants.joinLegalTitle());
 		
 		
-		cp.add(new HTML("<p><i>According to Italian law, we're required to ask you some extra info, please fill the form carefully!</i><br />"+
-				"<b>A norma di legge, dobbiamo raccogliere alcuni dati identificativi, per favore riempi il modulo con cura!</b></p>"));
+		cp.add(new HTML("<p>"+constants.joinLegalItalianLaw()+"</p>"));
 		
 		HorizontalPanel namePanel = new HorizontalPanel();
 		cp.add(namePanel);
 
 		FlowPanel firstNamePanel = new FlowPanel();
-		firstNamePanel.add(new HTML("<i>First name</i><br />"+
-				"<b>Nome</b>"));
+		firstNamePanel.add(new HTML(constants.joinLegalFirstName()));
 		firstNameText = new TextBox();
 		firstNameText.setMaxLength(64);
 		firstNameText.setValue(participant.getFirstName());
@@ -82,8 +82,7 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		namePanel.add(new InlineHTML("&nbsp;"));
 		
 		FlowPanel lastNamePanel = new FlowPanel();
-		lastNamePanel.add(new HTML("<i>Last name</i><br />"+
-				"<b>Cognome</b>"));
+		lastNamePanel.add(new HTML(constants.joinLegalLastName()));
 		lastNameText = new TextBox();
 		lastNameText.setMaxLength(64);
 		lastNameText.setValue(participant.getLastName());
@@ -96,8 +95,7 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		cp.add(birthPanel);
 		
 		FlowPanel birthCityPanel = new FlowPanel();
-		birthCityPanel.add(new HTML("<p><i>Birth city & country</i><br />"+
-				"<b>Luogo di nascita</b></p>"));
+		birthCityPanel.add(new HTML("<p>"+constants.joinLegalBirthCity()+"</p>"));
 		birthCityText = new TextBox();
 		birthCityText.setMaxLength(128);
 		birthCityText.setValue(participant.getBirthCity());
@@ -107,8 +105,7 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		birthPanel.add(new InlineHTML("&nbsp;"));
 		
 		FlowPanel birthDatePanel = new FlowPanel();
-		birthDatePanel.add(new HTML("<p><i>Birth date (dd/mm/yyyy)</i><br/>"+
-				"<b>Data di nascita (gg/mm/aaaa)</b></p>"));
+		birthDatePanel.add(new HTML("<p>"+constants.joinLegalBirthDate()+"</p>"));
 		birthDate = new DateBox();
 		DateBox.Format BOX_FORMAT_TIMESTAMP = new DateBox.DefaultFormat(DTF);
 		birthDate.setFormat(BOX_FORMAT_TIMESTAMP);
@@ -119,14 +116,13 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		
-		cp.add(new HTML("<p><i>Have you already been at IBB or similar events?</i><br />"+
-				"<b>Hai gi&agrave; partecipato a IBB o a eventi simili?</b></p>"));
+		cp.add(new HTML("<p>"+constants.joinLegalParticipation()+"</p>"));
 		VerticalPanel hp = new VerticalPanel();
 		cp.add(hp);
-		ibbCheck = new CheckBox("&nbsp; Italian Burning Boots 2015", true);
+		ibbCheck = new CheckBox("&nbsp; "+constants.joinLegalParticipationIbb(), true);
 		ibbCheck.setValue(participant.getAlreadyIbb());
 		hp.add(ibbCheck);
-		burnerCheck = new CheckBox("&nbsp; Nowhere, Burning Man or other burns", true);
+		burnerCheck = new CheckBox("&nbsp; "+constants.joinLegalParticipationBurns(), true);
 		burnerCheck.setValue(participant.getAlreadyBurner());
 		hp.add(burnerCheck);
 		
@@ -156,12 +152,12 @@ public class JoinLegalFrame extends FramePanel implements IWizardPanel {
 		String birthCity = birthCityText.getValue();
 		if (birthCity.length() < 3) {
 			if (errorMessage.length() > 0) errorMessage += "<br />";
-			errorMessage += "Please note that the birth city is mandatory / La data di nascita &egrave; obbligatoria";
+			errorMessage += constants.joinLegalErrorCity();
 		}
 		Date birthDt = birthDate.getValue();
 		if (birthDt == null) {
 			if (errorMessage.length() > 0) errorMessage += "<br />";
-			errorMessage += "Would you mind to fill the birth date field too? / Potresti riempire anche la data di nascita?";
+			errorMessage += constants.joinLegalErrorDate();
 		}
 		
 		boolean isError = (errorMessage.length() > 0);

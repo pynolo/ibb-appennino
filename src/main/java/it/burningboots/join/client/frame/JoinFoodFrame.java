@@ -1,5 +1,6 @@
 package it.burningboots.join.client.frame;
 
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -18,6 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class JoinFoodFrame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
@@ -44,10 +46,9 @@ public class JoinFoodFrame extends FramePanel implements IWizardPanel {
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE
-		setTitle("Food restrictions / Restrizioni sul cibo");
+		setTitle(constants.joinFoodTitle());
 		
-		cp.add(new HTML("<p><i>Please tell us your food restrictions: this is important if you are vegetarian or vegan or if you suffer from an allergy</i><br />"+
-				"<b>Per favore dicci le tue restrizioni sul cibo: &egrave; fondamentale per i vegetariani, i vegani e per chi soffre di allergie</b></p><br/>"));
+		cp.add(new HTML("<p>"+constants.joinFoodTellUs()+"</p><br/>"));
 		foodArea = new TextArea();
 		foodArea.setHeight("8em");
 		foodArea.setWidth("100%");

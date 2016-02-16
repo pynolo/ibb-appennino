@@ -23,4 +23,20 @@ public interface LocaleConstants extends Constants {
 	String joinCheckoutContactUs();
 	String joinCheckoutDonateButton();
 	
+	String joinFoodTitle();
+	String joinFoodTellUs();
+	
+	String joinLegalTitle();
+	String joinLegalItalianLaw();
+	String joinLegalFirstName();
+	String joinLegalLastName();
+	String joinLegalBirthCity();
+	String joinLegalBirthDate();
+	String joinLegalParticipation();
+	String joinLegalParticipationIbb();
+	String joinLegalParticipationBurns();
+	String joinLegalErrorCity();
+	String joinLegalErrorDate();
+
+	
 }

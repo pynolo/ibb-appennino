@@ -1,6 +1,7 @@
 package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.ClientConstants;
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.WizardSingleton;
@@ -17,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ReplaceSaveFrame extends FramePanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
@@ -43,7 +45,7 @@ public class ReplaceSaveFrame extends FramePanel {
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE
-		setTitle("Replacement is confirmed / La sostituzione &egrave; confermata");
+		setTitle(constants.replaceSaveTitle());
 		
 		checkoutPanel = new VerticalPanel();
 		cp.add(checkoutPanel);
@@ -54,31 +56,22 @@ public class ReplaceSaveFrame extends FramePanel {
 			}
 		}
 		
-		String typeIt = "";
-		String typeEn = "";
+		String type = "";
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
-			typeIt = "rifugio";
-			typeEn = "hut";
+			type = constants.hut();
 		} 
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
-			typeIt = "tenda";
-			typeEn = "tent";
+			type = constants.tent();
 		} 
 		if (amountString == null) {
-			typeIt += " NON CONFERMATO";
-			typeEn += " NOT CONFIRMED";
+			type += constants.replaceSaveNotConfirmed();
 			amountString = "--";
 		}
 		
-		checkoutPanel.add(new HTML("<p><i>Congratulations, your replacement is confirmed!<br /><br />"+
-				"DETAILS<br />"+
-				"Donation amount: "+amountString+"<br />"+
-				"Accommodation type: "+typeEn+"</i></p>"));
-		
-		checkoutPanel.add(new HTML("<p><b>Congratulazioni, la tua sostituzione &egrave; confermata.<br /><br />"+
-				"DETAILS<br />"+
-				"Donazione: &euro;"+amountString+"<br />"+
-				"Tipo di sistemazione: "+typeIt+"</b></p>"));
+		checkoutPanel.add(new HTML("<p>"+constants.replaceSaveCongratulations()+"<br /><br />"+
+				constants.replaceSaveDetails()+"<br />"+
+				constants.replaceSaveAmount()+": &euro;"+amountString+"<br />"+
+				constants.replaceSaveAccommodation()+": "+type+"</p>"));
 		
 		cp.add(new HTML("<h3><a href='"+AppConstants.EVENT_URL+"'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));
 
@@ -104,7 +97,7 @@ public class ReplaceSaveFrame extends FramePanel {
 				dataService.saveOrUpdateParticipant(prt, callback);
 			}
 		} else {
-			UiSingleton.get().addWarning("No participant id has been provided");
+			UiSingleton.get().addWarning(constants.replaceSaveErrorCode());
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package it.burningboots.join.client.frame;
 
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -20,6 +21,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ReplaceBaseFrame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
@@ -50,12 +52,10 @@ public class ReplaceBaseFrame extends FramePanel implements IWizardPanel {
 		if (participant == null) participant = new Participant();
 		
 		//TITLE
-		setTitle("Replacement / Sostituzione");
+		setTitle(constants.replaceBaseTitle());
 		
-		cp.add(new HTML("<p><i>Welcome to IBB replacement form! Please provide the replacement code:</i><br />"+
-				"<b>Benvenuto sul form di sostituzione di IBB! Fornisci il codice di sostituzione:</b></p>"));
-		cp.add(new HTML("<i>Replacement code:</i><br />"+
-				"<b>Codice di sostituzione:</b>"));
+		cp.add(new HTML("<p>"+constants.replaceBaseWelcome()+"</p>"));
+		cp.add(new HTML(constants.replacementCode()));
 		codeText = new TextBox();
 		codeText.setValue(participant.getItemNumber());
 		cp.add(codeText);
@@ -63,13 +63,11 @@ public class ReplaceBaseFrame extends FramePanel implements IWizardPanel {
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		
-		cp.add(new HTML("<p><i>Your email to receive information about the event</i><br/>"+
-				"<b>La tua email per ricevere dettagli e avvisi sull'evento</b></p>"));
+		cp.add(new HTML("<p>"+constants.joinBaseEmail()+"</p>"));
 		emailText = new TextBox();
 		emailText.setValue(participant.getEmail());
 		cp.add(emailText);
-		cp.add(new HTML("<p><i>(You will be receiving IBB 2016 official announcements)</i><br/>"
-				+ "<b>(Riceverai gli annunci ufficiali di IBB 2016)</b></p>"));
+		cp.add(new HTML("<p><i>"+constants.joinBaseEmailWarning()+"</i></p>"));
 		
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, false, true);
@@ -123,10 +121,10 @@ public class ReplaceBaseFrame extends FramePanel implements IWizardPanel {
 				if (result.getEmail() == null) result.setEmail("");
 				if (result.getEmail().equals("")) {
 					// NOT FOUND
-					UiSingleton.get().addWarning("Incorrect code / Codice errato");
+					UiSingleton.get().addWarning(constants.replaceBaseErrorReplacement());
 				} else {
 					// ITEM NUMBER FOUND
-					UiSingleton.get().addInfo("The code is valid / Il codice &egrave; valido");
+					UiSingleton.get().addInfo(constants.replaceBaseOkReplacement());
 					WizardSingleton.get().setParticipantBean(result);
 					//Store in bean
 					result.setEmail(email);

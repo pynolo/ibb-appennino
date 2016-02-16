@@ -58,7 +58,7 @@ public class JoinThankYouFrame extends FramePanel {
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 1.5em; color: #e32077;'>"+
-				constants.joinThankYouReplacement()+"</p>"));
+				constants.replacementCode()+"</p>"));
 		
 		cp.add(new HTML("<p style='text-align: center; font-size: 4.5em; color: #e32077;'>"+
 				participant.getItemNumber().toUpperCase()+"</p>"));

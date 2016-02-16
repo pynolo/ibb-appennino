@@ -7,7 +7,8 @@ public interface LocaleConstants extends Constants {
 	String next();
 	String hut();
 	String tent();
-
+	String replacementCode();
+	
 	String joinBaseTitle();
 	String joinBaseWelcome();
 	String joinBaseSoldOut();
@@ -42,7 +43,6 @@ public interface LocaleConstants extends Constants {
 	String joinThankYouTitle();
 	String joinThankYouDonation();
 	String joinThankYouConfirmed();
-	String joinThankYouReplacement();
 	String joinThankYouTakeNote();
 	String joinThankYouWhatIs();
 	String joinThankYouTellSomeone();
@@ -60,5 +60,18 @@ public interface LocaleConstants extends Constants {
 	String joinVolunteerWoodDescr();
 	String joinVolunteerDecoName();
 	String joinVolunteerDecoDescr();
+
+	String replaceBaseTitle();
+	String replaceBaseWelcome();
+	String replaceBaseOkReplacement();
+	String replaceBaseErrorReplacement();
+	
+	String replaceSaveTitle();
+	String replaceSaveNotConfirmed();
+	String replaceSaveCongratulations();
+	String replaceSaveDetails();
+	String replaceSaveAmount();
+	String replaceSaveAccommodation();
+	String replaceSaveErrorCode();
 
 }

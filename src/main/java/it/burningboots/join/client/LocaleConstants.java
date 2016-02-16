@@ -16,4 +16,11 @@ public interface LocaleConstants extends Constants {
 	String joinBaseEmail();
 	String joinBaseEmailWarning();
 
+	String joinCheckoutTitle();
+	String joinCheckoutOneMoreStep();
+	String joinCheckoutPleaseConfirm();
+	String joinCheckoutMinimumAmount();
+	String joinCheckoutContactUs();
+	String joinCheckoutDonateButton();
+	
 }

@@ -1,6 +1,7 @@
 package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.ClientConstants;
+import it.burningboots.join.client.LocaleConstants;
 import it.burningboots.join.client.UiSingleton;
 import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.UriDispatcher;
@@ -18,6 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class JoinCheckoutFrame extends FramePanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
+	private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
@@ -44,36 +46,27 @@ public class JoinCheckoutFrame extends FramePanel {
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE
-		setTitle("Confirm your registration / Conferma la registrazione");
+		setTitle(constants.joinCheckoutTitle());
 		
 		checkoutPanel = new VerticalPanel();
 		cp.add(checkoutPanel);
 		String amountString = "[ERROR]";
-		String typeIt = "";
-		String typeEn = "";
+		String type = "";
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
 			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPrice());
-			typeIt = "rifugio";
-			typeEn = "hut";
+			type = constants.hut();
 		} 
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
 			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getTentPrice());
-			typeIt = "tenda";
-			typeEn = "tent";
+			type = constants.tent();
 		} 
 		
-		checkoutPanel.add(new HTML("<p><i>YOU'RE NOT REGISTERED YET, there's just one more step:<br />"+
-				"You need to confirm with a donation, to cover costs like rental and food.</i></p>"+
-				"<p><i>Minimum amount is </i><b>&euro;"+amountString+"</b><i> ("+typeEn+") "+ 
-				"but if you want to donate more contact us, we'll use it to add some extras!</i><br/>"+
+		checkoutPanel.add(new HTML("<p>"+constants.joinCheckoutOneMoreStep()+"<br />"+
+				constants.joinCheckoutPleaseConfirm()+"</p>"+
+				"<p>"+constants.joinCheckoutMinimumAmount()+" <b>&euro;"+amountString+"</b> ("+type+") "+ 
+				constants.joinCheckoutContactUs()+"<br/>"+
 				"&nbsp;</p>"));
-		
-		checkoutPanel.add(new HTML("<p><b>LA REGISTRAZIONE NON &Egrave; FINITA, manca solo l'ultimo passo:<br />"+
-				"Devi confermare con una donazione, per coprire costi come affitti e cibo.</b></p>"+
-				"<p><b>L'importo minimo &egrave; </b><i>&euro;"+amountString+"</i><b> ("+typeIt+") "+ 
-				"ma se vuoi donare di pi&ugrave; contattaci e penseremo a degli extra!</b><br />"+
-				"&nbsp</p>"));
-		
+				
 		checkoutPanel.add(new HTML("<p>&nbsp;<br /></p>"+
 				"<form action='"+AppConstants.PAYPAL_URL+"' method='post'>"+
 				"<input type='hidden' name='cmd' value='_donations'>"+
@@ -90,7 +83,7 @@ public class JoinCheckoutFrame extends FramePanel {
 						UriDispatcher.SEPARATOR_TOKEN+AppConstants.PARAMS_ITEM_NUMBER+UriDispatcher.SEPARATOR_VALUES+
 						participant.getItemNumber()+"'>"+
 				"<input type='submit' name='submit' title='PayPal' class='btn btn-primary btn-lg' "+
-						"value=' Donate to confirm / Per confermare fai una donazione ' />&nbsp;"+
+						"value=' "+constants.joinCheckoutDonateButton()+" ' />&nbsp;"+
 					"<i>Minimum &euro;"+amountString+"</i> / "+
 					"<b>Minimo &euro;"+amountString+"</b>"+
 					"<!--input type='image' src='https://www.paypal.com/en_AU/i/btn/btn_buynow_LG.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online.'-->"+

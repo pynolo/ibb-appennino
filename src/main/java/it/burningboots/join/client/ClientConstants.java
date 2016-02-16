@@ -9,7 +9,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 public class ClientConstants {
 	
 	//CLIENT DAFAULTS
-	public static final String DEFAULT_FRAME_TITLE = "Join IBB";
+	public static final String DEFAULT_FRAME_TITLE = "Please wait / Attendere...";
 	public static final long LOGIN_EXPIRATION_TIME = (1000*60*60) * 96; //96 hours = 4 days;
 	public static final int COOKIE_EXPIRATION_DAYS = 15;
 	public static final String EOL = "\r\n";

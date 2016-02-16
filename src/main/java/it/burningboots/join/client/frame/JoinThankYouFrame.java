@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class JoinThankYouFrame extends FramePanel {
 	
-	private static final int DELAY = 5000;
+	private static final int DELAY = 12000;// 12 seconds
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
 	private LocaleConstants constants = GWT.create(LocaleConstants.class);

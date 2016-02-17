@@ -1,7 +1,9 @@
 package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.ClientConstants;
+import it.burningboots.join.client.LocaleConstants;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -37,13 +39,17 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public class GlassPanel extends Composite implements ResizeHandler {
     public static final String STYLE = "glass-panel";
-
+    private LocaleConstants constants = GWT.create(LocaleConstants.class);
+	
     private AbsolutePanel basePanel = new AbsolutePanel();
     private SimplePanel screenPanel = new SimplePanel();
-    private InlineHTML waitImg = new InlineHTML(ClientConstants.ICON_LOADING_BIG);
+    private InlineHTML waitImg = null;
     private SimplePanel imgPanel = new SimplePanel();
     
     public GlassPanel() {
+    	waitImg = new InlineHTML("<p style='text-align: center'>"+
+    			"<b>"+constants.pleaseWait()+"</b><br />"+
+    			ClientConstants.ICON_LOADING_BIG+"</p>");
     	basePanel.add(screenPanel);
         imgPanel.add(waitImg);
         basePanel.add(imgPanel);

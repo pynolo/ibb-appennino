@@ -4,6 +4,7 @@ import com.google.gwt.i18n.client.Constants;
 
 public interface LocaleConstants extends Constants {
 	String locale();
+	String pleaseWait();
 	String prev();
 	String next();
 	String hut();

@@ -9,7 +9,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 public class ClientConstants {
 	
 	//CLIENT DAFAULTS
-	public static final String DEFAULT_FRAME_TITLE = "Please wait / Attendere...";
+	public static final String DEFAULT_FRAME_TITLE = "";
 	public static final long LOGIN_EXPIRATION_TIME = (1000*60*60) * 96; //96 hours = 4 days;
 	public static final int COOKIE_EXPIRATION_DAYS = 15;
 	public static final String EOL = "\r\n";
@@ -25,10 +25,10 @@ public class ClientConstants {
 	public static final NumberFormat FORMAT_INTEGER = NumberFormat.getFormat("#0");
 
 	//Icons
-	public static final String ICON_LOADING_BIG = "<img src='img/chat_loading.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
+	public static final String ICON_LOADING_BIG = "<img src='img/PleaseWait.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
+	public static final Integer ICON_LOADING_WIDTH = 572;
+	public static final Integer ICON_LOADING_HEIGHT = 304;
 	public static final String ICON_LOADING_SMALL = "<img src='img/ajax-loader-small.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
-	public static final Integer ICON_LOADING_WIDTH = 121;
-	public static final Integer ICON_LOADING_HEIGHT = 23;
 	public static final String MSG_ICON_INFO = "<img src='img/dialog-information.png' style='vertical-align:middle' />";
 	public static final String MSG_ICON_WARN = "<img src='img/dialog-warning.png' style='vertical-align:middle' />";
 	public static final String MSG_ICON_ERROR = "<img src='img/dialog-error.png' style='vertical-align:middle' />";

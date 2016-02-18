@@ -1,5 +1,6 @@
 package it.burningboots.join.server.servlet;
 
+import it.burningboots.join.server.EmailUtil;
 import it.burningboots.join.server.persistence.GenericDao;
 import it.burningboots.join.server.persistence.ParticipantDao;
 import it.burningboots.join.server.persistence.SessionFactory;
@@ -79,6 +80,8 @@ public class IpnServlet extends HttpServlet {
 						mcGross, mcCurrency, paymentDate, pendingReason, paymentType, null);
 				registerPayment(ipnr);
 				System.out.println("**IpnSevlet** stored a payment for "+payerEmail);
+				
+				sendEmail(payerEmail, mcGross, itemNumber);
 			} catch (Exception e) {
 				throw new ServletException(e);
 			}
@@ -130,6 +133,25 @@ public class IpnServlet extends HttpServlet {
 		} finally {
 			ses.close();
 		}
+	}
+	
+	private void sendEmail(String payerEmail, String mcGross, String itemNumber) {
+		String subject = "Italian Burning Boots confirmation";
+		String body ="[English]\r\n"+
+				"CONGRATULATIONS, you're in!\r\n"+
+				"You registration to IBB has been confirmed with a donation of EUR "+mcGross+"\r\n"+
+				"This is your Replacement Code:\r\n"+itemNumber+"\r\n"+
+				"You can tell it someone else if you can't join IBB anymore and you want to be replaced.\r\n"+
+				"\r\n"+
+				"[Italiano]\r\n"+
+				"CONGRATULAZIONI, sei dei nostri!\r\n"+
+				"La tua registrazione a IBB e' confermata con una donazione di EUR "+mcGross+"\r\n"+
+				"Questo e' il tuo Codice di Sostituzione:\r\n"+itemNumber+"\r\n"+
+				"Puoi darlo a qualcun altro se non puoi piu' partecipare e vuoi essere sostituito/a.\r\n"+
+				"\r\n"+
+				"Hugs & abbracci\r\n"+
+				"The IBB registration system";
+		EmailUtil.sendEmail(payerEmail, subject, body);
 	}
 	
 	/* Example info received from IPN:

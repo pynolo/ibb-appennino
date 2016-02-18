@@ -19,7 +19,6 @@ import it.burningboots.join.shared.entity.Participant;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -64,7 +63,7 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		
 		accommodationPanel.add(new HTML("<p>"+constants.joinBaseWelcome()+"</p>"));
 		
-		HorizontalPanel bedPanel = new HorizontalPanel();
+		VerticalPanel bedPanel = new VerticalPanel();
 		accommodationPanel.add(bedPanel);
 		bedRadio = new RadioButton("accommodation", "<b>"+constants.hut()+"</b> - &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(pb.getBedPrice())+"&nbsp;&nbsp;", true);
@@ -75,9 +74,9 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 			bedDescr += "<b>"+bedAvail+"</b> "+constants.joinBaseSoldOut()+"<br />";
 		}
 		bedDescr += constants.joinBaseBedFeatures();
-		bedPanel.add(new HTML(bedDescr));
+		bedPanel.add(new HTML(bedDescr+"<br/>&nbsp;"));
 		
-		HorizontalPanel tentPanel = new HorizontalPanel();
+		VerticalPanel tentPanel = new VerticalPanel();
 		accommodationPanel.add(tentPanel);
 		tentRadio = new RadioButton("accommodation", "<b>"+constants.tent()+"</b> - &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(pb.getTentPrice())+"&nbsp;&nbsp;", true);

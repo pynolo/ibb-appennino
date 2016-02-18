@@ -1,6 +1,7 @@
-package it.burningboots.join.client.frame;
+package it.burningboots.join.client.widgets;
 
 import it.burningboots.join.client.LocaleConstants;
+import it.burningboots.join.client.frame.IWizardPanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

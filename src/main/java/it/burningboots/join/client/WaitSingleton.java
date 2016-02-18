@@ -1,6 +1,6 @@
 package it.burningboots.join.client;
 
-import it.burningboots.join.client.frame.GlassPanel;
+import it.burningboots.join.client.widgets.GlassPanel;
 
 public class WaitSingleton {
 

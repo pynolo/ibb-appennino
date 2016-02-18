@@ -8,6 +8,7 @@ import it.burningboots.join.client.WaitSingleton;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
+import it.burningboots.join.client.widgets.WizardButtons;
 import it.burningboots.join.shared.AppConstants;
 import it.burningboots.join.shared.entity.Participant;
 

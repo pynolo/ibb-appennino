@@ -1,6 +1,7 @@
 package it.burningboots.join.client;
 
-import it.burningboots.join.client.frame.MessagePanel;
+import it.burningboots.join.client.widgets.MessagePanel;
+import it.burningboots.join.client.widgets.Popup;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -83,11 +84,17 @@ public class UiSingleton implements ValueChangeHandler<String> {
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 	public void addError(Throwable e) {
-		messagePanel.addError(e);
+		//messagePanel.addError(e);
+		Popup pop = new Popup(e);
+		pop.setGlassEnabled(true);
+		pop.centerAndShow();
 	}
 
 	public void addWarning(String warning) {
-		messagePanel.addWarning(warning);
+		//messagePanel.addWarning(warning);
+		Popup pop = new Popup(warning);
+		pop.setGlassEnabled(true);
+		pop.centerAndShow();
 	}
 	
 	public void addInfo(String info) {

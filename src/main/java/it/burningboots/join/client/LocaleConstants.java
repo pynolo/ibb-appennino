@@ -10,6 +10,8 @@ public interface LocaleConstants extends Constants {
 	String hut();
 	String tent();
 	String replacementCode();
+	String error();
+	String warning();
 	
 	String joinBaseTitle();
 	String joinBaseWelcome();

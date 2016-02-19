@@ -86,11 +86,10 @@ public class EmailUtil {
 		}
 		if (participant != null) {
 			String subject = "Italian Burning Boots confirmation";
-			String body ="[English]"+EOL+
-				"CONGRATULATIONS, you're in!"+EOL+
+			String body ="[ ENGLISH ]"+EOL+
+				"Congratulations, you're in!"+EOL+
 				"You registration to IBB has been confirmed with a donation of EUR "+mcGross+EOL+
 				EOL+
-				"Registration data"+EOL+
 				"Accommodation: "+(participant.getAccommodationType()==1 ? "mountain hut" : "tent")+EOL+
 				"Email: "+participant.getEmail()+EOL+
 				"Volunteering for: "+
@@ -109,11 +108,14 @@ public class EmailUtil {
 				"You can give it someone else if you can't join IBB anymore and you want to be replaced."+EOL+
 				"Resales for more than the donation amount are strictly forbidden."+EOL+
 				EOL+
-				"[Italiano]"+EOL+
-				"CONGRATULAZIONI, sei dei nostri!"+EOL+
-				"La tua registrazione a IBB e' confermata con una donazione di EUR "+mcGross+EOL+
+				"Don't forget to check the 'What to bring' section of the website!"+EOL+
+				"The event location will be revealed a few days before the event, keep your eyes on your emailbox."+EOL+
 				EOL+
-				"Dati di registrazione"+EOL+
+				EOL+
+				"[ ITALIANO ]"+EOL+
+				"Congratulazioni, sei dei nostri!"+EOL+
+				"La tua registrazione a IBB e' stata confermata con la donazione di EUR "+mcGross+EOL+
+				EOL+
 				"Pernottamento: "+(participant.getAccommodationType()==1 ? "rifugio" : "tenda")+EOL+
 				"Email: "+participant.getEmail()+EOL+
 				"Volontariato: "+
@@ -124,7 +126,7 @@ public class EmailUtil {
 						"--" : participant.getFoodRestrictions())+EOL+
 				"Nome e cognome: "+participant.getFirstName()+" "+participant.getLastName()+EOL+
 				"Nascita: "+ServerConstants.FORMAT_DAY.format(participant.getBirthDt())+
-						" in "+participant.getBirthCity()+EOL+
+						" a "+participant.getBirthCity()+EOL+
 				"Puoi modificare questi dati (incluso nome e cognome) con la procedura di SOSTITUZIONE. "+
 				"La troverai sul sito nella sezione 'Iscrizione'."+EOL+
 				EOL+
@@ -132,8 +134,12 @@ public class EmailUtil {
 				"Puoi darlo a qualcun altro se non puoi piu' partecipare e vuoi essere sostituito/a."+EOL+
 				"E' vietato cedere la partecipazione a IBB per un importo superiore a quello che hai donato."+EOL+
 				EOL+
+				"Non scordare di leggere la pagina 'Cosa portare' sul sito!"+EOL+
+				"Il luogo esatto dell'evento sara' comunicato pochi giorni prima, tieni d'occhio la casella email."+EOL+
+				EOL+
+				EOL+
 				"Hugs & abbracci"+EOL+
-				"The IBB registration system"+EOL;
+				"info@burningboots.it";
 			EmailUtil.sendEmail(participant.getEmail(), subject, body);
 		}
 	}

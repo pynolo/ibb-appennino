@@ -46,4 +46,14 @@ public class ServerConstants {
 		}
 	}
 
+	//SMTP
+	public static final int SMTP_PORT = 587;
+	public static final String SMTP_HOST = "smtp.gmx.com";
+	public static final String SMTP_FROM = "burningboots@gmx.com";
+	public static final boolean SMTP_AUTH = true;
+	public static final String SMTP_USERNAME = "burningboots@gmx.com";
+	public static final String SMTP_PASSWORD = "boots1234";
+	public static final String SMTP_PROTOCOL = "TLS";
+	public static final boolean SMTP_DEBUG = true;
+	
 }

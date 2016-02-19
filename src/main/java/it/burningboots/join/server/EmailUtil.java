@@ -107,7 +107,7 @@ public class EmailUtil {
 				EOL+
 				"This is your REPLACEMENT Code: "+itemNumber+EOL+
 				"You can give it someone else if you can't join IBB anymore and you want to be replaced."+EOL+
-				"Resales for more than your donation amount are strictly forbidden."+EOL+
+				"Resales for more than the donation amount are strictly forbidden."+EOL+
 				EOL+
 				"[Italiano]"+EOL+
 				"CONGRATULAZIONI, sei dei nostri!"+EOL+
@@ -118,7 +118,7 @@ public class EmailUtil {
 				"Email: "+participant.getEmail()+EOL+
 				"Volontariato: "+
 						(participant.getVolunteering().equals("") ? 
-						"Nothing :( please help" : participant.getVolunteering())+EOL+
+						"Niente :( aiutaci per favore" : participant.getVolunteering())+EOL+
 				"Restrizioni sul cibo: "+
 						(participant.getFoodRestrictions().equals("") ?
 						"--" : participant.getFoodRestrictions())+EOL+

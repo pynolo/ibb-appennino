@@ -49,11 +49,11 @@ public class AppConstants {
 		ACCOMMODATION_DESC.put(ACCOMMODATION_BED, "Hut / Rifugio");
 		ACCOMMODATION_DESC.put(ACCOMMODATION_TENT, "Tent / Tenda");};
 	//VOLUNTEER
-	public static final String VOLUNTEER_KITCHEN = "kitchen";
-	public static final String VOLUNTEER_GREETER = "greeter";
-	public static final String VOLUNTEER_WOOD = "wood";
-	public static final String VOLUNTEER_LNT = "lnt";
-	public static final String VOLUNTEER_DECO = "deco";
+	public static final String VOLUNTEER_KITCHEN = "Kitchen";
+	public static final String VOLUNTEER_GREETER = "Greeter";
+	public static final String VOLUNTEER_WOOD = "Wood";
+	public static final String VOLUNTEER_LNT = "LNTrace";
+	public static final String VOLUNTEER_DECO = "Deco";
 	
 	// FORMATS
 	public static final String PATTERN_TIMESTAMP = "dd/MM/yyyy HH:mm";//"dd/MM/yyyy HH:mm";

@@ -128,7 +128,7 @@ public class EmailUtil {
 				"Nascita: "+ServerConstants.FORMAT_DAY.format(participant.getBirthDt())+
 						" a "+participant.getBirthCity()+EOL+
 				"Puoi modificare questi dati (incluso nome e cognome) con la procedura di SOSTITUZIONE. "+
-				"La troverai sul sito nella sezione 'Iscrizione'."+EOL+
+				"La trovi sul sito nella sezione 'Iscrizione'."+EOL+
 				EOL+
 				"Questo e' il tuo Codice di SOSTITUZIONE: "+itemNumber+EOL+
 				"Puoi darlo a qualcun altro se non puoi piu' partecipare e vuoi essere sostituito/a."+EOL+

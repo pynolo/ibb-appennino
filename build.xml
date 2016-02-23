@@ -54,7 +54,7 @@
 			<jvmarg value="-Xmx1024M" />
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
 			<arg line="${gwt.args}" />
-			<arg value="it.burningboots.join.Join" />
+			<arg value="it.burningboots.appennino.Join" />
 		</java>
 	</target>
 		

@@ -6,17 +6,17 @@
 	<!-- Filters -->
 	<!-- <filter>
 		<filter-name>gwtCacheControlFilter</filter-name>
-		<filter-class>it.burningboots.join.server.servlet.GWTCacheControlFilter</filter-class>
+		<filter-class>it.burningboots.appennino.server.servlet.GWTCacheControlFilter</filter-class>
 	</filter>-->
 	
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>ipnServlet</servlet-name>
-		<servlet-class>it.burningboots.join.server.servlet.IpnServlet</servlet-class>
+		<servlet-class>it.burningboots.appennino.server.servlet.IpnServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>dataServiceImpl</servlet-name>
-		<servlet-class>it.burningboots.join.server.servlet.DataServiceImpl</servlet-class>
+		<servlet-class>it.burningboots.appennino.server.servlet.DataServiceImpl</servlet-class>
 	</servlet>
 	
 	<!-- Servlet mappings -->
@@ -26,12 +26,12 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>dataServiceImpl</servlet-name>
-		<url-pattern>/join/dataService</url-pattern>
+		<url-pattern>/appennino/dataService</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>
-		<welcome-file>Join.html</welcome-file>
+		<welcome-file>Appennino.html</welcome-file>
 	</welcome-file-list>
 
 </web-app>

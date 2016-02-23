@@ -4,9 +4,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.burningboots</groupId>
-	<artifactId>join</artifactId>
+	<artifactId>appennino</artifactId>
 	<packaging>war</packaging>
-	<version>2.1</version>
+	<version>2.2</version>
 	<name>Maven Archetype for GWT</name>
 
 	<properties>
@@ -125,7 +125,7 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
-				<finalName>join</finalName>
+				<finalName>appennino</finalName>
 				<plugins>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
@@ -161,9 +161,9 @@
 				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
 					documentation at codehaus.org -->
 				<configuration>
-					<runTarget>Join.html</runTarget>
+					<runTarget>Appennino.html</runTarget>
 					<modules>
-						<module>it.burningboots.join.Join</module>
+						<module>it.burningboots.appennino.Appennino</module>
 					</modules>
 				</configuration>
 			</plugin>

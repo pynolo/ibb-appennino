@@ -92,19 +92,22 @@ public abstract class PagingTable<T> extends FlowPanel {
 		}
 		clearInnerTable();
 		//Fill with data
+		int row = 0;
 		addHeader();
 		for (int i = 0; i<list.size(); i++) {
 			addTableRow(i+1, list.get(i));
 		}
-		addFooter(list.size()+1);
+		row = list.size()+1;
+		addFooter(row);
+		row++;
 		if (list.size() < pageSize) {
 			pagingPanel.switchNextButton(false);
 		} else {
 			pagingPanel.switchNextButton(true);
 		}
-		getInnerTable().setWidget(list.size()+1, 0, pagingPanel);
-		getInnerTable().getFlexCellFormatter().setColSpan(list.size()+1, 0, getInnerTable().getCellCount(0));
-		getInnerTable().getFlexCellFormatter().setStyleName(list.size()+1, 0, "center-panel");
+		getInnerTable().setWidget(row, 0, pagingPanel);
+		getInnerTable().getFlexCellFormatter().setColSpan(row, 0, getInnerTable().getCellCount(0));
+		getInnerTable().getFlexCellFormatter().setStyleName(row, 0, "center-panel");
 		showButtons();
 		applyDataRowStyles();
 	}

@@ -53,8 +53,9 @@ public class ParticipantTable extends PagingTable<Participant> {
 	@Override
 	protected void addTableRow(int rowNum, Participant rowObj) {
 		int participantTotal = bedCount+tentCount;
-		paymentTotal += rowObj.getPaymentAmount();
+		if (rowObj.getPaymentAmount() != null) paymentTotal += rowObj.getPaymentAmount();
 		final Participant rowFinal = rowObj;
+		
 		//ACCOMMODATION TYPE
 		String acType = "";
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
@@ -137,11 +138,14 @@ public class ParticipantTable extends PagingTable<Participant> {
 	protected void addFooter(int rowNum) {
 		//ACCOMMODATION TYPE
 		getInnerTable().setHTML(rowNum, 0,
-				"<i class='fa fa-home'></i> Total hut "+bedCount+"<br/>"+
-				"<i class='fa fa-tree'></i> Total tent "+tentCount);
+				"<i class='fa fa-home'></i><br/>"+
+				"<i class='fa fa-tree'></i>");
+		getInnerTable().setHTML(rowNum, 1,
+				"<b>Total hut "+bedCount+"<br/>"+
+				"Total tent "+tentCount+"</b>");
 		//PAGAMENTO
-		getInnerTable().setHTML(rowNum, 9, "Total "+
-				ClientConstants.FORMAT_CURRENCY.format(paymentTotal));
+		getInnerTable().setHTML(rowNum, 9, "<b>Total "+
+				ClientConstants.FORMAT_CURRENCY.format(paymentTotal)+"</b>");
 	}
 	
 	@Override
@@ -167,5 +171,6 @@ public class ParticipantTable extends PagingTable<Participant> {
 			dataService.findParticipants(confirmed, callback);
 		}
 	}
+
 	
 }

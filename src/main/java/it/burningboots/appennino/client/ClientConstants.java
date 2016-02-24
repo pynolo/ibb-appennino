@@ -25,9 +25,9 @@ public class ClientConstants {
 	public static final NumberFormat FORMAT_INTEGER = NumberFormat.getFormat("#0");
 
 	//Icons
-	public static final String ICON_LOADING_BIG = "<img src='img/load.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
-	public static final Integer ICON_LOADING_WIDTH = 128;
-	public static final Integer ICON_LOADING_HEIGHT = 64;
+	public static final String ICON_LOADING_BIG = "<img src='img/chat_loading.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
+	public static final Integer ICON_LOADING_WIDTH = 131;
+	public static final Integer ICON_LOADING_HEIGHT = 23;
 	public static final String ICON_LOADING_SMALL = "<img src='img/ajax-loader-small.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
 	public static final String MSG_ICON_INFO = "<img src='img/dialog-information.png' style='vertical-align:middle' />";
 	public static final String MSG_ICON_WARN = "<img src='img/dialog-warning.png' style='vertical-align:middle' />";

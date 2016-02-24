@@ -38,7 +38,10 @@ import com.google.gwt.user.client.ui.SimplePanel;
  * </pre>
  */
 public class GlassPanel extends Composite implements ResizeHandler {
-    public static final String STYLE = "glass-panel";
+    
+	public static final String STYLE = "glass-panel";
+	public static final double VERTICAL_OFFSET = 150D;
+	
     private LocaleConstants constants = GWT.create(LocaleConstants.class);
 	
     private AbsolutePanel basePanel = new AbsolutePanel();
@@ -91,7 +94,7 @@ public class GlassPanel extends Composite implements ResizeHandler {
         //Immagine
         Element imgElem = imgPanel.getElement();
         Double imgX = (Window.getClientWidth()-ClientConstants.ICON_LOADING_WIDTH)/2D;
-        Double imgY = (Window.getClientHeight()-ClientConstants.ICON_LOADING_HEIGHT)/2D;
+        Double imgY = (VERTICAL_OFFSET);/*(Window.getClientHeight()-ClientConstants.ICON_LOADING_HEIGHT)/2D;*/
         imgElem.getStyle().setProperty("left", imgX.intValue()+"px");
         imgElem.getStyle().setProperty("top", imgY.intValue()+"px");
         imgElem.getStyle().setProperty("position", "absolute");

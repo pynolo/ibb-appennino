@@ -28,7 +28,7 @@
 		<servlet-name>dataServiceImpl</servlet-name>
 		<url-pattern>/appennino/dataService</url-pattern>
 	</servlet-mapping>
-
+	
 	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>Appennino.html</welcome-file>

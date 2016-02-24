@@ -17,6 +17,7 @@ public class ParticipantTable extends PagingTable<Participant> {
 	private static final int TABLE_ROWS = 1000;
 	private int bedCount = 0;
 	private int tentCount = 0;
+	private double paymentTotal = 0D;
 	
 	private AsyncCallback<List<Participant>> callback = new AsyncCallback<List<Participant>>() {
 		@Override
@@ -51,6 +52,8 @@ public class ParticipantTable extends PagingTable<Participant> {
 	
 	@Override
 	protected void addTableRow(int rowNum, Participant rowObj) {
+		int participantTotal = bedCount+tentCount;
+		paymentTotal += rowObj.getPaymentAmount();
 		final Participant rowFinal = rowObj;
 		//ACCOMMODATION TYPE
 		String acType = "";
@@ -58,14 +61,14 @@ public class ParticipantTable extends PagingTable<Participant> {
 			acType="Hut";
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				bedCount++;
-				acType = "<i class='fa fa-home'></i> <b>"+acType+" ("+bedCount+"&deg;)</b>";
+				acType = participantTotal+". <i class='fa fa-home'></i> <b>"+acType+"</b>";
 			}
 		}
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
 			acType="Tent";
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				tentCount++;
-				acType = "<i class='fa fa-tree'></i> <b>"+acType+" ("+tentCount+"&deg;)</b>";
+				acType = participantTotal+". <i class='fa fa-tree'></i> <b>"+acType+"</b>";
 			}
 		}
 		getInnerTable().setHTML(rowNum, 0, acType);
@@ -128,6 +131,17 @@ public class ParticipantTable extends PagingTable<Participant> {
 		getInnerTable().setHTML(0, 8, "Experience");
 		getInnerTable().setHTML(0, 9, "Payment");
 		getInnerTable().setHTML(0, 10, "Transfer");
+	}
+	
+	@Override
+	protected void addFooter(int rowNum) {
+		//ACCOMMODATION TYPE
+		getInnerTable().setHTML(rowNum, 0,
+				"<i class='fa fa-home'></i> Total hut "+bedCount+"<br/>"+
+				"<i class='fa fa-tree'></i> Total tent "+tentCount);
+		//PAGAMENTO
+		getInnerTable().setHTML(rowNum, 9, "Total "+
+				ClientConstants.FORMAT_CURRENCY.format(paymentTotal));
 	}
 	
 	@Override

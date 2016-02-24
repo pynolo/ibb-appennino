@@ -19,7 +19,9 @@ public interface DataServiceAsync
     void findParticipants( boolean confirmed, AsyncCallback<java.util.List<it.burningboots.appennino.shared.entity.Participant>> callback );
     void createTransientParticipant( AsyncCallback<it.burningboots.appennino.shared.entity.Participant> callback );
     void saveOrUpdateParticipant( it.burningboots.appennino.shared.entity.Participant prt, AsyncCallback<java.lang.Integer> callback );
-
+	void countConfirmed(int accommodationType, AsyncCallback<Integer> callback);
+	void countPaymentTotal(AsyncCallback<Double> callback);
+	
     /**
      * Utility class to get the RPC Async interface from client-side code
      */

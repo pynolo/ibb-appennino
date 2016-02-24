@@ -96,6 +96,7 @@ public abstract class PagingTable<T> extends FlowPanel {
 		for (int i = 0; i<list.size(); i++) {
 			addTableRow(i+1, list.get(i));
 		}
+		addFooter(list.size()+1);
 		if (list.size() < pageSize) {
 			pagingPanel.switchNextButton(false);
 		} else {
@@ -108,10 +109,11 @@ public abstract class PagingTable<T> extends FlowPanel {
 		applyDataRowStyles();
 	}
 	
-
 	public abstract void drawPage(int page);
 	
 	protected abstract void addHeader();
+	
+	protected abstract void addFooter(int rowNum);
 	
 	protected abstract void addTableRow(int rowNum, T rowObj);
 

@@ -69,7 +69,27 @@ public class ParticipantDao {
 		} catch (HibernateException e) {
 			throw new OrmException(e.getMessage(), e);
 		}
-		return result.intValue();
+		return (result == null ? 0 : result.intValue());
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static Double countPaymentTotal(Session ses)
+			throws OrmException {
+		Double result = null;
+		try {
+			String qs = "select sum(p.paymentAmount) from Participant p "+
+				"where p.paymentDt is not null and "+
+				"p.paymentAmount is not null";
+			Query q = ses.createQuery(qs);
+			List<Object> list = q.list();
+			if (list != null) {
+				if (list.size() > 0) {
+					result = (Double) list.get(0);
+				}
+			}
+		} catch (HibernateException e) {
+			throw new OrmException(e.getMessage(), e);
+		}
+		return result;
+	}
 }

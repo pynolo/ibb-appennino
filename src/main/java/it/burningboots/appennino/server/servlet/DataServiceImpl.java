@@ -221,4 +221,42 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			throw new SystemException(e.getMessage(), e);
 		}
 	}
+
+	@Override
+	public Integer countConfirmed(int accommodationType) throws SystemException {
+		Integer result = null;
+		Session ses = SessionFactory.getSession();
+		Transaction trn = ses.beginTransaction();
+		try {
+			result = ParticipantDao.countConfirmed(ses, accommodationType);
+			trn.commit();
+		} catch (OrmException e) {
+			trn.rollback();
+			LOG.error(e.getMessage(), e);
+			throw new SystemException(e.getMessage(), e);
+		} finally {
+			ses.close();
+		}
+		return (result == null ? 0 : result);
+	}
+
+	@Override
+	public Double countPaymentTotal() throws SystemException {
+		Double result = null;
+		Session ses = SessionFactory.getSession();
+		Transaction trn = ses.beginTransaction();
+		try {
+			result = ParticipantDao.countPaymentTotal(ses);
+			trn.commit();
+		} catch (OrmException e) {
+			trn.rollback();
+			LOG.error(e.getMessage(), e);
+			throw new SystemException(e.getMessage(), e);
+		} finally {
+			ses.close();
+		}
+		return (result == null ? 0 : result);
+	}
+	
+	
 }

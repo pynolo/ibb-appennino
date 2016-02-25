@@ -68,6 +68,9 @@ public class Participant implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "payment_dt")
 	private Date paymentDt = null;
+	@Basic(optional = false)
+	@Column(name = "discount", nullable = false)
+	private boolean discount;
 	
     //@OneToMany(fetch = FetchType.EAGER, mappedBy="participant")
     //private Set<IpnResponse> ipnResponses;
@@ -228,8 +231,13 @@ public class Participant implements Serializable {
 		this.paymentAmount = paymentAmount;
 	}
 
-	
-	
+	public boolean getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(boolean discount) {
+		this.discount = discount;
+	}
 
 	@Override
     public int hashCode() {

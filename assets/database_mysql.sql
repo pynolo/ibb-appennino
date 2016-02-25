@@ -81,6 +81,7 @@ CREATE TABLE `participant` (
 	`accommodation_type` int NOT NULL DEFAULT 1,
 	`payment_amount` varchar(64) DEFAULT NULL,
 	`payment_dt` datetime DEFAULT NULL,
+	`discount` bit(1) NOT NULL DEFAULT b'0',
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

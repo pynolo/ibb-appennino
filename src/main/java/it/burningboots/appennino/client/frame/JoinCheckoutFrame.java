@@ -52,20 +52,29 @@ public class JoinCheckoutFrame extends FramePanel {
 		checkoutPanel = new VerticalPanel();
 		cp.add(checkoutPanel);
 		String amountString = "[ERROR]";
+		String discount = (participant.getDiscount() ? constants.discount() : "");
 		String type = "";
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
-			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPrice());
+			if (participant.getDiscount()) {
+				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPriceLow());
+			} else {
+				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPrice());
+			}
 			type = constants.hut();
 		} 
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
-			amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getTentPrice());
+			if (participant.getDiscount()) {
+				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getTentPriceLow());
+			} else {
+				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getTentPrice());
+			}
 			type = constants.tent();
 		}
 		amountString = amountString.replaceAll(",", "\\.");//Non deve essere nel formato italiano
 		
 		checkoutPanel.add(new HTML("<p>"+constants.joinCheckoutOneMoreStep()+"<br />"+
 				constants.joinCheckoutPleaseConfirm()+"</p>"+
-				"<p>"+constants.joinCheckoutMinimumAmount()+" <b>&euro;"+amountString+"</b> ("+type+") "+ 
+				"<p>"+constants.joinCheckoutMinimumAmount()+" <b>&euro;"+amountString+"</b> ( "+type+" "+discount+") "+ 
 				constants.joinCheckoutContactUs()+"<br/>"+
 				"&nbsp;</p>"));
 				

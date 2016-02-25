@@ -51,10 +51,12 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			bean.setBedAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_UNTIL));
 			bean.setBedMax(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_MAX));
 			bean.setBedPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_PRICE));
+			bean.setBedPriceLow(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_PRICE_LOW));
 			bean.setTentAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_FROM));
 			bean.setTentAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_UNTIL));
 			bean.setTentMax(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_MAX));
 			bean.setTentPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_PRICE));
+			bean.setTentPriceLow(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_PRICE_LOW));
 			//From config file
 			bean.setAccessKey(EnvSingleton.get().getAccessKey());
 		} catch (IOException e) { // catch exception in case properties file does not exist
@@ -190,6 +192,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		try {
 			Date now = new Date();
 			prt.setUpdateDt(now);
+			if (prt.getPaymentDt() == null) {//Per chi non ha pagato imposta se è discount
+				boolean discount = canHaveDiscount(ses, prt.getEmail());
+				prt.setDiscount(discount);
+			}
 			Participant oldPrt = null;
 			if (prt.getId() != null) oldPrt = GenericDao.findById(ses, Participant.class, prt.getId());
 			if (oldPrt == null) {
@@ -266,14 +272,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {
-			Discount discount = DiscountDao.findDiscount(ses, email);
-			if (discount != null) {
-				List<Participant> confirmedList = ParticipantDao.findByEmail(ses, email, true);
-				int confirmed = confirmedList.size();
-				if (discount.getTickets() > confirmed) {
-					result = true;
-				}
-			}
+			result = canHaveDiscount(ses, email);
 			trn.commit();
 		} catch (OrmException e) {
 			trn.rollback();
@@ -281,6 +280,18 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			throw new SystemException(e.getMessage(), e);
 		} finally {
 			ses.close();
+		}
+		return result;
+	}
+	private boolean canHaveDiscount(Session ses, String email) throws OrmException {
+		boolean result = false;
+		Discount discount = DiscountDao.findDiscount(ses, email);
+		if (discount != null) {
+			List<Participant> confirmedList = ParticipantDao.findByEmail(ses, email, true);
+			int confirmed = confirmedList.size();
+			if (discount.getTickets() > confirmed) {
+				result = true;
+			}
 		}
 		return result;
 	}

@@ -106,14 +106,14 @@ public class PropertyBean implements Serializable {
 	public double getBedPriceLow() {
 		return bedPriceLow;
 	}
-	public void setBedPriceLow(double bedPriceLow) {
-		this.bedPriceLow = bedPriceLow;
+	public void setBedPriceLow(String bedPriceLow) {
+		this.bedPriceLow = Double.parseDouble(bedPriceLow);
 	}
 	public double getTentPriceLow() {
 		return tentPriceLow;
 	}
-	public void setTentPriceLow(double tentPriceLow) {
-		this.tentPriceLow = tentPriceLow;
+	public void setTentPriceLow(String tentPriceLow) {
+		this.tentPriceLow = Double.parseDouble(tentPriceLow);
 	}
 
 	public int getAvailableBed() {

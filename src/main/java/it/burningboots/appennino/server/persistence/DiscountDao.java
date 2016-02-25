@@ -18,7 +18,7 @@ public class DiscountDao {
 		try {
 			String qs = "from Discount where "+
 					"email like :s1 "+
-					"order by email asc";
+					"order by id asc";
 			Query q = ses.createQuery(qs);
 			q.setString("s1", email);
 			List<Discount> entities = (List<Discount>) q.list();

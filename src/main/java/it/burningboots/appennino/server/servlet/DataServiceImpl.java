@@ -185,8 +185,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	@Override
-	public Integer saveOrUpdateParticipant(Participant prt) throws SystemException {
-		Integer id = null;
+	public Participant saveOrUpdateParticipant(Participant prt) throws SystemException {
+		Participant result = null;
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {
@@ -198,6 +198,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			}
 			Participant oldPrt = null;
 			if (prt.getId() != null) oldPrt = GenericDao.findById(ses, Participant.class, prt.getId());
+			Integer id = null;
 			if (oldPrt == null) {
 				prt.setEmailOriginal(prt.getEmail());
 				prt.setCreationDt(now);
@@ -206,6 +207,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				id = prt.getId();
 				GenericDao.updateGeneric(ses, prt.getId(), prt);
 			}
+			result = GenericDao.findById(ses, Participant.class, id);
         	trn.commit();
 		} catch (OrmException e) {
 			trn.rollback();
@@ -214,7 +216,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		} finally {
 			ses.close();
 		}
-		return id;
+		return result;
 	}
 
 	@Override

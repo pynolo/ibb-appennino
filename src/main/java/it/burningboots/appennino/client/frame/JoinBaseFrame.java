@@ -18,8 +18,8 @@ import it.burningboots.appennino.shared.ValidationException;
 import it.burningboots.appennino.shared.entity.Participant;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -114,9 +114,9 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		cp.add(emailPanel);
 		cp.add(new HTML("<p><i>"+constants.joinBaseEmailWarning()+"</i></p>"));
 
-		emailText.addKeyPressHandler(new KeyPressHandler() {
+		emailText.addKeyUpHandler(new KeyUpHandler() {
 			@Override
-			public void onKeyPress(KeyPressEvent event) {
+			public void onKeyUp(KeyUpEvent event) {
 				if (emailText.getValue() != null) {
 					discountLabel.update(emailText.getValue());
 				}

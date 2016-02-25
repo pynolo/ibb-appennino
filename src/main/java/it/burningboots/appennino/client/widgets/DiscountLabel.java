@@ -1,6 +1,5 @@
 package it.burningboots.appennino.client.widgets;
 
-import it.burningboots.appennino.client.ClientConstants;
 import it.burningboots.appennino.client.LocaleConstants;
 import it.burningboots.appennino.client.UiSingleton;
 import it.burningboots.appennino.client.service.DataService;
@@ -37,10 +36,12 @@ public class DiscountLabel extends InlineHTML {
 	}
 	
 	private void showWait() {
-		this.setHTML(ClientConstants.ICON_LOADING_SMALL+" "+constants.pleaseWait());
+		//this.setHTML(ClientConstants.ICON_LOADING_SMALL+" "+constants.pleaseWait());
+		this.setHTML("<i class='fa fa-comment-o'></i> "+constants.discountNo());
 	}
 	private void hideLabel() {
-		this.setHTML("<i class='fa fa-dot-circle-o'></i>");
+		//this.setHTML("<i class='fa fa-dot-circle-o'></i>");
+		this.setHTML("<i class='fa fa-comment-o'></i> "+constants.discountNo());
 	}
 	private void showLabel(boolean discounted) {
 		if (discounted) {

@@ -82,14 +82,14 @@ public class ReplaceSaveFrame extends FramePanel {
 	//Async methods
 	
 	private void saveOrUpdateAsyncData(String itemNumber) {
-		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+		AsyncCallback<Participant> callback = new AsyncCallback<Participant>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				UiSingleton.get().addError(caught);
 				WaitSingleton.get().stop();
 			}
 			@Override
-			public void onSuccess(Integer id) {
+			public void onSuccess(Participant id) {
 				draw();
 				WaitSingleton.get().stop();
 			}

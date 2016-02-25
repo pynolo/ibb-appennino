@@ -18,10 +18,12 @@ public class PropertyReader {
 	public static final String PROPERTY_BED_UNTIL = "bed_available_until";
 	public static final String PROPERTY_BED_MAX = "bed_max";
 	public static final String PROPERTY_BED_PRICE = "bed_price";
+	public static final String PROPERTY_BED_PRICE_LOW = "bed_price_low";
 	public static final String PROPERTY_TENT_FROM = "tent_available_from";
 	public static final String PROPERTY_TENT_UNTIL = "tent_available_until";
 	public static final String PROPERTY_TENT_MAX = "tent_max";
 	public static final String PROPERTY_TENT_PRICE = "tent_price";
+	public static final String PROPERTY_TENT_PRICE_LOW = "tent_price_low";
 	
 	private static Logger LOG = LoggerFactory.getLogger(PropertyReader.class);
 

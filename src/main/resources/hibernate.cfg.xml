@@ -52,6 +52,7 @@
 
 		<!--mapping package="it.hubzilla.hubchart.model"/-->
 		<mapping class="it.burningboots.appennino.shared.entity.Config"/>
+		<mapping class="it.burningboots.appennino.shared.entity.Discount"/>
 		<mapping class="it.burningboots.appennino.shared.entity.IpnResponse"/>
 		<mapping class="it.burningboots.appennino.shared.entity.Participant"/>
     </session-factory>

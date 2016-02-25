@@ -12,10 +12,12 @@ public class PropertyBean implements Serializable {
 	private int bedAvailableUntil = -1;
 	private int bedMax = -1;
 	private double bedPrice = -1D;
+	private double bedPriceLow = -1D;
 	private int tentAvailableFrom = -1;
 	private int tentAvailableUntil = -1;
 	private int tentMax = -1;
 	private double tentPrice = -1D;
+	private double tentPriceLow = -1D;
 	
 	private int bedCount = -1;
 	private int tentCount = -1;
@@ -101,8 +103,19 @@ public class PropertyBean implements Serializable {
 	public void setAccessKey(String accessKey) {
 		this.accessKey = accessKey;
 	}
+	public double getBedPriceLow() {
+		return bedPriceLow;
+	}
+	public void setBedPriceLow(double bedPriceLow) {
+		this.bedPriceLow = bedPriceLow;
+	}
+	public double getTentPriceLow() {
+		return tentPriceLow;
+	}
+	public void setTentPriceLow(double tentPriceLow) {
+		this.tentPriceLow = tentPriceLow;
+	}
 
-	
 	public int getAvailableBed() {
 		int total = bedCount+tentCount;
 		int a1 = bedMax-bedCount;

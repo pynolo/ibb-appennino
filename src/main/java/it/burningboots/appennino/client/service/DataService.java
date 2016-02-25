@@ -29,6 +29,10 @@ public interface DataService extends RemoteService {
 	public List<Participant> findParticipants(boolean confirmed) throws SystemException;
 	public Participant createTransientParticipant() throws SystemException;
 	public Integer saveOrUpdateParticipant(Participant prt) throws SystemException;
-	public Integer countConfirmed(int accommodationType) throws SystemException;
-	public Double countPaymentTotal() throws SystemException;
+	//public Integer countConfirmed(int accommodationType) throws SystemException;
+	//public Double countPaymentTotal() throws SystemException;
+	
+	//Discount
+	public Boolean canHaveDiscount(String email) throws SystemException;
+	
 }

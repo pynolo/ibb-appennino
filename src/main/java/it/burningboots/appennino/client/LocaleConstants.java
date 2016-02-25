@@ -12,6 +12,8 @@ public interface LocaleConstants extends Constants {
 	String replacementCode();
 	String error();
 	String warning();
+	String discountYes();
+	String discountNo();
 	
 	String joinBaseTitle();
 	String joinBaseWelcome();

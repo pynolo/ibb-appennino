@@ -9,6 +9,7 @@ import it.burningboots.appennino.client.WaitSingleton;
 import it.burningboots.appennino.client.WizardSingleton;
 import it.burningboots.appennino.client.service.DataService;
 import it.burningboots.appennino.client.service.DataServiceAsync;
+import it.burningboots.appennino.client.widgets.DiscountLabel;
 import it.burningboots.appennino.client.widgets.WizardButtons;
 import it.burningboots.appennino.shared.AppConstants;
 import it.burningboots.appennino.shared.PropertyBean;
@@ -17,8 +18,12 @@ import it.burningboots.appennino.shared.ValidationException;
 import it.burningboots.appennino.shared.entity.Participant;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -34,6 +39,7 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 	private RadioButton bedRadio;
 	private RadioButton tentRadio;
 	private TextBox emailText;
+	private DiscountLabel discountLabel;
 	
 	public JoinBaseFrame(UriBuilder params) {
 		super();
@@ -98,11 +104,25 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		
 		
 		cp.add(new HTML("<p>"+constants.joinBaseEmail()+"</p>"));
+		HorizontalPanel emailPanel = new HorizontalPanel();
 		emailText = new TextBox();
 		emailText.setValue(participant.getEmail());
-		cp.add(emailText);
+		emailPanel.add(emailText);
+		emailPanel.add(new InlineHTML("&nbsp;&nbsp;"));
+		discountLabel = new DiscountLabel();
+		emailPanel.add(discountLabel);
+		cp.add(emailPanel);
 		cp.add(new HTML("<p><i>"+constants.joinBaseEmailWarning()+"</i></p>"));
-		
+
+		emailText.addKeyPressHandler(new KeyPressHandler() {
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				if (emailText.getValue() != null) {
+					discountLabel.update(emailText.getValue());
+				}
+			}
+		});
+
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, false, true);
 		cp.add(wb);

@@ -50,6 +50,24 @@ public class ParticipantDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public static List<Participant> findByEmail(Session ses, String email, boolean confirmed)
+			throws OrmException {
+		List<Participant> entities = new ArrayList<Participant>();
+		try {
+			String qs = "from Participant p where "+
+					"p.email like :s1 ";
+			if (confirmed) qs += "and p.paymentDt is not null ";
+			qs += "order by p.creationDt";
+			Query q = ses.createQuery(qs);
+			q.setParameter("s1", email);
+			entities = (List<Participant>) q.list();
+		} catch (HibernateException e) {
+			throw new OrmException(e.getMessage(), e);
+		}
+		return entities;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static Integer countConfirmed(Session ses, int accommodationType)
 			throws OrmException {
 		Long result = null;

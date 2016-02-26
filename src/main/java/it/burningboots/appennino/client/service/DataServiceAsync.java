@@ -1,5 +1,8 @@
 package it.burningboots.appennino.client.service;
 
+import java.util.List;
+
+import it.burningboots.appennino.shared.entity.Discount;
 import it.burningboots.appennino.shared.entity.Participant;
 
 import com.google.gwt.core.client.GWT;
@@ -24,6 +27,7 @@ public interface DataServiceAsync
 	//void countConfirmed(int accommodationType, AsyncCallback<Integer> callback);
 	//void countPaymentTotal(AsyncCallback<Double> callback);
 	
+	void findDiscounts(AsyncCallback<List<Discount>> callback);
     void canHaveDiscount(String email, AsyncCallback<Boolean> callback);
     
     /**
@@ -47,4 +51,5 @@ public interface DataServiceAsync
             // Utility class should not be instantiated
         }
     }
+
 }

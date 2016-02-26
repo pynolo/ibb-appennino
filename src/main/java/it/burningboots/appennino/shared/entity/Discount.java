@@ -22,11 +22,14 @@ public class Discount implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
 	private Integer id;
-	@Column(name = "email", length = 64)
+	@Basic(optional = false)
+	@Column(name = "email", length = 64, nullable = false)
 	private String email = "";
 	@Column(name = "tickets")
 	private Integer tickets = AppConstants.ACCOMMODATION_BED;
-
+	@Column(name = "note", length = 256)
+	private String note = "";
+	
 	public Discount() {
 	}
 
@@ -52,6 +55,14 @@ public class Discount implements Serializable {
 
 	public void setTickets(Integer tickets) {
 		this.tickets = tickets;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	@Override

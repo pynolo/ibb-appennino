@@ -6,7 +6,9 @@ import it.burningboots.appennino.client.CookieSingleton;
 import it.burningboots.appennino.client.IAuthenticatedWidget;
 import it.burningboots.appennino.client.UriBuilder;
 import it.burningboots.appennino.client.widgets.DataModel;
+import it.burningboots.appennino.client.widgets.DiscountTable;
 import it.burningboots.appennino.client.widgets.ParticipantTable;
+import it.burningboots.appennino.shared.entity.Discount;
 import it.burningboots.appennino.shared.entity.Participant;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -70,9 +72,15 @@ public class ParticipantFrame extends FramePanel implements IAuthenticatedWidget
 		confirmList.setEnabled(true);
 		topPanel.add(confirmList);
 		panel.add(topPanel);
+		//Tabella partecipanti
 		resultPanel = new FlowPanel();
 		panel.add(resultPanel);
 		refreshTable();
+		//Tabella low income
+		panel.add(new HTML("<p>&nbsp;<br /><b>Low income addresses list</b></p>"));
+		DataModel<Discount> discModel = new DiscountTable.DiscountModel();
+		DiscountTable discTable = new DiscountTable(discModel);
+		panel.add(discTable);
 	}
 	
 	private void refreshTable() {

@@ -95,8 +95,9 @@ DROP TABLE IF EXISTS `discount`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `discount` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`email` varchar(64) DEFAULT NULL,
+	`email` varchar(64) NOT NULL,
 	`tickets` int NOT NULL DEFAULT 1,
+	`note` VARCHAR(256) DEFAULT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

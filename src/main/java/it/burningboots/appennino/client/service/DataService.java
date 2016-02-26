@@ -3,6 +3,7 @@ package it.burningboots.appennino.client.service;
 import it.burningboots.appennino.shared.PropertyBean;
 import it.burningboots.appennino.shared.SystemException;
 import it.burningboots.appennino.shared.entity.Config;
+import it.burningboots.appennino.shared.entity.Discount;
 import it.burningboots.appennino.shared.entity.Participant;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public interface DataService extends RemoteService {
 	//public Double countPaymentTotal() throws SystemException;
 	
 	//Discount
+	public List<Discount> findDiscounts() throws SystemException;
 	public Boolean canHaveDiscount(String email) throws SystemException;
 	
 }

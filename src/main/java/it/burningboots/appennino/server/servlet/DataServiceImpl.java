@@ -269,6 +269,24 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	//}
 	
 	@Override
+	public List<Discount> findDiscounts() throws SystemException {
+		List<Discount> pList = new ArrayList<Discount>();
+		Session ses = SessionFactory.getSession();
+		Transaction trn = ses.beginTransaction();
+		try {
+			pList = GenericDao.findByClass(ses, Discount.class, "email");
+			trn.commit();
+		} catch (OrmException e) {
+			trn.rollback();
+			LOG.error(e.getMessage(), e);
+			throw new SystemException(e.getMessage(), e);
+		} finally {
+			ses.close();
+		}
+		return pList;
+	}
+	
+	@Override
 	public Boolean canHaveDiscount(String email) throws SystemException {
 		Boolean result = false;
 		Session ses = SessionFactory.getSession();

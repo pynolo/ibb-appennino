@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class JoinThankYouFrame extends FramePanel {
 	
-	private static final int DELAY = 12000;// 12 seconds
+	private static final int DELAY = 6000;// 6 seconds
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
 	private LocaleConstants constants = GWT.create(LocaleConstants.class);
@@ -36,6 +36,9 @@ public class JoinThankYouFrame extends FramePanel {
 		}
 		String itemNumber = this.params.getValue(AppConstants.PARAMS_ITEM_NUMBER);
 		if (itemNumber == null) itemNumber = "";
+		if (itemNumber.length() > AppConstants.ITEM_NUMBER_LENGHT) {
+			itemNumber = itemNumber.substring(0, AppConstants.ITEM_NUMBER_LENGHT);
+		}
 		cp = new VerticalPanel();
 		this.add(cp);
 		loadAsyncData(itemNumber);
@@ -89,6 +92,7 @@ public class JoinThankYouFrame extends FramePanel {
 	
 	
 	private void loadAsyncData(String itemNumber) {
+		final String fItemNumber = itemNumber;
 		AsyncCallback<Participant> callback = new AsyncCallback<Participant>() {
 			@Override
 			public void onFailure(Throwable caught) {
@@ -97,8 +101,15 @@ public class JoinThankYouFrame extends FramePanel {
 			}
 			@Override
 			public void onSuccess(Participant result) {
-				WizardSingleton.get().setParticipantBean(result);
-				draw();
+				if (result == null) {
+					UiSingleton.get().addWarning("Couldn't find participant with id = "+fItemNumber);
+					UriBuilder param = new UriBuilder();
+					param.add(AppConstants.PARAMS_ITEM_NUMBER, fItemNumber);
+					param.triggerUri(UriDispatcher.ERROR_PAYMENT);
+				} else {
+					WizardSingleton.get().setParticipantBean(result);
+					draw();
+				}
 				WaitSingleton.get().stop();
 			}
 		};

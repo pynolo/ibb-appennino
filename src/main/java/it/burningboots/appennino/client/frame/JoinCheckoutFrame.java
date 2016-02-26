@@ -56,9 +56,9 @@ public class JoinCheckoutFrame extends FramePanel {
 		String type = "";
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
 			if (participant.getDiscount()) {
-				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPriceLow());
+				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getHutPriceLow());
 			} else {
-				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getBedPrice());
+				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getHutPrice());
 			}
 			type = constants.hut();
 		} 

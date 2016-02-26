@@ -18,11 +18,12 @@ public interface LocaleConstants extends Constants {
 	
 	String joinBaseTitle();
 	String joinBaseWelcome();
-	String joinBaseSoldOut();
-	String joinBaseBedFeatures();
-	String joinBaseTentFeatures();
 	String joinBaseEmail();
 	String joinBaseEmailWarning();
+	String joinBaseAccommodation();
+	String joinBaseToSoldOut();
+	String joinBaseBedFeatures();
+	String joinBaseTentFeatures();
 
 	String joinCheckoutTitle();
 	String joinCheckoutOneMoreStep();

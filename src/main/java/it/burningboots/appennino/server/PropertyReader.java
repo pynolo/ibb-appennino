@@ -14,11 +14,11 @@ public class PropertyReader {
 
 	public static final String PROPERTY_VERSION = "version";
 	public static final String PROPERTY_CLOSED = "closed";
-	public static final String PROPERTY_BED_FROM = "bed_available_from";
-	public static final String PROPERTY_BED_UNTIL = "bed_available_until";
-	public static final String PROPERTY_BED_MAX = "bed_max";
-	public static final String PROPERTY_BED_PRICE = "bed_price";
-	public static final String PROPERTY_BED_PRICE_LOW = "bed_price_low";
+	public static final String PROPERTY_HUT_FROM = "hut_available_from";
+	public static final String PROPERTY_HUT_UNTIL = "hut_available_until";
+	public static final String PROPERTY_HUT_MAX = "hut_max";
+	public static final String PROPERTY_HUT_PRICE = "hut_price";
+	public static final String PROPERTY_HUT_PRICE_LOW = "hut_price_low";
 	public static final String PROPERTY_TENT_FROM = "tent_available_from";
 	public static final String PROPERTY_TENT_UNTIL = "tent_available_until";
 	public static final String PROPERTY_TENT_MAX = "tent_max";

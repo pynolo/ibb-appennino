@@ -48,9 +48,9 @@ public class FramePanel extends FlowPanel {
 			if ( p.getClosed() ) {
 				UriDispatcher.loadContent(UriDispatcher.ERROR_CLOSED);
 			}
-			if ( ((p.getBedCount() >= p.getBedAvailableUntil()) && (p.getTentCount() >= p.getTentAvailableUntil()))
+			if ( ((p.getHutCount() >= p.getHutAvailableUntil()) && (p.getTentCount() >= p.getTentAvailableUntil()))
 					||
-					((p.getBedCount() >= p.getBedMax()) && (p.getTentCount() >= p.getTentMax())) ) {
+					((p.getHutCount() >= p.getHutMax()) && (p.getTentCount() >= p.getTentMax())) ) {
 				UriDispatcher.loadContent(UriDispatcher.ERROR_CLOSED);
 			}
 		}

@@ -9,7 +9,7 @@ import it.burningboots.appennino.client.WaitSingleton;
 import it.burningboots.appennino.client.WizardSingleton;
 import it.burningboots.appennino.client.service.DataService;
 import it.burningboots.appennino.client.service.DataServiceAsync;
-import it.burningboots.appennino.client.widgets.DiscountLabel;
+import it.burningboots.appennino.client.widgets.ExtendedTextBox;
 import it.burningboots.appennino.client.widgets.WizardButtons;
 import it.burningboots.appennino.shared.AppConstants;
 import it.burningboots.appennino.shared.PropertyBean;
@@ -20,26 +20,29 @@ import it.burningboots.appennino.shared.entity.Participant;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
 	private LocaleConstants constants = GWT.create(LocaleConstants.class);
+	private PropertyBean pb = null;
 	
 	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
 	
-	private RadioButton bedRadio;
+	private RadioButton hutRadio;
 	private RadioButton tentRadio;
-	private TextBox emailText;
-	private DiscountLabel discountLabel;
+	private ExtendedTextBox emailText;
+	private InlineHTML discountLabel;
 	
 	public JoinBaseFrame(UriBuilder params) {
 		super();
@@ -52,80 +55,100 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		if (itemNumber == null) itemNumber = "";
 		cp = new VerticalPanel();
 		this.add(cp);
+		pb = WizardSingleton.get().getPropertyBean();
 		loadAsyncData(itemNumber);
 	}
 	
 	private void draw() {		
 		if (WizardSingleton.get().getWizardType().equals(AppConstants.WIZARD_REGISTER))
 				forwardIfJoinNotPossible();
-		PropertyBean pb = WizardSingleton.get().getPropertyBean();
 		Participant participant = WizardSingleton.get().getParticipantBean();
 		
 		//TITLE
 		setTitle(constants.joinBaseTitle());
 		
-		VerticalPanel accommodationPanel = new VerticalPanel();
-		cp.add(accommodationPanel);
+		VerticalPanel formPanel = new VerticalPanel();
+		cp.add(formPanel);
+		formPanel.add(new HTML("<p>"+constants.joinBaseWelcome()+"</p>"));
 		
-		accommodationPanel.add(new HTML("<p>"+constants.joinBaseWelcome()+"</p>"));
+		//EMAIL
 		
-		VerticalPanel bedPanel = new VerticalPanel();
-		accommodationPanel.add(bedPanel);
-		bedRadio = new RadioButton("accommodation", "<b>"+constants.hut()+"</b> - &euro;"+
-				ClientConstants.FORMAT_CURRENCY.format(pb.getBedPrice())+"&nbsp;&nbsp;", true);
-		bedPanel.add(bedRadio);
-		int bedAvail = pb.getAvailableBed();
-		String bedDescr = "";
-		if (bedAvail <= 4) {
-			bedDescr += "<b>"+bedAvail+"</b> "+constants.joinBaseSoldOut()+"<br />";
-		}
-		bedDescr += constants.joinBaseBedFeatures();
-		bedPanel.add(new HTML(bedDescr+"<br/>&nbsp;"));
-		
-		VerticalPanel tentPanel = new VerticalPanel();
-		accommodationPanel.add(tentPanel);
-		tentRadio = new RadioButton("accommodation", "<b>"+constants.tent()+"</b> - &euro;"+
-				ClientConstants.FORMAT_CURRENCY.format(pb.getTentPrice())+"&nbsp;&nbsp;", true);
-		tentPanel.add(tentRadio);
-		int tentAvail = pb.getAvailableTent();
-		String tentDescr = "";
-		if (tentAvail <= 4) {
-			tentDescr += "<b>"+tentAvail+"</b> "+constants.tent()+"<br />";
-		}
-		tentDescr += constants.joinBaseTentFeatures();
-		tentPanel.add(new HTML(tentDescr));
-		
-		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
-			tentRadio.setValue(true);
-		} else {
-			bedRadio.setValue(true);
-		}
-		cp.add(new HTML("<p>&nbsp;</p>"));
-		
-		
-		cp.add(new HTML("<p>"+constants.joinBaseEmail()+"</p>"));
+		formPanel.add(new HTML("<p>"+constants.joinBaseEmail()+"</p>"));
 		HorizontalPanel emailPanel = new HorizontalPanel();
-		emailText = new TextBox();
+		emailText = new ExtendedTextBox();
 		emailText.setValue(participant.getEmail());
 		emailPanel.add(emailText);
 		emailPanel.add(new InlineHTML("&nbsp;&nbsp;"));
-		discountLabel = new DiscountLabel();
+		discountLabel = new InlineHTML();
 		emailPanel.add(discountLabel);
-		cp.add(emailPanel);
-		cp.add(new HTML("<p><i>"+constants.joinBaseEmailWarning()+"</i></p>"));
+		formPanel.add(emailPanel);
+		formPanel.add(new HTML("<p><i>"+constants.joinBaseEmailWarning()+"</i></p>"));
 
 		emailText.addKeyUpHandler(new KeyUpHandler() {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if (emailText.getValue() != null) {
-					discountLabel.update(emailText.getValue());
+					onEmailChange(emailText.getValue());
 				}
 			}
 		});
+		emailText.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+	        public void onValueChange(ValueChangeEvent<String> event) {
+	        	if (emailText.getValue() != null) {
+	        		onEmailChange(emailText.getValue());
+				}
+	        }
+	    });
+		formPanel.add(new HTML("<p>&nbsp;</p>"));
+		
+		//ACCOMMODATION
+		formPanel.add(new HTML("<p>"+constants.joinBaseAccommodation()+"</p>"));
+		
+		FlexTable accmTable = new FlexTable();
+		formPanel.add(accmTable);
+		
+		//hut radio
+		hutRadio = new RadioButton("accommodation");
+		accmTable.setWidget(0, 0, hutRadio);
+		//hut img
+		accmTable.setWidget(0, 1, new HTML("<img src='img/hut.png' />"));
+		accmTable.getFlexCellFormatter().setRowSpan(0, 1, 2);
+		//hut descr
+		int hutAvail = pb.getAvailableHut();
+		String hutDescr = "";
+		if (hutAvail <= 4) {
+			hutDescr += "<b>"+hutAvail+"</b> "+constants.joinBaseToSoldOut()+"<br />";
+		}
+		hutDescr += constants.joinBaseBedFeatures();
+		accmTable.setWidget(1, 0, new HTML(hutDescr+"<br/>&nbsp;"));
 
+		//tent radio
+		tentRadio = new RadioButton("accommodation");
+		accmTable.setWidget(2, 0, tentRadio);
+		//tent img
+		accmTable.setWidget(2, 1, new HTML("<img src='img/tent.png' />"));
+		accmTable.getFlexCellFormatter().setRowSpan(2, 1, 2);
+		//tent descr
+		int tentAvail = pb.getAvailableTent();
+		String tentDescr = "";
+		if (tentAvail <= 4) {
+			tentDescr += "<b>"+tentAvail+"</b> "+constants.joinBaseToSoldOut()+"<br />";
+		}
+		tentDescr += constants.joinBaseTentFeatures();
+		accmTable.setWidget(3, 0, new HTML(tentDescr+"<br/>&nbsp;"));
+		
+		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
+			tentRadio.setValue(true);
+		} else {
+			hutRadio.setValue(true);
+		}
+		
 		//Wizard panel
 		WizardButtons wb = new WizardButtons(this, false, true);
 		cp.add(wb);
+		
+		onEmailChange(emailText.getValue());
 	}
 	
 	@Override
@@ -163,6 +186,24 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		}
 	}
 	
+	private void hideDiscount() {
+		discountLabel.setHTML("<i class='fa fa-comment-o'></i> "+constants.discountNo());
+		hutRadio.setHTML("<b>"+constants.hut()+"</b> - &euro;"+
+				ClientConstants.FORMAT_CURRENCY.format(pb.getHutPrice())+"&nbsp;&nbsp;");
+		tentRadio.setHTML("<b>"+constants.tent()+"</b> - &euro;"+
+				ClientConstants.FORMAT_CURRENCY.format(pb.getTentPrice())+"&nbsp;&nbsp;");
+	}
+	
+	private void showDiscount() {
+		discountLabel.setHTML("<i class='fa fa-check-circle'></i> "+constants.discountYes());
+		hutRadio.setHTML("<b>"+constants.hut()+"</b> - &euro;"+
+				ClientConstants.FORMAT_CURRENCY.format(pb.getHutPriceLow())+
+				" ("+constants.discount()+")&nbsp;&nbsp;");
+		tentRadio.setHTML("<b>"+constants.tent()+"</b> - &euro;"+
+				ClientConstants.FORMAT_CURRENCY.format(pb.getTentPriceLow())+
+				" ("+constants.discount()+")&nbsp;&nbsp;");
+	}
+	
 	
 	//Async methods
 	
@@ -196,6 +237,28 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 				draw();
 			}
 		}
+	}
+	
+	
+	public void onEmailChange(String email) {
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				UiSingleton.get().addError(caught);
+				hideDiscount();
+			}
+			@Override
+			public void onSuccess(Boolean result) {
+				if (result == null) result = false;
+				if (result) {
+					showDiscount();
+				} else {
+					hideDiscount();
+				}
+			}
+		};
+		hideDiscount();
+		dataService.canHaveDiscount(email, callback);
 	}
 	
 }

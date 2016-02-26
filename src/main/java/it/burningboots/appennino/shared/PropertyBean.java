@@ -8,18 +8,18 @@ public class PropertyBean implements Serializable {
 	private String version = null;
 	private String accessKey = null;
 	private boolean closed = true;
-	private int bedAvailableFrom = -1;
-	private int bedAvailableUntil = -1;
-	private int bedMax = -1;
-	private double bedPrice = -1D;
-	private double bedPriceLow = -1D;
+	private int hutAvailableFrom = -1;
+	private int hutAvailableUntil = -1;
+	private int hutMax = -1;
+	private double hutPrice = -1D;
+	private double hutPriceLow = -1D;
 	private int tentAvailableFrom = -1;
 	private int tentAvailableUntil = -1;
 	private int tentMax = -1;
 	private double tentPrice = -1D;
 	private double tentPriceLow = -1D;
 	
-	private int bedCount = -1;
+	private int hutCount = -1;
 	private int tentCount = -1;
 	
 	public PropertyBean() {
@@ -37,11 +37,11 @@ public class PropertyBean implements Serializable {
 	public void setClosed(boolean closed) {
 		this.closed = closed;
 	}
-	public int getBedAvailableFrom() {
-		return bedAvailableFrom;
+	public int getHutAvailableFrom() {
+		return hutAvailableFrom;
 	}
-	public void setBedAvailableFrom(String bedAvailableFrom) {
-		this.bedAvailableFrom = Integer.parseInt(bedAvailableFrom);
+	public void setHutAvailableFrom(String hutAvailableFrom) {
+		this.hutAvailableFrom = Integer.parseInt(hutAvailableFrom);
 	}
 	public int getTentAvailableFrom() {
 		return tentAvailableFrom;
@@ -49,11 +49,11 @@ public class PropertyBean implements Serializable {
 	public void setTentAvailableFrom(String tentAvailableFrom) {
 		this.tentAvailableFrom = Integer.parseInt(tentAvailableFrom);
 	}
-	public int getBedAvailableUntil() {
-		return bedAvailableUntil;
+	public int getHutAvailableUntil() {
+		return hutAvailableUntil;
 	}
-	public void setBedAvailableUntil(String bedAvailableUntil) {
-		this.bedAvailableUntil = Integer.parseInt(bedAvailableUntil);
+	public void setHutAvailableUntil(String hutAvailableUntil) {
+		this.hutAvailableUntil = Integer.parseInt(hutAvailableUntil);
 	}
 	public int getTentAvailableUntil() {
 		return tentAvailableUntil;
@@ -61,11 +61,11 @@ public class PropertyBean implements Serializable {
 	public void setTentAvailableUntil(String tentAvailableUntil) {
 		this.tentAvailableUntil = Integer.parseInt(tentAvailableUntil);
 	}
-	public int getBedMax() {
-		return bedMax;
+	public int getHutMax() {
+		return hutMax;
 	}
-	public void setBedMax(String bedMax) {
-		this.bedMax = Integer.parseInt(bedMax);
+	public void setHutMax(String hutMax) {
+		this.hutMax = Integer.parseInt(hutMax);
 	}
 	public int getTentMax() {
 		return tentMax;
@@ -73,11 +73,11 @@ public class PropertyBean implements Serializable {
 	public void setTentMax(String tentMax) {
 		this.tentMax = Integer.parseInt(tentMax);
 	}
-	public double getBedPrice() {
-		return bedPrice;
+	public double getHutPrice() {
+		return hutPrice;
 	}
-	public void setBedPrice(String bedPrice) {
-		this.bedPrice = Double.parseDouble(bedPrice);
+	public void setHutPrice(String hutPrice) {
+		this.hutPrice = Double.parseDouble(hutPrice);
 	}
 	public double getTentPrice() {
 		return tentPrice;
@@ -85,11 +85,11 @@ public class PropertyBean implements Serializable {
 	public void setTentPrice(String tentPrice) {
 		this.tentPrice =  Double.parseDouble(tentPrice);
 	}
-	public int getBedCount() {
-		return bedCount;
+	public int getHutCount() {
+		return hutCount;
 	}
-	public void setBedCount(int bedCount) {
-		this.bedCount = bedCount;
+	public void setHutCount(int hutCount) {
+		this.hutCount = hutCount;
 	}
 	public int getTentCount() {
 		return tentCount;
@@ -103,11 +103,11 @@ public class PropertyBean implements Serializable {
 	public void setAccessKey(String accessKey) {
 		this.accessKey = accessKey;
 	}
-	public double getBedPriceLow() {
-		return bedPriceLow;
+	public double getHutPriceLow() {
+		return hutPriceLow;
 	}
-	public void setBedPriceLow(String bedPriceLow) {
-		this.bedPriceLow = Double.parseDouble(bedPriceLow);
+	public void setHutPriceLow(String hutPriceLow) {
+		this.hutPriceLow = Double.parseDouble(hutPriceLow);
 	}
 	public double getTentPriceLow() {
 		return tentPriceLow;
@@ -116,16 +116,16 @@ public class PropertyBean implements Serializable {
 		this.tentPriceLow = Double.parseDouble(tentPriceLow);
 	}
 
-	public int getAvailableBed() {
-		int total = bedCount+tentCount;
-		int a1 = bedMax-bedCount;
-		int a2 = bedAvailableUntil-total;
+	public int getAvailableHut() {
+		int total = hutCount+tentCount;
+		int a1 = hutMax-hutCount;
+		int a2 = hutAvailableUntil-total;
 		if (a1 < a2) return a1;
 		return a2;
 	}
 	
 	public int getAvailableTent() {
-		int total = bedCount+tentCount;
+		int total = hutCount+tentCount;
 		int a1 = tentMax-tentCount;
 		int a2 = tentAvailableUntil-total;
 		if (a1 < a2) return a1;

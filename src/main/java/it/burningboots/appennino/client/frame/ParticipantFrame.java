@@ -77,7 +77,7 @@ public class ParticipantFrame extends FramePanel implements IAuthenticatedWidget
 		panel.add(resultPanel);
 		refreshTable();
 		//Tabella low income
-		panel.add(new HTML("<p>&nbsp;<br /><b>Low income addresses list</b></p>"));
+		panel.add(new HTML("<p>&nbsp;<br /><b>Low income address list</b></p>"));
 		DataModel<Discount> discModel = new DiscountTable.DiscountModel();
 		DiscountTable discTable = new DiscountTable(discModel);
 		panel.add(discTable);

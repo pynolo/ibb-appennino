@@ -112,7 +112,7 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		hutRadio = new RadioButton("accommodation");
 		accmTable.setWidget(0, 0, hutRadio);
 		//hut img
-		accmTable.setWidget(0, 1, new HTML("<img src='img/hut.png' />"));
+		accmTable.setWidget(0, 1, new HTML("<p align='center'>&nbsp;<img src='img/hut.png' /></p>"));
 		accmTable.getFlexCellFormatter().setRowSpan(0, 1, 2);
 		//hut descr
 		int hutAvail = pb.getAvailableHut();
@@ -127,7 +127,7 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		tentRadio = new RadioButton("accommodation");
 		accmTable.setWidget(2, 0, tentRadio);
 		//tent img
-		accmTable.setWidget(2, 1, new HTML("<img src='img/tent.png' />"));
+		accmTable.setWidget(2, 1, new HTML("<p align='center'>&nbsp;<img src='img/tent.png' /></p>"));
 		accmTable.getFlexCellFormatter().setRowSpan(2, 1, 2);
 		//tent descr
 		int tentAvail = pb.getAvailableTent();

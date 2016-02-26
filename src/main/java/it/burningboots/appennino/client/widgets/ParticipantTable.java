@@ -146,6 +146,7 @@ public class ParticipantTable extends PagingTable<Participant> {
 		//PAGAMENTO
 		getInnerTable().setHTML(rowNum, 9, "<b>Total "+
 				ClientConstants.FORMAT_CURRENCY.format(paymentTotal)+"</b>");
+		getInnerTable().setHTML(rowNum, 10, "&nbsp;");
 	}
 	
 	@Override

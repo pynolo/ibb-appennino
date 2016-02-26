@@ -9,14 +9,13 @@ public class AppConstants {
 
 	// IPN
 	// GUIDE https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNSetup/
-	public static final String BASE_URL= "https://burningboots.it/appennino";
-	public static final String IPN_URL= "https://burningboots.it/appennino/ipn";//TO BE SET ON PAYPAL TOO https://www.paypal.com/cgi-bin/customerprofileweb?cmd=_profile-ipn-notify
-	public static final String EVENT_URL= "https://burningboots.it";
-	public static final String EVENT_EMAIL= "registration@burningboots.it";
-	//public static final String PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr"; //PRODUCTION
-	public static final String PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr";//SANDBOX
-	//public static final String PAYPAL_ACCOUNT = "ibb.registration@tarine.net"; //PRODUCTION
-	public static final String PAYPAL_ACCOUNT = "wave-facilitator@tarine.net";//SANDBOX pw low level
+	public static final String BASE_URL = "https://burningboots.it/appennino";
+	public static final String IPN_URL = "https://burningboots.it/appennino/ipn";//TO BE SET ON PAYPAL TOO https://www.paypal.com/cgi-bin/customerprofileweb?cmd=_profile-ipn-notify
+	public static final String EVENT_URL = "https://burningboots.it";
+	public static final String PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr"; //PRODUCTION
+	//public static final String PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr";//SANDBOX
+	public static final String PAYPAL_ACCOUNT = "dragolar@gmail.com"; //PRODUCTION
+	//public static final String PAYPAL_ACCOUNT = "wave-facilitator@tarine.net";//SANDBOX pw low level
 	//BUYER TEST ACCOUNT paolo-buyer@tarine.net pw low level
 	public static final int ITEM_NUMBER_LENGHT = 6;
 	

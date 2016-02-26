@@ -68,12 +68,16 @@ public class JoinThankYouFrame extends FramePanel {
 					participant.getItemNumber().toUpperCase()+"</p>"));
 			cp.add(new HTML("<p style='text-align: center; font-size: 1em;'>"+
 					constants.joinThankYouTakeNote()+"</p>"));
+			
+			cp.add(new HTML("<p>"+constants.joinThankYouWhatIs()+"<br />"+
+					"<b>"+constants.joinThankYouTellSomeone()+"</b><br/>"+
+					"("+constants.joinThankYouGoToForum()+")</p>"));
+			cp.add(new HTML("<p>&nbsp;</p>"));
 		}
-		
-		cp.add(new HTML("<p>"+constants.joinThankYouWhatIs()+"<br />"+
-				"<b>"+constants.joinThankYouTellSomeone()+"</b><br/>"+
-				"("+constants.joinThankYouGoToForum()+")</p>"));
 
+		cp.add(new HTML("<p>"+constants.joinThankYouReceiveEmail()+" <b>"+
+				participant.getEmail()+"</b></p>"));
+		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 				
 		cp.add(new HTML("<h3><a href='"+AppConstants.EVENT_URL+"'><i class='fa fa-hand-o-left'></i> <b>Italian Burning Boots</b></a></h3>"));

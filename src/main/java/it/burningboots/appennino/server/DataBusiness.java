@@ -35,7 +35,7 @@ public class DataBusiness {
 		return code.toUpperCase();
 	}
 	
-	public static Integer countConfirmedParticipants() {
+//	public static Integer countConfirmedParticipants() {
 //		Integer count = null;
 //		Session ses = HibernateSessionFactory.getSession();
 //		try {
@@ -46,10 +46,10 @@ public class DataBusiness {
 //			ses.close();
 //		}
 //		return count;
-		return null;
-	}
+//		return null;
+//	}
 	
-	public static Integer countReducedTickets() {
+//	public static Integer countReducedTickets() {
 //		Integer reducedCount = null;
 //		Session ses = HibernateSessionFactory.getSession();
 //		try {
@@ -61,6 +61,6 @@ public class DataBusiness {
 //			ses.close();
 //		}
 //		return reducedCount;
-		return null;
-	}
+//		return null;
+//	}
 }

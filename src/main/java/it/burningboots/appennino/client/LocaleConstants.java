@@ -55,6 +55,7 @@ public interface LocaleConstants extends Constants {
 	String joinThankYouWhatIs();
 	String joinThankYouTellSomeone();
 	String joinThankYouGoToForum();
+	String joinThankYouReceiveEmail();
 
 	String joinVolunteerTitle();
 	String joinVolunteerIntro();

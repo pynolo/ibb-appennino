@@ -52,7 +52,6 @@ public class ParticipantTable extends PagingTable<Participant> {
 	
 	@Override
 	protected void addTableRow(int rowNum, Participant rowObj) {
-		int participantTotal = bedCount+tentCount;
 		if (rowObj.getPaymentAmount() != null) paymentTotal += rowObj.getPaymentAmount();
 		final Participant rowFinal = rowObj;
 		
@@ -62,14 +61,14 @@ public class ParticipantTable extends PagingTable<Participant> {
 			acType="Hut";
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				bedCount++;
-				acType = participantTotal+". <i class='fa fa-home'></i> <b>"+acType+"</b>";
+				acType = (bedCount+tentCount)+" <i class='fa fa-home'></i>";
 			}
 		}
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
 			acType="Tent";
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				tentCount++;
-				acType = participantTotal+". <i class='fa fa-tree'></i> <b>"+acType+"</b>";
+				acType = (bedCount+tentCount)+" <i class='fa fa-tree'></i>";
 			}
 		}
 		getInnerTable().setHTML(rowNum, 0, acType);

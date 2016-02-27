@@ -17,6 +17,7 @@ public class ParticipantTable extends PagingTable<Participant> {
 	private static final int TABLE_ROWS = 1000;
 	private int bedCount = 0;
 	private int tentCount = 0;
+	private int disCount = 0;
 	private double paymentTotal = 0D;
 	
 	private AsyncCallback<List<Participant>> callback = new AsyncCallback<List<Participant>>() {
@@ -58,18 +59,22 @@ public class ParticipantTable extends PagingTable<Participant> {
 		//ACCOMMODATION TYPE
 		String acType = "";
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
-			acType="Hut";
+			acType="- <i class='fa fa-home'></i>";
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				bedCount++;
 				acType = (bedCount+tentCount)+" <i class='fa fa-home'></i>";
 			}
 		}
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
-			acType="Tent";
+			acType="- <i class='fa fa-tree'></i>";
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				tentCount++;
 				acType = (bedCount+tentCount)+" <i class='fa fa-tree'></i>";
 			}
+		}
+		if (rowObj.getDiscount()) {
+			acType +="*";
+			disCount++;
 		}
 		getInnerTable().setHTML(rowNum, 0, acType);
 		//EMAIL
@@ -138,10 +143,12 @@ public class ParticipantTable extends PagingTable<Participant> {
 		//ACCOMMODATION TYPE
 		getInnerTable().setHTML(rowNum, 0,
 				"<i class='fa fa-home'></i><br/>"+
-				"<i class='fa fa-tree'></i>");
+				"<i class='fa fa-tree'></i><br/>"+
+				"*");
 		getInnerTable().setHTML(rowNum, 1,
 				"<b>Total hut "+bedCount+"<br/>"+
-				"Total tent "+tentCount+"</b>");
+				"Total tent "+tentCount+"<br/>"+
+				"Total discount "+disCount+"</b>");
 		//PAGAMENTO
 		getInnerTable().setHTML(rowNum, 9, "<b>Total "+
 				ClientConstants.FORMAT_CURRENCY.format(paymentTotal)+"</b>");

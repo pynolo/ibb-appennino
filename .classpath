@@ -45,5 +45,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="target/appennino-2.2/WEB-INF/classes"/>
+	<classpathentry kind="output" path="target/appennino/WEB-INF/classes"/>
 </classpath>

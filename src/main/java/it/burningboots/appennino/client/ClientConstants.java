@@ -29,6 +29,10 @@ public class ClientConstants {
 	public static final Integer ICON_LOADING_WIDTH = 131;
 	public static final Integer ICON_LOADING_HEIGHT = 23;
 	public static final String ICON_LOADING_SMALL = "<img src='img/ajax-loader-small.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
+	public static final String ICON_HUT = "<img src='img/icon_hut.png' style='vertical-align:middle' title='hut' />";
+	public static final String ICON_TENT = "<img src='img/icon_tent.png' style='vertical-align:middle' title='tent' />";	
+	public static final String ICON_HUT_GREY = "<img src='img/icon_hut_grey.png' style='vertical-align:middle' title='hut' />";
+	public static final String ICON_TENT_GREY = "<img src='img/icon_tent_grey.png' style='vertical-align:middle' title='tent' />";	
 	public static final String MSG_ICON_INFO = "<img src='img/dialog-information.png' style='vertical-align:middle' />";
 	public static final String MSG_ICON_WARN = "<img src='img/dialog-warning.png' style='vertical-align:middle' />";
 	public static final String MSG_ICON_ERROR = "<img src='img/dialog-error.png' style='vertical-align:middle' />";

@@ -59,22 +59,18 @@ public class ParticipantTable extends PagingTable<Participant> {
 		//ACCOMMODATION TYPE
 		String acType = "";
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
-			acType="- <i class='fa fa-home'></i>";
+			acType = ClientConstants.ICON_HUT_GREY;
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				bedCount++;
-				acType = (bedCount+tentCount)+" <i class='fa fa-home'></i>";
+				acType = ClientConstants.ICON_HUT;
 			}
 		}
 		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
-			acType="- <i class='fa fa-tree'></i>";
+			acType = ClientConstants.ICON_TENT_GREY;
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				tentCount++;
-				acType = (bedCount+tentCount)+" <i class='fa fa-tree'></i>";
+				acType = ClientConstants.ICON_TENT;
 			}
-		}
-		if (rowObj.getDiscount()) {
-			acType +="*";
-			disCount++;
 		}
 		getInnerTable().setHTML(rowNum, 0, acType);
 		//EMAIL
@@ -107,6 +103,10 @@ public class ParticipantTable extends PagingTable<Participant> {
 		getInnerTable().setHTML(rowNum, 8, exp);
 		//PAGAMENTO
 		String pag = "";
+		if (rowObj.getDiscount()) {
+			pag +="<i class='fa fa-scissors'></i>";
+			disCount++;
+		}
 		if (rowFinal.getPaymentAmount() != null)
 				pag += "<b>&euro;"+ClientConstants.FORMAT_CURRENCY.format(rowFinal.getPaymentAmount())+"</b> ";
 		if (rowFinal.getPaymentDt() != null)
@@ -140,19 +140,18 @@ public class ParticipantTable extends PagingTable<Participant> {
 	
 	@Override
 	protected void addFooter(int rowNum) {
-		//ACCOMMODATION TYPE
 		getInnerTable().setHTML(rowNum, 0,
-				"<i class='fa fa-home'></i><br/>"+
-				"<i class='fa fa-tree'></i><br/>"+
-				"*");
+				ClientConstants.ICON_HUT+" Total hut <b>"+bedCount+"</b><br />"+
+						ClientConstants.ICON_TENT+" Total tent <b>"+tentCount+"</b>");
+		getInnerTable().getFlexCellFormatter().setColSpan(rowNum, 0, 2);
 		getInnerTable().setHTML(rowNum, 1,
-				"<b>Total hut "+bedCount+"<br/>"+
-				"Total tent "+tentCount+"<br/>"+
-				"Total discount "+disCount+"</b>");
+				"<i class='fa fa-scissors'></i> Total discount <b>"+disCount+"</b><br />"+
+				"<b>TOTAL participants "+(bedCount+tentCount)+"</b>");
+		getInnerTable().getFlexCellFormatter().setColSpan(rowNum, 1, 2);
 		//PAGAMENTO
-		getInnerTable().setHTML(rowNum, 9, "<b>Total "+
+		getInnerTable().setHTML(rowNum, 7, "<b>TOTAL &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(paymentTotal)+"</b>");
-		getInnerTable().setHTML(rowNum, 10, "&nbsp;");
+		getInnerTable().setHTML(rowNum, 8, "&nbsp;");
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.InlineHTML;
 
 public class ParticipantTable extends PagingTable<Participant> {
 	
@@ -72,6 +73,10 @@ public class ParticipantTable extends PagingTable<Participant> {
 				acType = ClientConstants.ICON_TENT;
 			}
 		}
+		if (rowObj.getDiscount()) {
+			acType +="<i class='fa fa-scissors'></i>";
+			disCount++;
+		}
 		getInnerTable().setHTML(rowNum, 0, acType);
 		//EMAIL
 		getInnerTable().setHTML(rowNum, 1, "<b>"+rowFinal.getEmail()+"</b> ");
@@ -103,22 +108,19 @@ public class ParticipantTable extends PagingTable<Participant> {
 		getInnerTable().setHTML(rowNum, 8, exp);
 		//PAGAMENTO
 		String pag = "";
-		if (rowObj.getDiscount()) {
-			pag +="<i class='fa fa-scissors'></i>";
-			disCount++;
-		}
 		if (rowFinal.getPaymentAmount() != null)
 				pag += "<b>&euro;"+ClientConstants.FORMAT_CURRENCY.format(rowFinal.getPaymentAmount())+"</b> ";
 		if (rowFinal.getPaymentDt() != null)
 				pag += ClientConstants.FORMAT_TIMESTAMP.format(rowFinal.getPaymentDt())+" ";
-		getInnerTable().setHTML(rowNum, 9, pag);
+		InlineHTML paymentHtml = new InlineHTML(pag);
+		paymentHtml.setTitle(rowFinal.getItemNumber());
+		getInnerTable().setWidget(rowNum, 9, paymentHtml);
 		//TRANSFER
-		String repl = rowFinal.getItemNumber()+" ";
+		String repl = "";
 		if (rowFinal.getUpdateDt().after(rowFinal.getCreationDt())) {
-			repl += "( was ";
 			if (rowFinal.getEmailOriginal() != null)
 					repl += rowFinal.getEmailOriginal()+" ";
-			repl += ClientConstants.FORMAT_DAY.format(rowFinal.getUpdateDt())+") ";
+			repl += ClientConstants.FORMAT_DAY.format(rowFinal.getUpdateDt())+" ";
 		}
 		getInnerTable().setHTML(rowNum, 10, repl);
 	}

@@ -47,13 +47,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			String closedString = PropertyReader.readProperty(PropertyReader.PROPERTY_CLOSED);
 			if (closedString.equals("false")) bean.setClosed(false);
 			if (closedString.equals("true")) bean.setClosed(true);
-			bean.setHutAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_HUT_FROM));
-			bean.setHutAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_HUT_UNTIL));
+			bean.setTotalMax(PropertyReader.readProperty(PropertyReader.PROPERTY_TOTAL_MAX));
 			bean.setHutMax(PropertyReader.readProperty(PropertyReader.PROPERTY_HUT_MAX));
 			bean.setHutPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_HUT_PRICE));
 			bean.setHutPriceLow(PropertyReader.readProperty(PropertyReader.PROPERTY_HUT_PRICE_LOW));
-			bean.setTentAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_FROM));
-			bean.setTentAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_UNTIL));
 			bean.setTentMax(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_MAX));
 			bean.setTentPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_PRICE));
 			bean.setTentPriceLow(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_PRICE_LOW));

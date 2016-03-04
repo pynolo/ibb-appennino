@@ -8,13 +8,10 @@ public class PropertyBean implements Serializable {
 	private String version = null;
 	private String accessKey = null;
 	private boolean closed = true;
-	private int hutAvailableFrom = -1;
-	private int hutAvailableUntil = -1;
+	private int totalMax = -1;
 	private int hutMax = -1;
 	private double hutPrice = -1D;
 	private double hutPriceLow = -1D;
-	private int tentAvailableFrom = -1;
-	private int tentAvailableUntil = -1;
 	private int tentMax = -1;
 	private double tentPrice = -1D;
 	private double tentPriceLow = -1D;
@@ -37,29 +34,11 @@ public class PropertyBean implements Serializable {
 	public void setClosed(boolean closed) {
 		this.closed = closed;
 	}
-	public int getHutAvailableFrom() {
-		return hutAvailableFrom;
+	public int getTotalMax() {
+		return totalMax;
 	}
-	public void setHutAvailableFrom(String hutAvailableFrom) {
-		this.hutAvailableFrom = Integer.parseInt(hutAvailableFrom);
-	}
-	public int getTentAvailableFrom() {
-		return tentAvailableFrom;
-	}
-	public void setTentAvailableFrom(String tentAvailableFrom) {
-		this.tentAvailableFrom = Integer.parseInt(tentAvailableFrom);
-	}
-	public int getHutAvailableUntil() {
-		return hutAvailableUntil;
-	}
-	public void setHutAvailableUntil(String hutAvailableUntil) {
-		this.hutAvailableUntil = Integer.parseInt(hutAvailableUntil);
-	}
-	public int getTentAvailableUntil() {
-		return tentAvailableUntil;
-	}
-	public void setTentAvailableUntil(String tentAvailableUntil) {
-		this.tentAvailableUntil = Integer.parseInt(tentAvailableUntil);
+	public void setTotalMax(String totalMax) {
+		this.totalMax = Integer.parseInt(totalMax);
 	}
 	public int getHutMax() {
 		return hutMax;
@@ -117,17 +96,15 @@ public class PropertyBean implements Serializable {
 	}
 
 	public int getAvailableHut() {
-		int total = hutCount+tentCount;
 		int a1 = hutMax-hutCount;
-		int a2 = hutAvailableUntil-total;
+		int a2 = totalMax-(hutCount+tentCount);
 		if (a1 < a2) return a1;
 		return a2;
 	}
 	
 	public int getAvailableTent() {
-		int total = hutCount+tentCount;
 		int a1 = tentMax-tentCount;
-		int a2 = tentAvailableUntil-total;
+		int a2 = totalMax-(hutCount+tentCount);
 		if (a1 < a2) return a1;
 		return a2;
 	}

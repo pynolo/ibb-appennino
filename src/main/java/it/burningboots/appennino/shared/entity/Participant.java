@@ -62,7 +62,7 @@ public class Participant implements Serializable {
 	@Column(name = "language", length = 4)
 	private String language = "";
 	@Column(name = "accommodation_type")
-	private Integer accommodationType = AppConstants.ACCOMMODATION_BED;
+	private Integer accommodationType = AppConstants.ACCOMMODATION_HUT;
 	@Column(name = "payment_amount")
 	private Double paymentAmount = null;
 	@Temporal(TemporalType.TIMESTAMP)

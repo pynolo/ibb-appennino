@@ -114,14 +114,18 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		//hut img
 		accmTable.setWidget(0, 1, new HTML("<p align='center'>&nbsp;<img src='img/hut.png' /></p>"));
 		accmTable.getFlexCellFormatter().setRowSpan(0, 1, 2);
-		//hut descr
-		int hutAvail = pb.getAvailableHut();
-		String hutDescr = "";
-		if (hutAvail <= 4) {
-			hutDescr += "<b>"+hutAvail+"</b> "+constants.joinBaseToSoldOut()+"<br />";
+		if (pb.getAvailableHut() > 0) {
+			//hut descr
+			String hutDescr = "";
+			if (pb.getAvailableHut() <= 4) {
+				hutDescr += "<b>"+pb.getAvailableHut()+"</b> "+constants.joinBaseToSoldOut()+"<br />";
+			}
+			hutDescr += constants.joinBaseBedFeatures();
+			accmTable.setWidget(1, 0, new HTML(hutDescr+"<br/>&nbsp;"));
+		} else {
+			hutRadio.setEnabled(false);
+			accmTable.setWidget(1, 0, new HTML(constants.hut()+" SOLD OUT <br/>&nbsp;"));
 		}
-		hutDescr += constants.joinBaseBedFeatures();
-		accmTable.setWidget(1, 0, new HTML(hutDescr+"<br/>&nbsp;"));
 
 		//tent radio
 		tentRadio = new RadioButton("accommodation");
@@ -129,19 +133,26 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 		//tent img
 		accmTable.setWidget(2, 1, new HTML("<p align='center'>&nbsp;<img src='img/tent.png' /></p>"));
 		accmTable.getFlexCellFormatter().setRowSpan(2, 1, 2);
-		//tent descr
-		int tentAvail = pb.getAvailableTent();
-		String tentDescr = "";
-		if (tentAvail <= 4) {
-			tentDescr += "<b>"+tentAvail+"</b> "+constants.joinBaseToSoldOut()+"<br />";
-		}
-		tentDescr += constants.joinBaseTentFeatures();
-		accmTable.setWidget(3, 0, new HTML(tentDescr+"<br/>&nbsp;"));
-		
-		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
-			tentRadio.setValue(true);
+		if (pb.getAvailableTent() > 0) {
+			//tent descr
+			String tentDescr = "";
+			if (pb.getAvailableTent() <= 4) {
+				tentDescr += "<b>"+pb.getAvailableTent()+"</b> "+constants.joinBaseToSoldOut()+"<br />";
+			}
+			tentDescr += constants.joinBaseTentFeatures();
+			accmTable.setWidget(3, 0, new HTML(tentDescr+"<br/>&nbsp;"));
 		} else {
-			hutRadio.setValue(true);
+			tentRadio.setEnabled(false);
+			accmTable.setWidget(3, 0, new HTML(constants.tent()+" SOLD OUT <br/>&nbsp;"));
+		}
+		
+		//Switch
+		if (tentRadio.isEnabled()) tentRadio.setValue(true);
+		if (hutRadio.isEnabled()) hutRadio.setValue(true);
+		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {
+			if (tentRadio.isEnabled()) tentRadio.setValue(true);
+		} else {
+			if (hutRadio.isEnabled()) hutRadio.setValue(true);
 		}
 		
 		//Wizard panel
@@ -176,7 +187,7 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 			if (tentRadio.getValue()) {
 				participant.setAccommodationType(AppConstants.ACCOMMODATION_TENT);
 			} else {
-				participant.setAccommodationType(AppConstants.ACCOMMODATION_BED);
+				participant.setAccommodationType(AppConstants.ACCOMMODATION_HUT);
 			}
 			participant.setEmail(email);
 			//Forward
@@ -188,18 +199,18 @@ public class JoinBaseFrame extends FramePanel implements IWizardPanel {
 	
 	private void hideDiscount() {
 		discountLabel.setHTML("<i class='fa fa-comment-o'></i> "+constants.discountNo());
-		hutRadio.setHTML("<b>"+constants.hut()+"</b> - &euro;"+
+		hutRadio.setHTML(" <b>"+constants.hut()+"</b> - &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(pb.getHutPrice())+"&nbsp;&nbsp;");
-		tentRadio.setHTML("<b>"+constants.tent()+"</b> - &euro;"+
+		tentRadio.setHTML(" <b>"+constants.tent()+"</b> - &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(pb.getTentPrice())+"&nbsp;&nbsp;");
 	}
 	
 	private void showDiscount() {
 		discountLabel.setHTML("<i class='fa fa-check-circle'></i> "+constants.discountYes());
-		hutRadio.setHTML("<b>"+constants.hut()+"</b> - &euro;"+
+		hutRadio.setHTML(" <b>"+constants.hut()+"</b> - &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(pb.getHutPriceLow())+
 				" ("+constants.discount()+")&nbsp;&nbsp;");
-		tentRadio.setHTML("<b>"+constants.tent()+"</b> - &euro;"+
+		tentRadio.setHTML(" <b>"+constants.tent()+"</b> - &euro;"+
 				ClientConstants.FORMAT_CURRENCY.format(pb.getTentPriceLow())+
 				" ("+constants.discount()+")&nbsp;&nbsp;");
 	}

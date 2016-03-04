@@ -22,8 +22,6 @@ public class ErrorFullFrame extends FramePanel {
 	}
 	
 	private void draw() {
-		forwardIfJoinNotPossible();
-		
 		//TITLE
 		setTitle(constants.errorFullTitle());
 		

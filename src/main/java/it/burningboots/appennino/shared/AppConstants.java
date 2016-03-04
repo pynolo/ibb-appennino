@@ -41,11 +41,11 @@ public class AppConstants {
 	public static final Integer WIZARD_REGISTER = 1;
 	public static final Integer WIZARD_TRANSFER = 2;
 	//ACCOMMODATION
-	public static final Integer ACCOMMODATION_BED = 1;
+	public static final Integer ACCOMMODATION_HUT = 1;
 	public static final Integer ACCOMMODATION_TENT = 2;
 	public static final Map<Integer, String> ACCOMMODATION_DESC = new HashMap<Integer, String>();
 	static {
-		ACCOMMODATION_DESC.put(ACCOMMODATION_BED, "Hut / Rifugio");
+		ACCOMMODATION_DESC.put(ACCOMMODATION_HUT, "Hut / Rifugio");
 		ACCOMMODATION_DESC.put(ACCOMMODATION_TENT, "Tent / Tenda");};
 	//VOLUNTEER
 	public static final String VOLUNTEER_KITCHEN = "Kitchen";

@@ -22,8 +22,6 @@ public class ErrorClosedFrame extends FramePanel {
 	}
 	
 	private void draw() {
-		forwardIfJoinNotPossible();
-		
 		//TITLE
 		setTitle(constants.errorClosedTitle());
 		

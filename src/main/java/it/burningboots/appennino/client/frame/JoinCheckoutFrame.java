@@ -54,7 +54,7 @@ public class JoinCheckoutFrame extends FramePanel {
 		String amountString = "[ERROR]";
 		String discount = (participant.getDiscount() ? constants.discount() : "");
 		String type = "";
-		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
+		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_HUT)) {
 			if (participant.getDiscount()) {
 				amountString = ClientConstants.FORMAT_CURRENCY.format(WizardSingleton.get().getPropertyBean().getHutPriceLow());
 			} else {

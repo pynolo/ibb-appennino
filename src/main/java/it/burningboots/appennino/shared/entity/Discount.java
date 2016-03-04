@@ -26,7 +26,7 @@ public class Discount implements Serializable {
 	@Column(name = "email", length = 64, nullable = false)
 	private String email = "";
 	@Column(name = "tickets")
-	private Integer tickets = AppConstants.ACCOMMODATION_BED;
+	private Integer tickets = AppConstants.ACCOMMODATION_HUT;
 	@Column(name = "note", length = 256)
 	private String note = "";
 	

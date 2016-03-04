@@ -59,7 +59,7 @@ public class ParticipantTable extends PagingTable<Participant> {
 		
 		//ACCOMMODATION TYPE
 		String acType = "";
-		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
+		if (rowFinal.getAccommodationType().equals(AppConstants.ACCOMMODATION_HUT)) {
 			acType = ClientConstants.ICON_HUT_GREY;
 			if (rowFinal.getPaymentAmount() != null && rowFinal.getPaymentDt() != null) {
 				bedCount++;

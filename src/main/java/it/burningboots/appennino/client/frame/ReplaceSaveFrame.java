@@ -58,7 +58,7 @@ public class ReplaceSaveFrame extends FramePanel {
 		}
 		
 		String type = "";
-		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_BED)) {
+		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_HUT)) {
 			type = constants.hut();
 		} 
 		if (participant.getAccommodationType().equals(AppConstants.ACCOMMODATION_TENT)) {

@@ -2,6 +2,7 @@ package it.burningboots.appennino.client.frame;
 
 import it.burningboots.appennino.client.ClientConstants;
 import it.burningboots.appennino.client.UiSingleton;
+import it.burningboots.appennino.client.UriBuilder;
 import it.burningboots.appennino.client.UriDispatcher;
 import it.burningboots.appennino.client.WizardSingleton;
 import it.burningboots.appennino.shared.AppConstants;
@@ -46,12 +47,14 @@ public class FramePanel extends FlowPanel {
 		//Check if joining wizard can be active
 		if (isRegisterWizard) {
 			if ( p.getClosed() ) {
-				UriDispatcher.loadContent(UriDispatcher.ERROR_CLOSED);
+				UriBuilder param = new UriBuilder();
+				param.triggerUri(UriDispatcher.ERROR_CLOSED);
 			}
 			if (	(p.getHutCount()+p.getTentCount() >= p.getTotalMax())
 					||
 					((p.getHutCount() >= p.getHutMax()) && (p.getTentCount() >= p.getTentMax())) ) {
-				UriDispatcher.loadContent(UriDispatcher.ERROR_CLOSED);
+				UriBuilder param = new UriBuilder();
+				param.triggerUri(UriDispatcher.ERROR_FULL);
 			}
 		}
 	}

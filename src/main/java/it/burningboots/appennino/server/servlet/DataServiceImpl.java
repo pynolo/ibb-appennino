@@ -64,7 +64,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Session ses = SessionFactory.getSession();
 		Transaction trn = ses.beginTransaction();
 		try {
-			int bedCount = ParticipantDao.countConfirmed(ses, AppConstants.ACCOMMODATION_BED);
+			int bedCount = ParticipantDao.countConfirmed(ses, AppConstants.ACCOMMODATION_HUT);
 			bean.setHutCount(bedCount);
 			int tentCount = ParticipantDao.countConfirmed(ses, AppConstants.ACCOMMODATION_TENT);
 			bean.setTentCount(tentCount);
@@ -222,7 +222,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			String itemNumber = DataBusiness.createCode(this.getClass().getName(), AppConstants.ITEM_NUMBER_LENGHT);
 			Participant prt = new Participant();
 			prt.setItemNumber(itemNumber);
-			prt.setAccommodationType(AppConstants.ACCOMMODATION_BED);
+			prt.setAccommodationType(AppConstants.ACCOMMODATION_HUT);
 			return prt;
 		} catch (Exception e) {
 			throw new SystemException(e.getMessage(), e);

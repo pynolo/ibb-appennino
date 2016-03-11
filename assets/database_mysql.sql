@@ -24,11 +24,9 @@ DROP TABLE IF EXISTS `config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `config` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`name` varchar(64) NOT NULL,
-	`val` varchar(64) NOT NULL,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `unique_name` (`name`)
+	`id` varchar(256) NOT NULL,
+	`val` varchar(256) NOT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -1,9 +1,9 @@
 package it.burningboots.appennino.client.service;
 
-import java.util.List;
-
 import it.burningboots.appennino.shared.entity.Discount;
 import it.burningboots.appennino.shared.entity.Participant;
+
+import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,8 +16,8 @@ public interface DataServiceAsync
      * @see it.burningboots.appennino.client.service.DataService
      */
     void getPropertyBean( AsyncCallback<it.burningboots.appennino.shared.PropertyBean> callback );
-    void findConfigByKey( java.lang.String key, AsyncCallback<it.burningboots.appennino.shared.entity.Config> callback );
-    void saveOrUpdateConfig( it.burningboots.appennino.shared.entity.Config config, AsyncCallback<java.lang.Integer> callback );
+	//void findConfigByKey( java.lang.String key, AsyncCallback<it.burningboots.appennino.shared.entity.Config> callback );
+    //void saveOrUpdateConfig(Config config, AsyncCallback<Void> callback);
 
     void findParticipantById( java.lang.Integer id, AsyncCallback<it.burningboots.appennino.shared.entity.Participant> callback );
     void findParticipantByItemNumber( java.lang.String itemNumber, int delayMillis, AsyncCallback<it.burningboots.appennino.shared.entity.Participant> callback );

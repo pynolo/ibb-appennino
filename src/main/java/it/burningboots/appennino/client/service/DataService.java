@@ -2,7 +2,6 @@ package it.burningboots.appennino.client.service;
 
 import it.burningboots.appennino.shared.PropertyBean;
 import it.burningboots.appennino.shared.SystemException;
-import it.burningboots.appennino.shared.entity.Config;
 import it.burningboots.appennino.shared.entity.Discount;
 import it.burningboots.appennino.shared.entity.Participant;
 
@@ -21,8 +20,8 @@ public interface DataService extends RemoteService {
 	public PropertyBean getPropertyBean() throws SystemException;
 	
 	//Config
-	public Config findConfigByKey(String key) throws SystemException;
-	public Integer saveOrUpdateConfig(Config config) throws SystemException;
+	//public Config findConfigByKey(String key) throws SystemException;
+	//public void saveOrUpdateConfig(Config config) throws SystemException;
 
 	//Participants
 	public Participant findParticipantById(Integer id) throws SystemException;

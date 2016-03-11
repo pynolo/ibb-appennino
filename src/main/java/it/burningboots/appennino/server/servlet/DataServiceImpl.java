@@ -12,7 +12,6 @@ import it.burningboots.appennino.shared.AppConstants;
 import it.burningboots.appennino.shared.OrmException;
 import it.burningboots.appennino.shared.PropertyBean;
 import it.burningboots.appennino.shared.SystemException;
-import it.burningboots.appennino.shared.entity.Config;
 import it.burningboots.appennino.shared.entity.Discount;
 import it.burningboots.appennino.shared.entity.Participant;
 

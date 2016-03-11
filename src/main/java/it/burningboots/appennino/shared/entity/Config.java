@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,7 +15,7 @@ public class Config implements Serializable {
 	
 	@Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, length = 256)
+    @Column(name = "id", nullable = false, length = 32)
 	private String id;
 	@Basic(optional = false)
 	@Column(name = "val", nullable = false, length = 256)
